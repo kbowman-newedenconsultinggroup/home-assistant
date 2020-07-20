@@ -1,6 +1,5 @@
 *
 !.gitignore
-!*.yaml
 !*.yml
 !config/*.yaml
 secrets.yaml
