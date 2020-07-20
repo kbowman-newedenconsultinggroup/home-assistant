@@ -1,0 +1,7 @@
+'alarmtogglechime':
+  alias: Alarm Toggle Chime
+  sequence:
+  - data: 
+      entity_id: alarm_control_panel.home_alarm
+      keypress: '*4'
+    service: envisalink.alarm_keypress

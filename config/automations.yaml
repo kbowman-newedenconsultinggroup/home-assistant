@@ -1,0 +1,565 @@
+- id: '1578786551979'
+  alias: Turn off the Birdbath after sunset
+  description: ''
+  trigger:
+  - event: sunset
+    offset: -01:00:00
+    platform: sun
+  condition: []
+  action:
+  - entity_id: switch.51560232dc4f229c22c2_1
+    service: switch.turn_off
+- id: '1578795609961'
+  alias: Turn off Birdbath if above freezing
+  description: ''
+  trigger:
+  - above: '32.3'
+    entity_id: sensor.outside_temperature
+    for: 00:30:00
+    platform: numeric_state
+  condition: []
+  action:
+  - alias: ''
+    data: {}
+    entity_id: switch.51560232dc4f229c22c2_1
+    service: switch.turn_off
+- id: '1578796285196'
+  alias: Turn on Birdbath if below freezing when daylight
+  description: ''
+  trigger:
+  - below: '32'
+    entity_id: sensor.outside_temperature
+    for: 00:30:00
+    platform: numeric_state
+  condition:
+  - after: sunrise
+    after_offset: -00:45:00
+    before: sunset
+    condition: sun
+  action:
+  - entity_id: switch.51560232dc4f229c22c2_1
+    service: switch.turn_on
+- id: '1578798677314'
+  alias: Turn off Computer when not home
+  description: ''
+  trigger:
+  - entity_id: person.kevin
+    for: 00:05:00
+    from: home
+    platform: state
+    to: not_home
+  condition: []
+  action:
+  - entity_id: switch.042000996001947fd253
+    service: switch.turn_off
+  - data: {}
+    entity_id: switch.diningroom_plug
+    service: switch.turn_off
+- id: '1578801083247'
+  alias: Turn on Office
+  description: In the morning on workdays
+  trigger:
+  - at: 08:30
+    platform: time
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.workday_sensor
+      state: 'on'
+    - condition: state
+      entity_id: person.kevin
+      state: home
+  action:
+  - entity_id: switch.042000996001947fd253
+    service: switch.turn_on
+  - data: {}
+    entity_id: switch.officecam_state
+    service: switch.turn_off
+- id: '1578864478427'
+  alias: Turn on Birdbath before sunrise if freezing
+  description: ''
+  trigger:
+  - event: sunrise
+    offset: -01:30:00
+    platform: sun
+  condition:
+  - below: '32'
+    condition: numeric_state
+    entity_id: sensor.outside_temperature
+  action:
+  - entity_id: switch.51560232dc4f229c22c2_1
+    service: switch.turn_on
+- id: alertwhenofficecammotiondetected
+  alias: Alert when officecam motion detected
+  description: officecam motionevent count increased
+  trigger:
+  - entity_id: sensor.officecammotionevent
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+      }} '
+  action:
+  - data_template:
+      data:
+        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.officecammotionevent')
+          }}&scale=50&replayMode=all
+      message: Motion-OfficeCam
+    service: notify.mobile_app_android_lge_judyln_8_0_0
+- id: alertwhenshopcammotiondetected
+  alias: Alert when shopcam motion detected
+  description: shopcam motionevent count increased
+  trigger:
+  - entity_id: sensor.shopcammotionevent
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+      }} '
+  action:
+  - data_template:
+      data:
+        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.shopcammotionevent')
+          }}&scale=50&replayMode=all
+      message: Motion-ShopCam
+    service: notify.mobile_app_android_lge_judyln_8_0_0
+- id: alertwhengaragecammotiondetected
+  alias: Alert when garagecam motion detected
+  description: garagecam motionevent count increased
+  trigger:
+  - entity_id: sensor.garagecammotionevent
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+      }} '
+  action:
+  - data_template:
+      data:
+        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.garagecammotionevent')
+          }}&scale=50&replayMode=all
+      message: Motion-Garage
+    service: notify.mobile_app_android_lge_judyln_8_0_0
+- id: alertwhenfrontdoorcammotiondetected
+  alias: Alert when frontdoorcam motion detected
+  description: frontdoorcam motionevent count increased
+  trigger:
+  - entity_id: sensor.frontdoorcammotionevent
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+      }} '
+  action:
+  - data_template:
+      data:
+        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.frontdoorcammotionevent')
+          }}&scale=25&replayMode=all
+      message: Motion-FrontDoor
+    service: notify.mobile_app_android_lge_judyln_8_0_0
+- id: alertwhendrivewaycammotiondetected
+  alias: Alert when drivewaycam motion detected
+  description: drivewaycam motionevent count increased
+  trigger:
+  - entity_id: sensor.drivewaycammotionevent
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+      }} '
+  action:
+  - data_template:
+      data:
+        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.drivewaycammotionevent')
+          }}&scale=25&replayMode=all
+      message: Motion-Driveway
+    service: notify.mobile_app_android_lge_judyln_8_0_0
+- id: '1580956115637'
+  alias: Turn off Receiver when Idle
+  description: ''
+  trigger:
+  - entity_id: media_player.lr
+    for: 00:30:00
+    platform: state
+    to: idle
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: media_player.playstation_4
+      state: standby
+    - condition: state
+      entity_id: media_player.playstation_4
+      state: unknown
+  action:
+  - entity_id: media_player.yamaha_receiver
+    service: media_player.turn_off
+- id: announcekevinishome
+  alias: Announce Kevin is Home
+  trigger:
+  - entity_id: person.kevin
+    from: not_home
+    platform: state
+    to: home
+  action:
+    service: notify.alexa_media
+    data:
+      data:
+        type: tts
+      message: Kevin is home
+      target: group.Alexa
+- id: announce_garage_door_open_timer_finished
+  alias: Announce Garage Door Open for a Long Time
+  trigger:
+  - event_data:
+      entity_id: timer.garage_doors_opened_timer
+    event_type: timer.finished
+    platform: event
+  condition:
+  - condition: state
+    entity_id: sensor.small_garage_status
+    state: open
+  action:
+  - data:
+      data:
+        message: The garage doors are still open
+        target: group.Alexa
+        type: tts
+    service: notify.alexa_media
+  - entity_id: timer.garage_doors_opened_timer
+    service: timer.start
+- id: AutomationPoolPandoraOn
+  alias: Automation Pool Pandora On
+  description: Turn on Pool Stereo and Pandora
+  trigger:
+  - entity_id: input_boolean.boolean_pool_pandora
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: switch.04200099bcddc2003471
+      state: 'off'
+    - condition: state
+      entity_id: media_player.pandora
+      state: 'off'
+    - condition: state
+      entity_id: media_player.pandora
+      state: paused
+  action:
+  - data: {}
+    entity_id: switch.04200099bcddc2003471
+    service: switch.turn_on
+  - data: {}
+    entity_id: media_player.pandora
+    service: media_player.turn_on
+  - data: {}
+    entity_id: media_player.pandora
+    service: media_player.media_play
+  - data:
+      entity_id: media_player.pandora
+      source: John Conlee Radio
+    service: media_player.select_source
+- id: AutomationPoolPandoraOff
+  alias: Automation Pool Pandora Off
+  description: Turn off Pool Stereo and Pandora
+  trigger:
+  - entity_id: input_boolean.boolean_pool_pandora
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.04200099bcddc2003471
+    service: switch.turn_off
+  - data: {}
+    entity_id: media_player.pandora
+    service: media_player.turn_off
+- id: '1583979421216'
+  alias: Automation Small Garage Door Opening
+  description: ''
+  trigger:
+  - entity_id: sensor.small_garage_status
+    from: closed
+    platform: state
+    to: opening
+  condition: []
+  action:
+  - data:
+      topic: monitor/scan/arrive
+    service: mqtt.publish
+  - data: {}
+    entity_id: timer.garage_doors_opened_timer
+    service: timer.start
+  - data: {}
+    entity_id: switch.shelly_shsw_25_b936ce_2
+    service: switch.turn_on
+- id: automationsmallgaragedoorclosed
+  alias: Automation Small Garage Door Closed
+  description: ''
+  trigger:
+  - entity_id: sensor.small_garage_status
+    from: Closing
+    platform: state
+    to: Closed
+  condition: []
+  action:
+  - data: {}
+    entity_id: timer.garage_doors_opened_timer
+    service: timer.cancel
+  - data:
+      topic: monitor/scan/depart
+    service: mqtt.publish
+  - service: notify.alexa_media
+    data:
+      data:
+        type: tts
+      message: Small garage door closed
+      target: group.Alexa
+- id: kevinlgphoneoccupancyon
+  alias: Kevin LG Phone Home Occupancy On
+  trigger:
+  - above: '10'
+    entity_id: sensor.home_occupancy_confidence_of_lg_g7thinq
+    platform: numeric_state
+  action:
+  - data:
+      dev_id: device_tracker_kevin_lgphone
+      location_name: home
+      source_type: bluetooth
+      gps: &id001
+      - 38.92133
+      - -94.3121
+    service: device_tracker.see
+- id: kevinlgphoneoccupancyoff
+  alias: Kevin LG Phone Home Occupancy Off
+  trigger:
+  - below: '10'
+    entity_id: sensor.home_occupancy_confidence_of_lg_g7thinq
+    platform: numeric_state
+  action:
+  - data:
+      dev_id: device_tracker_kevin_lgphone
+      location_name: not_home
+      source_type: bluetooth
+      gps: *id001
+    service: device_tracker.see
+- id: kevinwatchoccupancyon
+  alias: Kevin Watch Home Occupancy On
+  trigger:
+  - above: '10'
+    entity_id: sensor.home_occupancy_confidence_of_vivoactive3
+    platform: numeric_state
+  action:
+  - data:
+      dev_id: device_tracker_kevin_vivoactive3
+      location_name: home
+      source_type: bluetooth
+      gps: &id004
+      - 38.92133
+      - -94.3121
+    service: device_tracker.see
+- id: kevinwatchoccupancyoff
+  alias: Kevin Watch Home Occupancy Off
+  trigger:
+  - below: '10'
+    entity_id: sensor.home_occupancy_confidence_of_vivoactive3
+    platform: numeric_state
+  action:
+  - data:
+      dev_id: device_tracker_kevin_vivoactive3
+      location_name: not_home
+      source_type: bluetooth
+      gps: *id004
+    service: device_tracker.see
+- id: jenngalaxyphoneoccupancyon
+  alias: Jenn Galaxy Phone Home Occupancy On
+  trigger:
+  - above: '10'
+    entity_id: sensor.home_occupancy_confidence_of_galaxy_note10
+    platform: numeric_state
+  action:
+  - data:
+      dev_id: device_tracker_jenn_galaxyphone
+      location_name: home
+      source_type: bluetooth
+      gps: &id002
+      - 38.92133
+      - -94.3121
+    service: device_tracker.see
+- id: jenngalaxyphoneoccupancyoff
+  alias: Jenn Galaxy Phone Home Occupancy Off
+  trigger:
+  - below: '10'
+    entity_id: sensor.home_occupancy_confidence_of_galaxy_note10
+    platform: numeric_state
+  action:
+  - data:
+      dev_id: device_tracker_jenn_galaxyphone
+      location_name: not_home
+      source_type: bluetooth
+      gps: *id002
+    service: device_tracker.see
+- id: zoeiphoneoccupancyon
+  alias: Zoe iPhone Home Occupancy On
+  trigger:
+  - above: '10'
+    entity_id: sensor.home_occupancy_confidence_of_iphonex
+    platform: numeric_state
+  action:
+  - data:
+      dev_id: device_tracker_zoe_iphone
+      location_name: home
+      source_type: bluetooth
+      gps: &id003
+      - 38.92133
+      - -94.3121
+    service: device_tracker.see
+- id: zoeiphoneoccupancyoff
+  alias: Zoe iPhone Home Occupancy Off
+  trigger:
+  - below: '10'
+    entity_id: sensor.home_occupancy_confidence_of_iphonex
+    platform: numeric_state
+  action:
+  - data:
+      dev_id: device_tracker_zoe_iphone
+      location_name: not_home
+      source_type: bluetooth
+      gps: *id003
+    service: device_tracker.see
+- id: alertwhendoorbellrings
+  alias: Alert when doorbell rings
+  description: doorbell detector date changes
+  trigger:
+  - entity_id: sensor.doorbell_detector
+    platform: state
+  condition:
+  action:
+  - data_template:
+      data:
+        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=watch&mid=4&scale=25
+      message: Doorbell Is Ringing
+    service: notify.mobile_app_android_lge_judyln_8_0_0
+- id: alarmtriggered
+  alias: Automation for Alarm Triggered
+  trigger:
+  - entity_id: alarm_control_panel.home_alarm
+    platform: state
+    to: triggered
+  action:
+  - data: {}
+    entity_id: group.interior_lights
+    service: light.turn_on
+  - data: {}
+    entity_id: group.exterior_lights
+    service: light.turn_on
+  - data: {}
+    entity_id: group.interior_cameras_modetect
+    service: switch.turn_on
+  - data: {}
+    entity_id: group.exterior_cameras_modetect
+    service: switch.turn_on
+  - data_template:
+      data:
+        url: https://franzkafka.duckdns.org:8080/lovelace/cameras
+      message: ALARM TRIGGERED!!
+    service: notify.mobile_app_android_lge_judyln_8_0_0
+- id: automationalarmdisarmed
+  alias: Automation for Alarm Disarmed
+  description: ''
+  trigger:
+  - entity_id: alarm_control_panel.home_alarm
+    platform: state
+    to: disarmed
+  condition: []
+  action:
+  - data: {}
+    entity_id: group.interior_cameras_modetect
+    service: switch.turn_off
+  - data: {}
+    entity_id: group.exterior_cameras_modetect
+    service: switch.turn_on
+- id: automationalarmarmedaway
+  alias: Automation for Alarm Armed Away
+  description: ''
+  trigger:
+  - entity_id: alarm_control_panel.home_alarm
+    platform: state
+    to: armed_away
+  condition: []
+  action:
+  - data: {}
+    entity_id: group.interior_cameras_modetect
+    service: switch.turn_on
+  - data: {}
+    entity_id: group.exterior_cameras_modetect
+    service: switch.turn_on
+- id: automationalarmarmedhome
+  alias: Automation for Alarm Armed Home
+  description: ''
+  trigger:
+  - entity_id: alarm_control_panel.home_alarm
+    platform: state
+    to: armed_home
+  condition: []
+  action:
+  - data: {}
+    entity_id: group.interior_cameras_modetect
+    service: switch.turn_off
+  - data: {}
+    entity_id: group.exterior_cameras_modetect
+    service: switch.turn_on
+- id: Laptop Charge Start
+  alias: Begin Charge Laptops
+  description: Turn on Office Plug at 01:00
+  trigger:
+  - at: 01:00
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.diningroom_plug
+    service: switch.turn_on
+- id: Laptop Charge Stop
+  alias: End Charge Laptops
+  description: Turn off Office Plug at 04:00
+  trigger:
+  - at: 04:00
+    platform: time
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.diningroom_plug
+    service: switch.turn_off
+- id: '1585665874837'
+  alias: Automation for Computer Turn On
+  description: ''
+  trigger:
+  - entity_id: switch.042000996001947fd253
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.officecam_state
+    service: switch.turn_off
+- id: '1586031870275'
+  alias: Turn Off Garage Lights after Minutes
+  description: ''
+  trigger:
+  - entity_id: switch.shelly_shsw_25_b936ce_2
+    for: 00:10:00
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    entity_id: switch.shelly_shsw_25_b936ce_2
+    service: switch.turn_off

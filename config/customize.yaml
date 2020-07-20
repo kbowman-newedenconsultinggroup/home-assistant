@@ -1,0 +1,11 @@
+cover.small_garage_door:
+  friendly_name: Small Garage Door
+  icon: mdi:car
+sensor.garage_car_present:
+  entity_picture: /local/images/jagleaper.png
+light.03640182cc50e3f87dc9:
+  supported_features: 155
+light.42728707cc50e3f8596d:
+  supported_features: 155
+light.03640182cc50e3f87fe8:
+  supported_features: 155

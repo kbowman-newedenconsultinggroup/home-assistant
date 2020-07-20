@@ -1,6 +1,7 @@
-/*
-!/.gitignore
-!/*.yml
+*
+!.gitignore
+!*.yml
+!*/
 !config/*.yaml
 secrets.yaml
 known_devices.yaml

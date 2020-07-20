@@ -1,0 +1,51 @@
+garage:
+  name: Garage
+  entities:
+    - cover.small_garage_door
+    - sensor.garage_status
+    - sensor.garage_car_present
+
+alexa:
+  name: Alexa
+  entities:
+    - media_player.jennifer_s_echo_dot
+    - media_player.jennifer_s_echo_plus
+
+garage_doors:
+  name: Garage Doors
+  entities:
+    - sensor.garage_status
+
+pool_pandora:
+  name: Pool Pandora
+  entities:
+    - switch.04200099bcddc2003471
+    - switch.pool_pandora
+
+exterior_cameras_modetect:
+  name: Exterior Cameras Modetect
+  entities:
+    - switch.frontyardcam_state
+    - switch.frontdoorcam_state
+    - switch.patiosouthcam_state
+    - switch.pationorthcam_state
+
+interior_cameras_modetect:
+  name: Interior Cameras Modetect
+  entities:
+#    - switch.basementcam_state
+    - switch.garagecam_state
+    - switch.shopcam_state
+    - switch.officecam_state
+
+interior_lights:
+  name: Interior Lights
+  entities:
+    - light.415110852cf4320259a5
+    - light.41511085dc4f225c7251
+
+exterior_lights:
+  name: Exterior Lights
+  entities:
+    - switch.shelly_shsw_25_b936ce_1
+    - switch.shelly_shsw_25_b936ce_2

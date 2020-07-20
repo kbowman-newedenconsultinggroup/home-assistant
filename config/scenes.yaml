@@ -1,0 +1,51 @@
+- id: '1589146656027'
+  name: Pool Pandora
+  entities:
+    media_player.pandora:
+      friendly_name: Pandora
+      source_list:
+      - 70s Country Radio
+      - 80s Greatest Hits Radio
+      - 80s Love Songs Radio
+      - Aerosmith Radio
+      - Anne Murray Radio
+      - Beach Bar Lounge Radio
+      - Bruno Mars Radio
+      - Classic Country Radio
+      - Conway Twitty Radio
+      - Dolly Parton Radio
+      - Don Williams Radio
+      - Dwight Yoakam Radio
+      - Eagles Radio
+      - Eminem Radio
+      - Everclear Radio
+      - George Strait Radio
+      - Green Day Radio
+      - Honky Tonk Radio
+      - Imagine Dragons Radio
+      - In This Moment Radio
+      - Jamey Johnson Radio
+      - Jimmy Buffett Radio
+      - John Anderson Radio
+      - John Conlee Radio
+      - John Denver Radio
+      - Korn Radio
+      - Little River Band Radio
+      - Mickey Gilley Radio
+      - Mumford & Sons Radio
+      - QuickMix
+      - Rihanna Radio
+      - Sister Hazel Radio
+      - Snoop Dogg Radio
+      - Styx Radio
+      - Sublime Radio
+      - The Oak Ridge Boys Radio
+      - The Statler Brothers Radio
+      - Today's Adult Hits Radio
+      - Waylon Jennings Radio
+      - Willie Nelson, Waylon Jennings, Johnny Cash, Kris Kristofferson
+      state: 'off'
+      supported_features: 18849
+    switch.04200099bcddc2003471:
+      friendly_name: Pool Stereo
+      state: 'off'

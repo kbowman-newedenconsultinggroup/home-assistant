@@ -1,0 +1,510 @@
+# Configure a default setup of Home Assistant (frontend, api, etc)
+# test new gitignore
+default_config:
+
+logger:
+#  default: critical
+  default: info
+  #  logs:
+  #  asyncio: debug
+  #  homeassistant.core: debug
+  #  homeassistant.components.zha: debug
+  #  zigpy: debug
+  #  zigpy_cc: debug
+#    custom_components.alexa_media: debug
+#    alexapy: debug
+#    homeassistant.components.mobile_app: debug
+#    homeassistant.components.notify: debug
+#    homeassistant.core: debug
+
+
+http:
+  base_url: homeassistant.bowman.com:8123
+
+homeassistant:
+  unit_system: imperial
+  time_zone: America/Chicago
+  latitude: !secret homeassistant_lat
+  longitude: !secret homeassistant_long
+  elevation: 948
+  customize: !include customize.yaml
+#  external_url: !secret external_url
+#  internal_url: http://homeassistant.bowman.com:8123
+
+
+speedtestdotnet:
+
+binary_sensor:
+  - platform: workday
+    country: US
+    workdays: [mon, tue, wed, thu, fri, sat]
+    excludes: [sun, holiday]
+
+# camera motion detect binary sensor
+  - platform: mqtt
+    name: "OfficeCamMotionDetected"
+    state_topic: "zoneminder/1"
+    value_template: "{{ value_json.state }}"
+    payload_on: "alarm"
+    expire_after: 60
+  - platform: mqtt
+    name: "GarageCamMotionDetected"
+    state_topic: "zoneminder/3"
+    value_template: "{{ value_json.state }}"
+    payload_on: "alarm"
+    expire_after: 60
+  - platform: mqtt
+    name: "FrontDoorCamMotionDetected"
+    state_topic: "zoneminder/4"
+    value_template: "{{ value_json.state }}"
+    payload_on: "alarm"
+    expire_after: 60
+  - platform: mqtt
+    name: "DrivewayCamMotionDetected"
+    state_topic: "zoneminder/5"
+    value_template: "{{ value_json.state }}"
+    payload_on: "alarm"
+    expire_after: 60
+  - platform: mqtt
+    name: "PatioSouthCamMotionDetected"
+    state_topic: "zoneminder/6"
+    value_template: "{{ value_json.state }}"
+    payload_on: "alarm"
+    expire_after: 60
+  - platform: mqtt
+    name: "PatioNorthCamMotionDetected"
+    state_topic: "zoneminder/7"
+    value_template: "{{ value_json.state }}"
+    payload_on: "alarm"
+    expire_after: 60
+
+
+input_boolean:
+  boolean_pool_pandora:
+    name: Boolean for pool stereo pandora scene
+    initial: off
+    icon: mdi:mdi-bookmark-music-outline
+  boolean_disable_patio_lights:
+    name: Boolean to override patio lights
+    initial: off
+
+# Smart Life Devices - moved to gui integrations
+##tuya:
+##  username: !secret tuya_username
+##  password: !secret tuya_password
+##  country_code: '1'
+##  platform: smart_life
+
+# meross plugs
+meross_cloud:
+  username: !secret meross_cloud_username
+  password: !secret meross_cloud_password
+
+# yamaha receiver
+media_player:
+  - platform: yamaha
+    host: 'yamaha.bowman.com'
+  - platform: pandora
+
+# roku
+roku:
+# livingroom - why doesn't this work with DNS??? AARGHHHH!!
+  - host: 192.168.0.76
+# masterbedroom
+#  - host: 192.168.0.71
+# hearthroom
+  - host: 192.168.0.55
+# kelsey
+  - host: 192.168.0.72
+
+camera:
+  - platform: generic
+    still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?num=1&type=N0R&mapx=400&mapy=240&brand=wui&delay=15&frame=0&scale=1&transx=0&transy=0&severe=1&smooth=0&centerx=400&centery=240&station=EAX&rainsnow=1&lightning=0&noclutter=0&showlabels=1&showstorms=0&rand=26392541'
+    name: Radar WU
+
+  - platform: zoneminder
+  - platform: generic
+    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.officecammotionevent') }}&fid=snapshot
+    name: 'LastofficecamMotionEvent'
+  - platform: generic
+    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.shopcammotionevent') }}&fid=snapshot
+    name: 'LastshopcamMotionEvent'
+  - platform: generic
+    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.garagecammotionevent') }}&fid=snapshot
+    name: 'LastgaragecamMotionEvent'
+  - platform: generic
+    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.frontdoorcammotionevent') }}&fid=snapshot
+    name: 'LastfrontdoorcamMotionEvent'
+  - platform: generic
+    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.drivewaycammotionevent') }}&fid=snapshot
+    name: 'LastdrivewaycamMotionEvent'
+  - platform: generic
+    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.patiosouthcammotionevent') }}&fid=snapshot
+    name: 'LastpatiosouthcamMotionEvent'
+  - platform: generic
+    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.pationorthcammotionevent') }}&fid=snapshot
+    name: 'LastpationorthcamMotionEvent'
+  - platform: combined
+#    base_address: https://franzkafka.duckdns.org:8080
+    base_address: http://homeassistant.bowman.com:8123
+    name: AllCameras
+    entities:
+      - camera.officecam
+      - camera.garagecam
+#      - camera.shopcam
+      - camera.frontdoorcam
+      - camera.patiosouthcam
+      - camera.pationorthcam
+  - platform: combined
+#    base_address: https://franzkafka.duckdns.org:8080
+    base_address: http://homeassistant.bowman.com:8123
+    name: JennCameras
+    entities:
+      - camera.frontdoorcam
+      - camera.patiosouthcam
+      - camera.pationorthcam
+
+switch:
+# zoneminder record control
+  - platform: zoneminder
+    command_on: Modect
+    command_off: Monitor
+  - platform: mqtt
+    command_topic: "pithos/cmds"
+    state_topic: "pithos/state"
+    name: "Pool Pandora"
+    payload_on: 'export DISPLAY=:0;pithos'
+    payload_off: 'killall pithos'
+    state_off: "Not playing"
+    state_on: "Playing"
+    icon: mdi:library-music
+  - platform: mqtt
+    name: "Sound Detector"
+    command_topic: "sounddetector/cmds"
+    state_topic: "sounddetector/state"
+    payload_on: "systemctl start sounddetector"
+    payload_off: "systemctl stop sounddetector"
+    state_off: "offline"
+    state_on: "online"
+    icon: mdi:music-note
+
+# Zoneminder
+zoneminder:
+  - host: zoneminder.bowman.com:8080
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# Sensors
+sensor:
+  - platform: version
+    source: docker
+#  - platform: wundergroundpws
+#    api_key: !secret wundergroundpws_api_key
+#    pws_id: !secret wundergroundpws_pws_id
+#    monitored_conditions:
+#      - temp
+  - platform: rest
+    resource: http://weather.bowman.com/weewx/daily.json
+    name: WeatherStation
+    json_attributes:
+      - current
+    value_template: '{{ value_json.hardware }}'
+  - platform: template
+    sensors:
+      outside_temperature:
+        friendly_name: OutsideTemperature
+        entity_id:
+          - sensor.weatherstation
+        value_template: "{{ states.sensor.weatherstation.attributes.current['outTemp'] }}"
+        unit_of_measurement: '°F'
+  - platform: template
+    sensors:
+      rainfall:
+        friendly_name: Rainfall
+        entity_id:
+          - sensor.weatherstation
+        value_template: "{{ states.sensor.weatherstation.attributes.current['rain'] }}"
+        unit_of_measurement: 'in'
+  - platform: template
+    sensors:
+      windspeed:
+        friendly_name: windspeed
+        entity_id:
+          - sensor.weatherstation
+        value_template: "{{ states.sensor.weatherstation.attributes.current['windSpeed'] }}"
+        unit_of_measurement: 'mph'
+  - platform: zoneminder
+    include_archived: false
+
+  - platform: mqtt
+    name: "OfficeCamMotionEvent"
+    state_topic: "zoneminder/1"
+    value_template: "{{ value_json.eventid }}"
+  - platform: mqtt
+    name: "ShopCamMotionEvent"
+    state_topic: "zoneminder/2"
+    value_template: "{{ value_json.eventid }}"
+  - platform: mqtt
+    name: "GarageCamMotionEvent"
+    state_topic: "zoneminder/3"
+    value_template: "{{ value_json.eventid }}"
+  - platform: mqtt
+    name: "FrontDoorCamMotionEvent"
+    state_topic: "zoneminder/4"
+    value_template: "{{ value_json.eventid }}"
+  - platform: mqtt
+    name: "DrivewayCamMotionEvent"
+    state_topic: "zoneminder/5"
+    value_template: "{{ value_json.eventid }}"
+  - platform: mqtt
+    name: "PatioSouthCamMotionEvent"
+    state_topic: "zoneminder/6"
+    value_template: "{{ value_json.eventid }}"
+  - platform: mqtt
+    name: "PatioNorthCamMotionEvent"
+    state_topic: "zoneminder/7"
+    value_template: "{{ value_json.eventid }}"
+
+ # bluetooth device tracker
+ # Kevin Phone
+  - platform: mqtt
+    state_topic: 'monitor/pantry/lg_g7thinq'
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+    name: 'Location Pantry lg_g7thinq'
+  - platform: mqtt
+    state_topic: 'monitor/basement/lg_g7thinq'
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+    name: 'Location Basement lg_g7thinq'
+  - platform: min_max
+    name: "Home Occupancy Confidence of LG-G7ThinQ"
+    type: max
+    round_digits: 0
+    entity_ids:
+    - sensor.location_pantry_lg_g7thinq
+    - sensor.location_basement_lg_g7thinq
+ # Kevin Watch
+  - platform: mqtt
+    state_topic: 'monitor/pantry/vivoactive3'
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+    name: 'Location Pantry vivoactive3'
+  - platform: mqtt
+    state_topic: 'monitor/basement/vivoactive3'
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+    name: 'Location Basement vivoactive3'
+  - platform: min_max
+    name: "Home Occupancy Confidence of vivoactive3"
+    type: max
+    round_digits: 0
+    entity_ids:
+    - sensor.location_pantry_vivoactive3
+    - sensor.location_basement_vivoactive3
+# Jenn Phone
+  - platform: mqtt
+    state_topic: 'monitor/pantry/galaxy_note10'
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+    name: 'Location Pantry galaxy_note10'
+  - platform: mqtt
+    state_topic: 'monitor/basement/galaxy_note10'
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+    name: 'Location Basement galaxy_note10'
+  - platform: min_max
+    name: "Home Occupancy Confidence of Galaxy-Note10"
+    type: max
+    round_digits: 0
+    entity_ids:
+    - sensor.location_pantry_galaxy_note10
+    - sensor.location_basement_galaxy_note10
+# Zoe Phone
+  - platform: mqtt
+    state_topic: 'monitor/pantry/iphonex'
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+    name: 'Location Pantry iphonex'
+  - platform: mqtt
+    state_topic: 'monitor/basement/iphonex'
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+    name: 'Location Basement iphonex'
+  - platform: min_max
+    name: "Home Occupancy Confidence of iPhoneX"
+    type: max
+    round_digits: 0
+    entity_ids:
+    - sensor.location_pantry_iphonex
+    - sensor.location_basement_iphonex
+
+
+# doorbell detector
+  - platform: mqtt
+    name: "Doorbell Detector"
+    state_topic: "sounddetector/doorbell"
+    value_template: "{{ value_json.datetime }}"
+
+  - platform: template
+    sensors:
+      small_garage_status:
+        friendly_name: 'Small Door'
+        value_template: '{% if states.cover.small_garage_door %}
+            {% if states.cover.small_garage_door.attributes["door_state"] == "open" %}
+              Open
+            {% elif states.cover.small_garage_door.attributes["door_state"] == "closed" %}
+              Closed
+            {% elif states.cover.small_garage_door.attributes["door_state"] == "opening" %}
+              Opening
+            {% elif states.cover.small_garage_door.attributes["door_state"] == "closing" %}
+              Closing
+            {% else %}
+              Unknown
+            {% endif %}
+            {% else %}
+            n/a
+            {% endif %}'
+
+      garage_car_present:
+        friendly_name: 'Jaguar in Garage'
+        value_template: '{% if states.cover.small_garage_door %}
+            {% if is_state("cover.small_garage_door", "open") %}
+              n/a
+            {% elif ((states.cover.small_garage_door.attributes["distance_sensor"] > 65) and (states.cover.small_garage_door.attributes["distance_sensor"] < 250)) %}
+              Yes
+            {% else %}
+              No
+            {% endif %}
+            {% else %}
+            n/a
+            {% endif %}'
+
+#  - platform: scrape
+#    resource: https://www.jocogov.org/coronavirus-covid-19-update
+#    name: Covid_Johnson
+#    select: 'meta name="description"'
+
+weather:
+  - platform: darksky
+    api_key: !secret darksky_api
+
+panel_iframe:
+  camera:
+    title: 'Camera'
+    url: 'https://franzkafka.duckdns.org:8081/zm/index.php?view=montage&zmMontageLayout=3&scale=50'
+
+cover:
+  platform: opengarage
+  covers:
+    garage:
+      host: opengaragesmall.bowman.com
+      device_key: !secret opendoor_key
+      name: Small Garage Door
+    #    garage2:
+    #   host: opengaragesmall.bowman.com
+    #   device_key: opendoor
+    #   name: Large Garage Door
+
+timer:
+  garage_doors_opened_timer:
+    duration: '00:30:00'      
+
+
+emulated_hue:
+  listen_port: 80
+  expose_by_default: false
+  entities:
+    input_boolean.boolean_pool_pandora:
+      name: "Pool Stereo Pandora"
+      hidden: false
+    media_player.yamaha_receiver:
+      name: "Living Room Stereo"
+      hidden: false
+
+envisalink:
+  host: alarmpanel.bowman.com
+  panel_type: DSC
+  user_name: !secret evl_username
+  password: !secret evl_password
+# code: !secret dsc_code    # removed so HA will prompt for the code
+  port: 4025
+  evl_version: 4
+  keepalive_interval: 60
+  zonedump_interval: 30
+  timeout: 10
+  panic_type: Police
+  zones:
+    1:
+      name: 'Front Door'
+    2:
+      name: 'MudRoom Door'
+    3:
+      name: 'Foyer Motion'
+    4:
+      name: 'Deck Slider'
+    5:
+      name: 'Basement Door'
+    6:
+      name: 'Basement Motion'
+  partitions:
+    1:
+      name: 'Home Alarm'
+
+shelly:
+  discovery: false
+  version: true
+  sensors:
+    - all
+  devices:
+    - id: "B936CE"
+      light_switch: true 
+
+entity_controller:
+  garage_lights:
+    sensor: 
+      - binary_sensor.mudroom_door
+      - binary_sensor.garagecammotiondetected
+      - binary_sensor.lumi_lumi_sensor_magnet_garage_on_off
+    entity: light.shelly_shsw_25_b936ce_2
+    delay: 180
+    block_timeout: 7200
+    backoff: true
+    backoff_factor: 1.1
+    backoff_max: 1800
+  front_outside_lights:
+    sensor: 
+      - binary_sensor.front_door
+      - binary_sensor.frontdoorcammotiondetected
+      - binary_sensor.lumi_lumi_sensor_magnet_garage_on_off
+    entity: light.shelly_shsw_25_b936ce_1
+    delay: 420
+    start_time: 'sunset + 00:10:00'
+    end_time: 'sunrise - 00:10:00'
+    block_timeout: 28800 
+    backoff: true
+    backoff_factor: 1.25
+    backoff_max: 900
+  patio_outside_lights:
+    sensor: 
+      - binary_sensor.basement_door
+      - binary_sensor.pationorthcammotiondetected
+      - binary_sensor.patiosouthcammotiondetected
+    entities:
+      - light.03640182cc50e3f87dc9
+      - light.42728707cc50e3f8596d
+    delay: 300
+    start_time: 'sunset + 00:10:00'
+    end_time: 'sunrise - 00:10:00'
+    block_timeout: 28800 
+    overrides:
+      - input_boolean.boolean_disable_patio_lights
+
+zha_map:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
