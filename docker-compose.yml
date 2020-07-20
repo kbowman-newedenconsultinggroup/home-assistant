@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+    homeassistant:
+        container_name: homeassistant
+        volumes:
+            - '/etc/homeassistant/config:/config'
+            - '/etc/localtime:/etc/localtime:ro'
+            - '/etc/homeassistant/root:/root'
+        devices:
+            - /dev/snd
+            - /dev/ttyACM0
+        network_mode: host
+        image: 'homeassistant/home-assistant:stable'
+        restart: always
