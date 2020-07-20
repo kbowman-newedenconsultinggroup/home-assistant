@@ -5,3 +5,6 @@
 !config/*.yaml
 secrets.yaml
 known_devices.yaml
+!root/*
+config
+.bash_history
