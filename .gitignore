@@ -1,6 +1,7 @@
 *
 !.gitignore
 !*.yml
+!homeassistant_backup.sh
 !*/
 !config/*.yaml
 secrets.yaml
