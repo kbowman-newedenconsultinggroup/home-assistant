@@ -8,3 +8,4 @@ known_devices.yaml
 !root/**
 config
 .bash_history
+!haproxy/haproxy.cfg
