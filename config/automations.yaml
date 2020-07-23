@@ -175,6 +175,9 @@
           }}&scale=25&replayMode=all
       message: Motion-Driveway
     service: notify.mobile_app_android_lge_judyln_8_0_0
+  - data:
+      topic: monitor/scan/depart
+    service: mqtt.publish
 - id: '1580956115637'
   alias: Turn off Receiver when Idle
   description: ''
@@ -359,7 +362,7 @@
       dev_id: device_tracker_kevin_vivoactive3
       location_name: home
       source_type: bluetooth
-      gps: &id004
+      gps: &id002
       - 38.92133
       - -94.3121
     service: device_tracker.see
@@ -374,7 +377,7 @@
       dev_id: device_tracker_kevin_vivoactive3
       location_name: not_home
       source_type: bluetooth
-      gps: *id004
+      gps: *id002
     service: device_tracker.see
 - id: jenngalaxyphoneoccupancyon
   alias: Jenn Galaxy Phone Home Occupancy On
@@ -387,7 +390,7 @@
       dev_id: device_tracker_jenn_galaxyphone
       location_name: home
       source_type: bluetooth
-      gps: &id002
+      gps: &id003
       - 38.92133
       - -94.3121
     service: device_tracker.see
@@ -402,7 +405,7 @@
       dev_id: device_tracker_jenn_galaxyphone
       location_name: not_home
       source_type: bluetooth
-      gps: *id002
+      gps: *id003
     service: device_tracker.see
 - id: zoeiphoneoccupancyon
   alias: Zoe iPhone Home Occupancy On
@@ -415,7 +418,7 @@
       dev_id: device_tracker_zoe_iphone
       location_name: home
       source_type: bluetooth
-      gps: &id003
+      gps: &id004
       - 38.92133
       - -94.3121
     service: device_tracker.see
@@ -430,7 +433,7 @@
       dev_id: device_tracker_zoe_iphone
       location_name: not_home
       source_type: bluetooth
-      gps: *id003
+      gps: *id004
     service: device_tracker.see
 - id: alertwhendoorbellrings
   alias: Alert when doorbell rings
@@ -523,7 +526,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: switch.diningroom_plug
+    entity_id: switch.office_plug_wp110b_main_channel
     service: switch.turn_on
 - id: Laptop Charge Stop
   alias: End Charge Laptops
@@ -534,7 +537,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: switch.diningroom_plug
+    entity_id: switch.office_plug_wp110b_main_channel
     service: switch.turn_off
 - id: '1585665874837'
   alias: Automation for Computer Turn On
