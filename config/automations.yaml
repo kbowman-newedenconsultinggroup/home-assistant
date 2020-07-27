@@ -292,37 +292,30 @@
     to: opening
   condition: []
   action:
-  - data:
-      topic: monitor/scan/arrive
-    service: mqtt.publish
   - data: {}
     entity_id: timer.garage_doors_opened_timer
     service: timer.start
   - data: {}
     entity_id: switch.shelly_shsw_25_b936ce_2
     service: switch.turn_on
-- id: automationsmallgaragedoorclosed
-  alias: Automation Small Garage Door Closed
+- id: automationmonitordepartscans
+  alias: Automation Monitor Depart Scans
   description: ''
   trigger:
   - entity_id: sensor.small_garage_status
     from: Closing
     platform: state
     to: Closed
+  - entity_id: binary_sensor.front_door
+    from: Open
+    platform: state
+    to: Closed
   condition: []
   action:
-  - data: {}
-    entity_id: timer.garage_doors_opened_timer
-    service: timer.cancel
+  - delay: 00:01:00
   - data:
       topic: monitor/scan/depart
     service: mqtt.publish
-  - service: notify.alexa_media
-    data:
-      data:
-        type: tts
-      message: Small garage door closed
-      target: group.Alexa
 - id: kevinlgphoneoccupancyon
   alias: Kevin LG Phone Home Occupancy On
   trigger:
