@@ -222,15 +222,15 @@ sensor:
   - platform: template
     sensors:
       rainfall:
-        friendly_name: Rainfall
+        friendly_name: TodayRain
         entity_id:
           - sensor.weatherstation
-        value_template: "{{ states.sensor.weatherstation.attributes.current['rain'] }}"
+        value_template: "{{ states.sensor.weatherstation.attributes.current['dayRain'] }}"
         unit_of_measurement: 'in'
   - platform: template
     sensors:
       windspeed:
-        friendly_name: windspeed
+        friendly_name: Windspeed
         entity_id:
           - sensor.weatherstation
         value_template: "{{ states.sensor.weatherstation.attributes.current['windSpeed'] }}"

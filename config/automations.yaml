@@ -566,3 +566,14 @@
   - data: {}
     entity_id: switch.shelly_shsw_25_b936ce_2
     service: switch.turn_off
+- id: '1595878450527'
+  alias: Automation for HomeAssistant Startup
+  description: Actions to execute at startup
+  trigger:
+  - event: start
+    platform: homeassistant
+  condition: []
+  action:
+  - data:
+      topic: monitor/known device states
+    service: mqtt.publish
