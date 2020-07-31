@@ -499,6 +499,9 @@ entity_controller:
     start_time: 'sunset + 00:10:00'
     end_time: 'sunrise - 00:10:00'
     block_timeout: 28800 
+    backoff: true
+    backoff_factor: 1
+    backoff_max: 1200
     overrides:
       - input_boolean.boolean_disable_patio_lights
 
