@@ -87,6 +87,9 @@ input_boolean:
   boolean_disable_patio_lights:
     name: Boolean to override patio lights
     initial: off
+  boolean_alexa_goodnight:
+    name: Boolean to indicate Alexa Goodnight routine started
+    initial: off
 
 # Smart Life Devices - moved to gui integrations
 ##tuya:
@@ -419,6 +422,9 @@ emulated_hue:
   entities:
     input_boolean.boolean_pool_pandora:
       name: "Pool Stereo Pandora"
+      hidden: false
+    input_boolean.boolean_alexa_goodnight:
+      name: "Alexa Goodnight Homeassistant Boolean"
       hidden: false
     media_player.yamaha_receiver:
       name: "Living Room Stereo"

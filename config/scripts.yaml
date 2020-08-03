@@ -1,7 +1,30 @@
-'alarmtogglechime':
+alarmtogglechime:
   alias: Alarm Toggle Chime
   sequence:
-  - data: 
+  - data:
       entity_id: alarm_control_panel.home_alarm
       keypress: '*4'
     service: envisalink.alarm_keypress
+
+goodnightactions:
+  alias: Goodnight Actions
+  sequence:
+    choose:
+    - conditions: 
+      - condition: state
+        entity_id: binary_sensor.lumi_lumi_sensor_magnet_pool_on_off
+        state: 'off'
+      sequence:
+        - service: notify.alexa_media
+          data:
+            data:
+              type: tts
+            target: group.Alexa
+            message: 'The pool gate is still open'
+    default:
+    - service: notify.alexa_media
+      data:
+        data:
+          type: tts
+        target: group.Alexa
+        message: 'Goodnight'

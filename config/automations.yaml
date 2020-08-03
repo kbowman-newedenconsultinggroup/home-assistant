@@ -570,3 +570,15 @@
   - data:
       topic: monitor/known device states
     service: mqtt.publish
+- id: '1596207629841'
+  alias: Automation for Goodnight Actions
+  description: ''
+  trigger:
+  - entity_id: input_boolean.boolean_alexa_goodnight
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - data: {}
+    service: script.goodnightactions
