@@ -28,3 +28,5 @@ goodnightactions:
           type: tts
         target: group.Alexa
         message: 'Goodnight'
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.boolean_alexa_goodnight
