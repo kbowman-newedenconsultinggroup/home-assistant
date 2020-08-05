@@ -90,6 +90,9 @@ input_boolean:
   boolean_alexa_goodnight:
     name: Boolean to indicate Alexa Goodnight routine started
     initial: off
+  boolean_goodnight_script_error:
+    name: Boolean to store error state of goodnight scritps
+    initial: off
 
 # Smart Life Devices - moved to gui integrations
 ##tuya:

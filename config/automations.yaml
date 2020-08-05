@@ -266,6 +266,13 @@
       entity_id: media_player.pandora
       source: John Conlee Radio
     service: media_player.select_source
+  - data: {}
+    entity_id: switch.pationorthcam_state
+    service: switch.turn_off
+  - data: {}
+    entity_id: switch.patiosouthcam_state
+    service: switch.turn_off
+  mode: single
 - id: AutomationPoolPandoraOff
   alias: Automation Pool Pandora Off
   description: Turn off Pool Stereo and Pandora

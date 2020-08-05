@@ -1,3 +1,4 @@
+# toggle the alarm system door open/close chime
 alarmtogglechime:
   alias: Alarm Toggle Chime
   sequence:
@@ -5,28 +6,76 @@ alarmtogglechime:
       entity_id: alarm_control_panel.home_alarm
       keypress: '*4'
     service: envisalink.alarm_keypress
-
-goodnightactions:
-  alias: Goodnight Actions
+goodnight_wrapper:
+  alias: GoodNight Wrapper Script
+  sequence:
+  - service: script.turn_on
+    data:
+      entities:
+      - script.enablemodetect
+      - script.checkpoolgate
+  - delay:
+      seconds: 3
+  - service: script.turn_on
+    data:
+      entity_id: script.goodnight_end
+# turn on motion detection on all cameras
+enablemodetect:
+  alias: Enable MoDetect
+  sequence:
+  - data:
+      entity_id:
+      - switch.garagecam_state
+      - switch.shopcam_state
+      - switch.officecam_state
+      - switch.pationorthcam_state
+      - switch.patiosouthcam_state
+      - switch.frontdoorcam_state
+      - switch.drivewaycam_state
+    service: switch.turn_on
+  mode: single
+# check to see if the pool gate is closed
+checkpoolgate:
+  alias: Check Pool Gate Status
   sequence:
     choose:
-    - conditions: 
+    - conditions:
       - condition: state
         entity_id: binary_sensor.lumi_lumi_sensor_magnet_pool_on_off
-        state: 'off'
+        state: 'on'
       sequence:
-        - service: notify.alexa_media
+      - service: notify.alexa_media
+        data:
           data:
-            data:
-              type: tts
-            target: group.Alexa
-            message: 'The pool gate is still open'
+            type: tts
+          target: group.Alexa
+          message: The pool gate is still open
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.boolean_goodnight_script_error
+# check if it's ok to go to bed, and announce accordingly
+goodnight_end:
+  alias: GoodNight End
+  sequence:
+    choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.boolean_goodnight_script_error
+        state: 'on'
+      sequence:
+      - service: notify.alexa_media
+        data:
+          data:
+            type: tts
+          target: group.Alexa
+          message: Are you sure you are ready for bed?
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.boolean_alexa_goodnight
     default:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.boolean_alexa_goodnight
     - service: notify.alexa_media
       data:
         data:
           type: tts
         target: group.Alexa
-        message: 'Goodnight'
-    - service: input_boolean.turn_off
-      entity_id: input_boolean.boolean_alexa_goodnight
+        message: Goodnight
