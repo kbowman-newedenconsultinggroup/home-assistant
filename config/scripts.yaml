@@ -11,11 +11,11 @@ goodnight_wrapper:
   sequence:
   - service: script.turn_on
     data:
-      entities:
+      entity_id:
       - script.enablemodetect
       - script.checkpoolgate
   - delay:
-      seconds: 3
+      seconds: 5
   - service: script.turn_on
     data:
       entity_id: script.goodnight_end

@@ -588,4 +588,8 @@
   condition: []
   action:
   - data: {}
-    service: script.goodnightactions
+    entity_id: input_boolean.boolean_goodnight_script_error
+    service: input_boolean.turn_off
+  - data: {}
+    service: script.goodnight_wrapper
+  mode: single
