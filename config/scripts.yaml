@@ -15,7 +15,12 @@ goodnight_wrapper:
       - script.enablemodetect
       - script.checkpoolgate
   - delay:
-      seconds: 5
+      seconds: 2
+  - service: script.turn_on
+    data:
+      entity_id: script.checkgaragewalkindoor
+  - delay:
+      seconds: 2
   - service: script.turn_on
     data:
       entity_id: script.goodnight_end
@@ -34,6 +39,24 @@ enablemodetect:
       - switch.drivewaycam_state
     service: switch.turn_on
   mode: single
+# check to see if the garage walk-in door is closed
+checkgaragewalkindoor:
+  alias: Check Garage Walk-in Door
+  sequence:
+    choose:
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.lumi_lumi_sensor_magnet_garage_on_off
+        state: 'on'
+      sequence:
+      - service: notify.alexa_media
+        data:
+          data:
+            type: tts
+          target: group.Alexa
+          message: The garage walk-in door is open
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.boolean_goodnight_script_error
 # check to see if the pool gate is closed
 checkpoolgate:
   alias: Check Pool Gate Status
@@ -49,7 +72,7 @@ checkpoolgate:
           data:
             type: tts
           target: group.Alexa
-          message: The pool gate is still open
+          message: The pool gate is open
       - service: input_boolean.turn_on
         entity_id: input_boolean.boolean_goodnight_script_error
 # check if it's ok to go to bed, and announce accordingly
