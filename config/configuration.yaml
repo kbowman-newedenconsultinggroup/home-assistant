@@ -81,7 +81,7 @@ binary_sensor:
 
 input_boolean:
   boolean_pool_pandora:
-    name: Boolean for pool stereo pandora scene
+    name: Boolean for pool stereo pandora
     initial: off
     icon: mdi:mdi-bookmark-music-outline
   boolean_disable_patio_lights:
