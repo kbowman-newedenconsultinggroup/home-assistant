@@ -20,7 +20,7 @@ goodnight_wrapper:
     data:
       entity_id: script.checkgaragewalkindoor
   - delay:
-      seconds: 2
+      seconds: 3
   - service: script.turn_on
     data:
       entity_id: script.goodnight_end
