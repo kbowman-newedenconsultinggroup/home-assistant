@@ -5,6 +5,7 @@
 !*/
 !config/*.yaml
 secrets.yaml
+passwd
 known_devices.yaml
 !root/**
 config

@@ -3,14 +3,14 @@
 default_config:
 
 logger:
-#  default: critical
-  default: info
-  #  logs:
-  #  asyncio: debug
-  #  homeassistant.core: debug
-  #  homeassistant.components.zha: debug
-  #  zigpy: debug
-  #  zigpy_cc: debug
+  default: critical
+#  default: info
+#  logs:
+#    asyncio: debug
+#    homeassistant.core: debug
+#    homeassistant.components.zha: debug
+#    zigpy: debug
+#    zigpy_cc: debug
 #    custom_components.alexa_media: debug
 #    alexapy: debug
 #    homeassistant.components.mobile_app: debug

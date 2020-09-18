@@ -289,6 +289,12 @@
   - data: {}
     entity_id: media_player.pandora
     service: media_player.turn_off
+  - data: {}
+    entity_id: switch.pationorthcam_state
+    service: switch.turn_on
+  - data: {}
+    entity_id: switch.patiosouthcam_state
+    service: switch.turn_on
 - id: '1583979421216'
   alias: Automation Small Garage Door Opening
   description: ''
