@@ -1,4 +1,3 @@
-# toggle the alarm system door open/close chime
 alarmtogglechime:
   alias: Alarm Toggle Chime
   sequence:
@@ -24,7 +23,6 @@ goodnight_wrapper:
   - service: script.turn_on
     data:
       entity_id: script.goodnight_end
-# turn on motion detection on all cameras
 enablemodetect:
   alias: Enable MoDetect
   sequence:
@@ -39,15 +37,14 @@ enablemodetect:
       - switch.drivewaycam_state
     service: switch.turn_on
   mode: single
-# check to see if the garage walk-in door is closed
 checkgaragewalkindoor:
   alias: Check Garage Walk-in Door
   sequence:
-    choose:
+  - choose:
     - conditions:
       - condition: state
-        entity_id: binary_sensor.lumi_lumi_sensor_magnet_garage_on_off
         state: 'on'
+        entity_id: binary_sensor.0x00158d00045efb74_contact
       sequence:
       - service: notify.alexa_media
         data:
@@ -57,7 +54,7 @@ checkgaragewalkindoor:
           message: The garage walk-in door is open
       - service: input_boolean.turn_on
         entity_id: input_boolean.boolean_goodnight_script_error
-# check to see if the pool gate is closed
+  mode: single
 checkpoolgate:
   alias: Check Pool Gate Status
   sequence:
@@ -75,7 +72,6 @@ checkpoolgate:
           message: The pool gate is open
       - service: input_boolean.turn_on
         entity_id: input_boolean.boolean_goodnight_script_error
-# check if it's ok to go to bed, and announce accordingly
 goodnight_end:
   alias: GoodNight End
   sequence:

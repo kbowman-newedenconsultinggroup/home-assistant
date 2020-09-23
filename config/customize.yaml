@@ -9,3 +9,15 @@ light.42728707cc50e3f8596d:
   supported_features: 155
 light.03640182cc50e3f87fe8:
   supported_features: 155
+binary_sensor.basement_door:
+  device_class: door
+binary_sensor.basement_motion:
+  device_class: motion
+binary_sensor.front_door:
+  device_class: door
+binary_sensor.mudroom_door:
+  device_class: door
+binary_sensor.deck_slider:
+  device_class: door
+binary_sensor.foyer_motion:
+  device_class: motion

@@ -17,6 +17,9 @@ logger:
 #    homeassistant.components.notify: debug
 #    homeassistant.core: debug
 
+mqtt:
+  discovery: true
+  discovery_prefix: homeassistant
 
 http:
   base_url: homeassistant.bowman.com:8123
@@ -476,7 +479,7 @@ entity_controller:
     sensor: 
       - binary_sensor.mudroom_door
       - binary_sensor.garagecammotiondetected
-      - binary_sensor.lumi_lumi_sensor_magnet_garage_on_off
+      - binary_sensor.0x00158d00045efb74_contact
     entity: light.shelly_shsw_25_b936ce_2
     delay: 180
     block_timeout: 7200
@@ -487,7 +490,7 @@ entity_controller:
     sensor: 
       - binary_sensor.front_door
       - binary_sensor.frontdoorcammotiondetected
-      - binary_sensor.lumi_lumi_sensor_magnet_garage_on_off
+      - binary_sensor.0x00158d00045efb74_contact
     entity: light.shelly_shsw_25_b936ce_1
     delay: 420
     start_time: 'sunset + 00:10:00'
@@ -514,7 +517,16 @@ entity_controller:
     overrides:
       - input_boolean.boolean_disable_patio_lights
 
-zha_map:
+#zha_map:
+
+webhook:
+zigbee2mqtt_networkmap:
+  #topic: your topic (optional, default zigbee2mqtt)
+panel_iframe:
+  networkmap:
+    title: 'Zigbee Map'
+    url: '/local/community/zigbee2mqtt_networkmap/map.html'
+    icon: 'mdi:graphql'
 
 group: !include groups.yaml
 automation: !include automations.yaml
