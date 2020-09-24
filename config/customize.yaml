@@ -21,3 +21,5 @@ binary_sensor.deck_slider:
   device_class: door
 binary_sensor.foyer_motion:
   device_class: motion
+media_player.pandora:
+  name: Pool Pandora

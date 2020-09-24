@@ -17,7 +17,7 @@ goodnight_wrapper:
       seconds: 2
   - service: script.turn_on
     data:
-      entity_id: script.checkgaragewalkindoor
+      entity_id: script.checkgaragedoors
   - delay:
       seconds: 3
   - service: script.turn_on
@@ -37,21 +37,26 @@ enablemodetect:
       - switch.drivewaycam_state
     service: switch.turn_on
   mode: single
-checkgaragewalkindoor:
-  alias: Check Garage Walk-in Door
+checkgaragedoors:
+  alias: Check Garage Doors
   sequence:
   - choose:
     - conditions:
-      - condition: state
-        state: 'on'
-        entity_id: binary_sensor.0x00158d00045efb74_contact
+      - condition: or
+        conditions:
+        - condition: state
+          state: 'on'
+          entity_id: binary_sensor.garage_walk_in_door_contact
+        - condition: state
+          state: Open
+          entity_id: sensor.small_garage_status
       sequence:
       - service: notify.alexa_media
         data:
           data:
             type: tts
           target: group.Alexa
-          message: The garage walk-in door is open
+          message: A garage door is open
       - service: input_boolean.turn_on
         entity_id: input_boolean.boolean_goodnight_script_error
   mode: single
@@ -61,7 +66,7 @@ checkpoolgate:
     choose:
     - conditions:
       - condition: state
-        entity_id: binary_sensor.lumi_lumi_sensor_magnet_pool_on_off
+        entity_id: binary_sensor.pool_gate_contact
         state: 'on'
       sequence:
       - service: notify.alexa_media

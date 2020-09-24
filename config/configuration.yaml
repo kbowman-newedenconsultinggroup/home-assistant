@@ -391,11 +391,6 @@ sensor:
             n/a
             {% endif %}'
 
-#  - platform: scrape
-#    resource: https://www.jocogov.org/coronavirus-covid-19-update
-#    name: Covid_Johnson
-#    select: 'meta name="description"'
-
 weather:
   - platform: darksky
     api_key: !secret darksky_api
@@ -479,7 +474,7 @@ entity_controller:
     sensor: 
       - binary_sensor.mudroom_door
       - binary_sensor.garagecammotiondetected
-      - binary_sensor.0x00158d00045efb74_contact
+      - binary_sensor.garage_walk_in_door_contact
     entity: light.shelly_shsw_25_b936ce_2
     delay: 180
     block_timeout: 7200
@@ -490,7 +485,7 @@ entity_controller:
     sensor: 
       - binary_sensor.front_door
       - binary_sensor.frontdoorcammotiondetected
-      - binary_sensor.0x00158d00045efb74_contact
+      - binary_sensor.garage_walk_in_door_contact
     entity: light.shelly_shsw_25_b936ce_1
     delay: 420
     start_time: 'sunset + 00:10:00'
@@ -504,6 +499,7 @@ entity_controller:
       - binary_sensor.basement_door
       - binary_sensor.pationorthcammotiondetected
       - binary_sensor.patiosouthcammotiondetected
+      - binary_sensor.pool_gate_contact
     entities:
       - light.03640182cc50e3f87dc9
       - light.42728707cc50e3f8596d
