@@ -10,5 +10,9 @@ services:
             - /dev/snd
 #            - /dev/ttyACM0
         network_mode: host
+        dns:
+        -  127.0.0.53
+        dns_search:
+        - bowman.com
         image: 'homeassistant/home-assistant:latest'
         restart: always

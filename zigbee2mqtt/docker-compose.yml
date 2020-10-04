@@ -11,4 +11,9 @@ services:
             - TZ=America/Chicago
         privileged: true
         network_mode: host
+        dns:
+        - 127.0.0.53
+        dns_search:
+        - bowman.com
         image: koenkk/zigbee2mqtt
+        restart: always
