@@ -11,3 +11,5 @@ known_devices.yaml
 config
 .bash_history
 !haproxy/haproxy.cfg
+haproxy/servercert/
+haproxy/cert/
