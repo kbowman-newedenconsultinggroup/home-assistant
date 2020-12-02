@@ -17,6 +17,25 @@ logger:
 #    homeassistant.components.notify: debug
 #    homeassistant.core: debug
 
+alexa:
+  smart_home:
+    locale: en-US
+    endpoint: https://api.amazonalexa.com/v3/events
+#    client_id: !secret alexa_skill_clientid
+#    client_secret: !secret alexa_skill_clientsecret
+    filter:
+      include_entities:
+        - light.shelly_shsw_25_b936ce_1
+        - light.shelly_shsw_25_b936ce_2
+    entity_config:
+      light.shelly_shsw_25_b936ce_1:
+        name: "Front Outside Lights"
+        description: "Front Outside House Lights"
+        display_categories: LIGHT
+      light.shelly_shsw_25_b936ce_2:
+        name: "Garage Lights"
+        display_categories: LIGHT
+
 mqtt:
   discovery: true
   discovery_prefix: homeassistant
@@ -467,11 +486,11 @@ shelly:
     - all
   devices:
     - id: "B936CE"
-      light_switch: true 
+      light_switch: true
 
 entity_controller:
   garage_lights:
-    sensor: 
+    sensor:
       - binary_sensor.mudroom_door
       - binary_sensor.garagecammotiondetected
       - binary_sensor.garage_walk_in_door_contact
@@ -482,7 +501,7 @@ entity_controller:
     backoff_factor: 1.1
     backoff_max: 1800
   front_outside_lights:
-    sensor: 
+    sensor:
       - binary_sensor.front_door
       - binary_sensor.frontdoorcammotiondetected
       - binary_sensor.garage_walk_in_door_contact
@@ -490,12 +509,12 @@ entity_controller:
     delay: 420
     start_time: 'sunset + 00:10:00'
     end_time: 'sunrise - 00:10:00'
-    block_timeout: 28800 
+    block_timeout: 28800
     backoff: true
     backoff_factor: 1.25
     backoff_max: 900
   patio_outside_lights:
-    sensor: 
+    sensor:
       - binary_sensor.basement_door
       - binary_sensor.pationorthcammotiondetected
       - binary_sensor.patiosouthcammotiondetected
@@ -506,7 +525,7 @@ entity_controller:
     delay: 300
     start_time: 'sunset + 00:10:00'
     end_time: 'sunrise - 00:10:00'
-    block_timeout: 28800 
+    block_timeout: 28800
     backoff: true
     backoff_factor: 1
     backoff_max: 1200
