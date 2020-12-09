@@ -5,12 +5,13 @@ default_config:
 logger:
 #  default: critical
   default: info
-  logs:
+#  logs:
+#    custom_components.entity_controller: debug
 #    asyncio: debug
 #    homeassistant.core: debug
-    homeassistant.components.zha: debug
-    zigpy: debug
-    zigpy_cc: debug
+#    homeassistant.components.zha: debug
+#    zigpy: debug
+#    zigpy_cc: debug
 #    custom_components.alexa_media: debug
 #    alexapy: debug
 #    homeassistant.components.mobile_app: debug
@@ -414,11 +415,6 @@ weather:
   - platform: darksky
     api_key: !secret darksky_api
 
-panel_iframe:
-  camera:
-    title: 'Camera'
-    url: 'https://franzkafka.duckdns.org:8081/zm/index.php?view=montage&zmMontageLayout=3&scale=50'
-
 cover:
   platform: opengarage
   covers:
@@ -482,8 +478,16 @@ envisalink:
 shelly:
   discovery: false
   version: true
+  attributes:
+    - all
+#    - ip_address
+#    - shelly_type
+#    - switch
+#    - over_power
   sensors:
     - all
+#    - switch
+#    - over_power
   devices:
     - id: "B936CE"
       light_switch: true
@@ -495,6 +499,14 @@ entity_controller:
       - binary_sensor.garagecammotiondetected
       - binary_sensor.garage_walk_in_door_contact
     entity: light.shelly_shsw_25_b936ce_2
+    state_attributes_ignore:
+      - uptime
+      - device_temp
+      - rssi
+      - voltage
+      - current_consumption
+      - total_consumption
+      - supported_features
     delay: 180
     block_timeout: 7200
     backoff: true
@@ -506,6 +518,14 @@ entity_controller:
       - binary_sensor.frontdoorcammotiondetected
       - binary_sensor.garage_walk_in_door_contact
     entity: light.shelly_shsw_25_b936ce_1
+    state_attributes_ignore:
+      - uptime
+      - device_temp
+      - rssi
+      - voltage
+      - current_consumption
+      - total_consumption
+      - supported_features
     delay: 420
     start_time: 'sunset + 00:10:00'
     end_time: 'sunrise - 00:10:00'
@@ -531,17 +551,31 @@ entity_controller:
     backoff_max: 1200
     overrides:
       - input_boolean.boolean_disable_patio_lights
+  test_lights:
+    sensor:
+      - binary_sensor.basement_door
+    entity: switch.shopcam_state
+    delay: 180
+    block_timeout: 7200
+    backoff: true
+    backoff_factor: 1.1
+    backoff_max: 1800
 
 #zha_map:
 
 webhook:
 zigbee2mqtt_networkmap:
   #topic: your topic (optional, default zigbee2mqtt)
+
 panel_iframe:
   networkmap:
     title: 'Zigbee Map'
     url: '/local/community/zigbee2mqtt_networkmap/map.html'
     icon: 'mdi:graphql'
+  camera:
+    title: 'Camera'
+    url: 'https://franzkafka.duckdns.org:8081/zm/index.php?view=montage&zmMontageLayout=3&scale=50'
+
 
 group: !include groups.yaml
 automation: !include automations.yaml
