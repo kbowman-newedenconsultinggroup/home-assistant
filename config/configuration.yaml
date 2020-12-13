@@ -5,7 +5,7 @@ default_config:
 logger:
 #  default: critical
   default: info
-#  logs:
+  logs:
 #    custom_components.entity_controller: debug
 #    asyncio: debug
 #    homeassistant.core: debug
@@ -17,6 +17,7 @@ logger:
 #    homeassistant.components.mobile_app: debug
 #    homeassistant.components.notify: debug
 #    homeassistant.core: debug
+    homeassistant.components.alexa: debug
 
 alexa:
   smart_home:
@@ -28,14 +29,20 @@ alexa:
       include_entities:
         - light.shelly_shsw_25_b936ce_1
         - light.shelly_shsw_25_b936ce_2
+        - switch.office_plug
     entity_config:
       light.shelly_shsw_25_b936ce_1:
-        name: "Front Outside Lights"
+        name: "Front Lights"
         description: "Front Outside House Lights"
         display_categories: LIGHT
       light.shelly_shsw_25_b936ce_2:
         name: "Garage Lights"
+        description: "Garage Lights"
         display_categories: LIGHT
+      switch.office_plug:
+        name: "Office Plug"
+        description: "Office Power Strip Plug"
+        display_categories: SWITCH
 
 mqtt:
   discovery: true
