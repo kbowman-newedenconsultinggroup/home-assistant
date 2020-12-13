@@ -23,3 +23,5 @@ binary_sensor.foyer_motion:
   device_class: motion
 media_player.pandora:
   name: Pool Pandora
+media_player.living_room:
+  name: roku-livingroom

@@ -30,7 +30,12 @@ alexa:
         - light.shelly_shsw_25_b936ce_1
         - light.shelly_shsw_25_b936ce_2
         - switch.office_plug
+        - cover.small_garage_door
     entity_config:
+      cover.small_garage_door:
+        name: "Small Garage Door"
+        description: "Small Overhead Garage Door"
+        display_categories: GARAGE_DOOR
       light.shelly_shsw_25_b936ce_1:
         name: "Front Lights"
         description: "Front Outside House Lights"
