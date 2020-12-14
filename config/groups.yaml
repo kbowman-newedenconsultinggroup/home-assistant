@@ -49,3 +49,13 @@ exterior_lights:
   entities:
     - switch.shelly_shsw_25_b936ce_1
     - switch.shelly_shsw_25_b936ce_2
+
+christmas_lights:
+  name: Christmas Lights
+  entities:
+    - switch.living_room_tree
+    - switch.closet_wreath
+    - switch.mini_tree
+    - switch.black_cabinet
+    - switch.office_plug_wp110b_main_channel
+    - switch.black_lamp_wp110b_main_channel

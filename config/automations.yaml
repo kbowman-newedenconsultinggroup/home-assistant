@@ -50,16 +50,14 @@
     to: not_home
   condition: []
   action:
-  - entity_id: switch.042000996001947fd253
+  - entity_id: switch.computer
     service: switch.turn_off
   - data: {}
-    entity_id: switch.diningroom_plug
-    service: switch.turn_off
 - id: '1578801083247'
   alias: Turn on Office
   description: In the morning on workdays
   trigger:
-  - at: 08:30
+  - at: 08:20
     platform: time
   condition:
   - condition: and
@@ -71,7 +69,7 @@
       entity_id: person.kevin
       state: home
   action:
-  - entity_id: switch.042000996001947fd253
+  - entity_id: switch.computer
     service: switch.turn_on
   - data: {}
     entity_id: switch.officecam_state
@@ -183,7 +181,7 @@
   description: ''
   trigger:
   - entity_id: media_player.lr
-    for: 00:30:00
+    for: 00:60:00
     platform: state
     to: idle
   condition:
@@ -325,7 +323,7 @@
     to: Closed
   condition: []
   action:
-  - delay: 00:01:00
+  - delay: 00:05:00
   - data:
       topic: monitor/scan/depart
     service: mqtt.publish
@@ -532,7 +530,7 @@
   condition: []
   action:
   - data: {}
-    entity_id: switch.office_plug_wp110b_main_channel
+    entity_id: switch.office_plug
     service: switch.turn_on
 - id: Laptop Charge Stop
   alias: End Charge Laptops
@@ -543,13 +541,13 @@
   condition: []
   action:
   - data: {}
-    entity_id: switch.office_plug_wp110b_main_channel
+    entity_id: switch.office_plug
     service: switch.turn_off
 - id: '1585665874837'
   alias: Automation for Computer Turn On
   description: ''
   trigger:
-  - entity_id: switch.042000996001947fd253
+  - entity_id: switch.computer
     from: 'off'
     platform: state
     to: 'on'
@@ -557,20 +555,6 @@
   action:
   - data: {}
     entity_id: switch.officecam_state
-    service: switch.turn_off
-- id: '1586031870275'
-  alias: Turn Off Garage Lights after Minutes
-  description: ''
-  trigger:
-  - entity_id: switch.shelly_shsw_25_b936ce_2
-    for: 00:10:00
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - data: {}
-    entity_id: switch.shelly_shsw_25_b936ce_2
     service: switch.turn_off
 - id: '1595878450527'
   alias: Automation for HomeAssistant Startup
@@ -593,9 +577,6 @@
     to: 'on'
   condition: []
   action:
-  - data: {}
-    entity_id: input_boolean.boolean_goodnight_script_error
-    service: input_boolean.turn_off
   - data: {}
     service: script.goodnight_wrapper
   mode: single

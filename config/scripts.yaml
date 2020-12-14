@@ -8,6 +8,9 @@ alarmtogglechime:
 goodnight_wrapper:
   alias: GoodNight Wrapper Script
   sequence:
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.boolean_goodnight_script_error
   - service: script.turn_on
     data:
       entity_id:
@@ -23,6 +26,7 @@ goodnight_wrapper:
   - service: script.turn_on
     data:
       entity_id: script.goodnight_end
+  mode: single
 enablemodetect:
   alias: Enable MoDetect
   sequence:

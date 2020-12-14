@@ -30,13 +30,19 @@ alexa:
         - light.shelly_shsw_25_b936ce_1
         - light.shelly_shsw_25_b936ce_2
         - switch.office_plug
+        - switch.computer
         - cover.small_garage_door
         - sensor.outside_temperature
         - alarm_control_panel.home_alarm
         - binary_sensor.pool_gate_contact
         - binary_sensor.garage_walk_in_door_contact
         - sensor.garage_walk_in_door_temperature
+        - group.christmas_lights
+        - script.goodnight_wrapper
     entity_config:
+      script.goodnight_wrapper:
+        name: "Goodnight Wrapper"
+        description: "Home Assistant Goodnight Wrapper Script"
       sensor.garage_walk_in_door_temperature:
         name: "Garage"
         description: "Garage Temperature"
@@ -72,6 +78,14 @@ alexa:
         name: "Office Plug"
         description: "Office Power Strip Plug"
         display_categories: SMARTPLUG
+      switch.computer:
+        name: "Computer"
+        description: "Computer Monitors and Sound"
+        display_categories: SMARTPLUG
+      group.christmas_lights:
+        name: "Christmas Lights"
+        description: "Christmas Lights"
+        display_categories: LIGHT
 
 mqtt:
   discovery: true
@@ -151,6 +165,9 @@ input_boolean:
     initial: off
   boolean_goodnight_script_error:
     name: Boolean to store error state of goodnight scritps
+    initial: off
+  boolean_someone_is_awake:
+    name: Boolean to track when someone gets up and comes downstairs
     initial: off
 
 # Smart Life Devices - moved to gui integrations
@@ -483,6 +500,18 @@ emulated_hue:
       hidden: false
     switch.mini_tree:
       name: "Snoopy"
+      hidden: false
+    switch.black_cabinet:
+      name: "Black Cabinet"
+      hidden: false
+    switch.computer:
+      name: "Computer"
+      hidden: false
+    switch.closet_wreath:
+      name: "Closet Wreath"
+      hidden: false
+    switch.living_room_tree:
+      name: "Living Room Tree"
       hidden: false
 
 envisalink:
