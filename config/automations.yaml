@@ -52,7 +52,6 @@
   action:
   - entity_id: switch.computer
     service: switch.turn_off
-  - data: {}
 - id: '1578801083247'
   alias: Turn on Office
   description: In the morning on workdays
