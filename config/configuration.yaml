@@ -5,7 +5,7 @@ default_config:
 logger:
 #  default: critical
   default: info
-  logs:
+#  logs:
 #    custom_components.entity_controller: debug
 #    asyncio: debug
 #    homeassistant.core: debug
@@ -17,21 +17,45 @@ logger:
 #    homeassistant.components.mobile_app: debug
 #    homeassistant.components.notify: debug
 #    homeassistant.core: debug
-    homeassistant.components.alexa: debug
+#    homeassistant.components.alexa: debug
 
 alexa:
   smart_home:
     locale: en-US
     endpoint: https://api.amazonalexa.com/v3/events
-#    client_id: !secret alexa_skill_clientid
-#    client_secret: !secret alexa_skill_clientsecret
+    client_id: !secret alexa_client_id
+    client_secret: !secret alexa_client_secret
     filter:
       include_entities:
         - light.shelly_shsw_25_b936ce_1
         - light.shelly_shsw_25_b936ce_2
         - switch.office_plug
         - cover.small_garage_door
+        - sensor.outside_temperature
+        - alarm_control_panel.home_alarm
+        - binary_sensor.pool_gate_contact
+        - binary_sensor.garage_walk_in_door_contact
+        - sensor.garage_walk_in_door_temperature
     entity_config:
+      sensor.garage_walk_in_door_temperature:
+        name: "Garage"
+        description: "Garage Temperature"
+        display_categories: TEMPERATURE_SENSOR
+      binary_sensor.garage_walk_in_door_contact:
+        name: "Garage Walk In Door"
+        description: "Walk-In door in garage"
+        display_categories: DOOR
+      binary_sensor.pool_gate_contact:
+        name: "Pool Gate"
+        description: "Pool Gate"
+        display_categories: DOOR
+      alarm_control_panel.home_alarm:
+        name: "Alarm"
+        description: "Security Alarm"
+      sensor.outside_temperature:
+        name: "Backyard"
+        description: "Outside Temperature"
+        display_categories: TEMPERATURE_SENSOR
       cover.small_garage_door:
         name: "Small Garage Door"
         description: "Small Overhead Garage Door"
@@ -47,7 +71,7 @@ alexa:
       switch.office_plug:
         name: "Office Plug"
         description: "Office Power Strip Plug"
-        display_categories: SWITCH
+        display_categories: SMARTPLUG
 
 mqtt:
   discovery: true
@@ -441,7 +465,7 @@ cover:
 
 timer:
   garage_doors_opened_timer:
-    duration: '00:30:00'      
+    duration: '00:30:00'
 
 
 emulated_hue:
@@ -456,6 +480,9 @@ emulated_hue:
       hidden: false
     media_player.yamaha_receiver:
       name: "Living Room Stereo"
+      hidden: false
+    switch.mini_tree:
+      name: "Snoopy"
       hidden: false
 
 envisalink:

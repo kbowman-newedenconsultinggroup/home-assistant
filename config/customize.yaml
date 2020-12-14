@@ -25,3 +25,6 @@ media_player.pandora:
   name: Pool Pandora
 media_player.living_room:
   name: roku-livingroom
+alarm_control_panel.home_alarm:
+  code_arm_required: false
+  code_disarm_required: true
