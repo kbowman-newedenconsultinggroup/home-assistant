@@ -505,6 +505,10 @@
   - data: {}
     entity_id: group.exterior_cameras_modetect
     service: switch.turn_on
+  - service: automation.turn_off
+    data: {}
+    entity_id: automation.automation_to_turn_on_lights_in_the_morning
+  mode: single
 - id: automationalarmarmedhome
   alias: Automation for Alarm Armed Home
   description: ''
@@ -578,4 +582,24 @@
   action:
   - data: {}
     service: script.goodnight_wrapper
+  mode: single
+- id: '1607984539124'
+  alias: Automation to turn on lights in the morning
+  description: Turns on lights when someone wakes up and comes downstairs
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.foyer_motion
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: time
+    after: 07:45
+    before: 08:30
+  - condition: state
+    entity_id: input_boolean.boolean_alexa_goodnight
+    state: 'off'
+  action:
+  - scene: scene.morning_scene
+  - service: automation.turn_off
+    entity_id: automation.automation_to_turn_on_lights_in_the_morning
   mode: single

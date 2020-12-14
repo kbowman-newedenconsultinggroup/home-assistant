@@ -1,0 +1,21 @@
+- id: '1607984767578'
+  name: Morning Scene
+  entities:
+    switch.mini_tree:
+      friendly_name: Tasmota-4983
+      state: 'on'
+    switch.living_room_tree:
+      friendly_name: Tasmota-5233
+      state: 'on'
+    switch.black_cabinet:
+      friendly_name: Tasmota-4787
+      state: 'on'
+    switch.closet_wreath:
+      friendly_name: Tasmota-2443
+      state: 'on'
+    switch.black_lamp_wp110b_main_channel:
+      friendly_name: Tree (wp110b) - Main channel
+      state: 'on'
+    switch.office_plug_wp110b_main_channel:
+      friendly_name: Office Plug (wp110b) - Main channel
+      state: 'on'

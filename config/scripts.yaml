@@ -101,6 +101,8 @@ goodnight_end:
     default:
     - service: input_boolean.turn_off
       entity_id: input_boolean.boolean_alexa_goodnight
+    - service: automation.turn_on
+      entity_id: automation.automation_to_turn_on_lights_in_the_morning
     - service: notify.alexa_media
       data:
         data:
