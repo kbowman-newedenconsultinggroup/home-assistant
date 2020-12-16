@@ -570,25 +570,16 @@
   - data:
       topic: monitor/known device states
     service: mqtt.publish
-- id: '1596207629841'
-  alias: Automation for Goodnight Actions
-  description: ''
-  trigger:
-  - entity_id: input_boolean.boolean_alexa_goodnight
-    from: 'off'
-    platform: state
-    to: 'on'
-  condition: []
-  action:
-  - data: {}
-    service: script.goodnight_wrapper
-  mode: single
 - id: '1607984539124'
   alias: Automation to turn on lights in the morning
   description: Turns on lights when someone wakes up and comes downstairs
   trigger:
   - platform: state
     entity_id: binary_sensor.foyer_motion
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.0x00158d0002753f8b_occupancy
     from: 'off'
     to: 'on'
   condition:

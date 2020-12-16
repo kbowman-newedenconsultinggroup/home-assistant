@@ -5,8 +5,8 @@ default_config:
 logger:
 #  default: critical
   default: info
-#  logs:
-#    custom_components.entity_controller: debug
+  logs:
+    custom_components.entity_controller: debug
 #    asyncio: debug
 #    homeassistant.core: debug
 #    homeassistant.components.zha: debug
@@ -39,7 +39,19 @@ alexa:
         - sensor.garage_walk_in_door_temperature
         - group.christmas_lights
         - script.goodnight_wrapper
+        - script.the_office
+        - media_player.yamaha_receiver
+        - media_player.yamaha_receiver_zone_2
     entity_config:
+      media_player.yamaha_receiver:
+        name: "Living Room Stereo"
+        description: "Living Room A/V Receiver"
+      media_player.yamaha_receiver_zone_2:
+        name: "Kitchen Stereo"
+        description: "Ceiling Speakers in Kitchen"
+      script.the_office:
+        name: "The Office"
+        description: "Office Equipment Script"
       script.goodnight_wrapper:
         name: "Goodnight Wrapper"
         description: "Home Assistant Goodnight Wrapper Script"
@@ -491,27 +503,6 @@ emulated_hue:
   entities:
     input_boolean.boolean_pool_pandora:
       name: "Pool Stereo Pandora"
-      hidden: false
-    input_boolean.boolean_alexa_goodnight:
-      name: "Alexa Goodnight Homeassistant Boolean"
-      hidden: false
-    media_player.yamaha_receiver:
-      name: "Living Room Stereo"
-      hidden: false
-    switch.mini_tree:
-      name: "Snoopy"
-      hidden: false
-    switch.black_cabinet:
-      name: "Black Cabinet"
-      hidden: false
-    switch.computer:
-      name: "Computer"
-      hidden: false
-    switch.closet_wreath:
-      name: "Closet Wreath"
-      hidden: false
-    switch.living_room_tree:
-      name: "Living Room Tree"
       hidden: false
 
 envisalink:

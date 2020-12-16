@@ -11,6 +11,9 @@ goodnight_wrapper:
   - service: input_boolean.turn_off
     data: {}
     entity_id: input_boolean.boolean_goodnight_script_error
+  - service: input_boolean.turn_off
+    data: {}
+    entity_id: input_boolean.boolean_alexa_goodnight
   - service: script.turn_on
     data:
       entity_id:
@@ -99,8 +102,6 @@ goodnight_end:
       - service: input_boolean.turn_off
         entity_id: input_boolean.boolean_alexa_goodnight
     default:
-    - service: input_boolean.turn_off
-      entity_id: input_boolean.boolean_alexa_goodnight
     - service: automation.turn_on
       entity_id: automation.automation_to_turn_on_lights_in_the_morning
     - service: notify.alexa_media
@@ -109,3 +110,13 @@ goodnight_end:
           type: tts
         target: group.Alexa
         message: Goodnight
+the_office:
+  alias: The Office
+  sequence:
+  - service: switch.turn_off
+    data: {}
+    entity_id: switch.officecam_state
+  - service: switch.turn_on
+    data: {}
+    entity_id: switch.computer
+  mode: single
