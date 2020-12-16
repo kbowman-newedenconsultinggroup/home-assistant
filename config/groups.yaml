@@ -59,3 +59,9 @@ christmas_lights:
     - switch.black_cabinet
     - switch.office_plug_wp110b_main_channel
     - switch.black_lamp_wp110b_main_channel
+
+office:
+  name: Office
+  entities:
+    - switch.computer
+    - switch.officecam_state_inversion

@@ -11,9 +11,10 @@ goodnight_wrapper:
   - service: input_boolean.turn_off
     data: {}
     entity_id: input_boolean.boolean_goodnight_script_error
-  - service: input_boolean.turn_off
+  - service: input_boolean.turn_on
     data: {}
     entity_id: input_boolean.boolean_alexa_goodnight
+  - scene: scene.nighttime_scene
   - service: script.turn_on
     data:
       entity_id:
@@ -24,8 +25,7 @@ goodnight_wrapper:
   - service: script.turn_on
     data:
       entity_id: script.checkgaragedoors
-  - delay:
-      seconds: 3
+  - delay: '[object Object]'
   - service: script.turn_on
     data:
       entity_id: script.goodnight_end
@@ -110,13 +110,3 @@ goodnight_end:
           type: tts
         target: group.Alexa
         message: Goodnight
-the_office:
-  alias: The Office
-  sequence:
-  - service: switch.turn_off
-    data: {}
-    entity_id: switch.officecam_state
-  - service: switch.turn_on
-    data: {}
-    entity_id: switch.computer
-  mode: single

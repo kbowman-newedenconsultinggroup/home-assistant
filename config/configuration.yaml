@@ -39,19 +39,19 @@ alexa:
         - sensor.garage_walk_in_door_temperature
         - group.christmas_lights
         - script.goodnight_wrapper
-        - script.the_office
         - media_player.yamaha_receiver
         - media_player.yamaha_receiver_zone_2
+        - group.office
     entity_config:
+      group.office:
+        name: "Office"
+        description: "Office equipment"
       media_player.yamaha_receiver:
         name: "Living Room Stereo"
         description: "Living Room A/V Receiver"
       media_player.yamaha_receiver_zone_2:
         name: "Kitchen Stereo"
         description: "Ceiling Speakers in Kitchen"
-      script.the_office:
-        name: "The Office"
-        description: "Office Equipment Script"
       script.goodnight_wrapper:
         name: "Goodnight Wrapper"
         description: "Home Assistant Goodnight Wrapper Script"
@@ -259,6 +259,17 @@ camera:
       - camera.pationorthcam
 
 switch:
+  - platform: template
+    switches:
+      officecam_state_inversion:
+        value_template: "{{ is_state('switch.officecam_state', 'off') }}"
+        turn_on:
+          service: switch.turn_off
+          entity_id: switch.officecam_state
+        turn_off:
+          service: switch.turn_on
+          entity_id: switch.officecam_state
+
 # zoneminder record control
   - platform: zoneminder
     command_on: Modect

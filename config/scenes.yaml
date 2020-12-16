@@ -1,21 +1,18 @@
 - id: '1607984767578'
   name: Morning Scene
   entities:
-    switch.mini_tree:
-      friendly_name: Tasmota-4983
+    group.christmas_lights:
+      friendly_name: Christmas Lights
       state: 'on'
-    switch.living_room_tree:
-      friendly_name: Tasmota-5233
-      state: 'on'
-    switch.black_cabinet:
-      friendly_name: Tasmota-4787
-      state: 'on'
-    switch.closet_wreath:
-      friendly_name: Tasmota-2443
-      state: 'on'
-    switch.black_lamp_wp110b_main_channel:
-      friendly_name: Tree (wp110b) - Main channel
-      state: 'on'
-    switch.office_plug_wp110b_main_channel:
-      friendly_name: Office Plug (wp110b) - Main channel
-      state: 'on'
+- id: 'Nighttime Scene'
+  name: Nighttime Scene
+  entities:
+    media_player.yamaha_receiver:
+      friendly_name: Living Room Receiver
+      state: 'off'
+    media_player.yamaha_receiver_zone_2:
+      friendly_name: Kitchen Stereo
+      state: 'off'
+    group.christmas_lights:
+      friendly_name: Christmas Lights
+      state: 'off'
