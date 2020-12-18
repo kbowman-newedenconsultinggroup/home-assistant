@@ -7,7 +7,7 @@
     platform: sun
   condition: []
   action:
-  - entity_id: switch.51560232dc4f229c22c2_1
+  - entity_id: switch.amzdestplug_left_outlet
     service: switch.turn_off
 - id: '1578795609961'
   alias: Turn off Birdbath if above freezing
@@ -21,7 +21,7 @@
   action:
   - alias: ''
     data: {}
-    entity_id: switch.51560232dc4f229c22c2_1
+    entity_id: switch.amzdestplug_left_outlet
     service: switch.turn_off
 - id: '1578796285196'
   alias: Turn on Birdbath if below freezing when daylight
@@ -37,7 +37,7 @@
     before: sunset
     condition: sun
   action:
-  - entity_id: switch.51560232dc4f229c22c2_1
+  - entity_id: switch.amzdestplug_left_outlet
     service: switch.turn_on
 - id: '1578798677314'
   alias: Turn off Computer when not home
@@ -85,7 +85,7 @@
     condition: numeric_state
     entity_id: sensor.outside_temperature
   action:
-  - entity_id: switch.51560232dc4f229c22c2_1
+  - entity_id: switch.amzdestplug_left_outlet
     service: switch.turn_on
 - id: alertwhenofficecammotiondetected
   alias: Alert when officecam motion detected

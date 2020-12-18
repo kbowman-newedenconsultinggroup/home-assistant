@@ -43,12 +43,15 @@ interior_lights:
   entities:
     - light.415110852cf4320259a5
     - light.41511085dc4f225c7251
+    - light.03640182cc50e3f87fe8
 
 exterior_lights:
   name: Exterior Lights
   entities:
     - switch.shelly_shsw_25_b936ce_1
     - switch.shelly_shsw_25_b936ce_2
+    - light.42728707cc50e3f8596d
+    - light.03640182cc50e3f87dc9
 
 christmas_lights:
   name: Christmas Lights

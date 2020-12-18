@@ -42,7 +42,15 @@ alexa:
         - media_player.yamaha_receiver
         - media_player.yamaha_receiver_zone_2
         - group.office
+        - script.alarm_toggle_chime
+        - light.esplight_f87fe8
     entity_config:
+      light.esplight_f87fe8:
+        name: Black Lamp
+        description: Black Lamp in Living Room
+      script.alarm_toggle_chime:
+        name: Door Chime
+        description: Alarm Door Open and Close Beep"
       group.office:
         name: "Office"
         description: "Office equipment"

@@ -4,7 +4,7 @@
     group.christmas_lights:
       friendly_name: Christmas Lights
       state: 'on'
-- id: 'Nighttime Scene'
+- id: Nighttime Scene
   name: Nighttime Scene
   entities:
     media_player.yamaha_receiver:
@@ -15,4 +15,33 @@
       state: 'off'
     group.christmas_lights:
       friendly_name: Christmas Lights
+      state: 'off'
+    group.interior_lights:
+      friendly_name: Indoor Lights
+      state: 'off'
+- id: '1608262635582'
+  name: Movie Time
+  entities:
+    light.03640182cc50e3f87fe8:
+      min_mireds: 153
+      max_mireds: 370
+      brightness: 50
+      color_temp: 269
+      friendly_name: Black Lamp
+      supported_features: 155
+      state: 'on'
+    switch.living_room_tree:
+      friendly_name: Tasmota-5233
+      state: 'on'
+    light.415110852cf4320259a5:
+      min_mireds: 153
+      max_mireds: 370
+      friendly_name: LivingRoomEast
+      supported_features: 3
+      state: 'off'
+    light.41511085dc4f225c7251:
+      min_mireds: 153
+      max_mireds: 370
+      friendly_name: LivingRoomWest
+      supported_features: 3
       state: 'off'
