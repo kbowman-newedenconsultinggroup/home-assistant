@@ -581,6 +581,7 @@ entity_controller:
       - uptime
       - device_temp
       - rssi
+      - rssi_level
       - voltage
       - current_consumption
       - total_consumption
