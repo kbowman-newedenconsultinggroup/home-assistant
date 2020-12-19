@@ -20,6 +20,7 @@ goodnight_wrapper:
       entity_id:
       - script.enablemodetect
       - script.checkpoolgate
+      - script.script_christmas_lights_turn_off
   - delay:
       seconds: 2
   - service: script.turn_on
@@ -111,3 +112,17 @@ goodnight_end:
           type: tts
         target: group.Alexa
         message: Goodnight
+christmas_lights_turn_on_script:
+  alias: Script Christmas Lights Turn On
+  sequence:
+  - service: homeassistant.turn_on
+    data:
+      entity_id: group.christmas_lights
+  mode: single
+christmas_lights_turn_off_script:
+  alias: Script Christmas Lights Turn Off
+  sequence:
+  - service: homeassistant.turn_off
+    data:
+      entity_id: group.christmas_lights
+  mode: single

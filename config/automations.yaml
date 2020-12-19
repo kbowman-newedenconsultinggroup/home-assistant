@@ -590,7 +590,7 @@
     entity_id: input_boolean.boolean_alexa_goodnight
     state: 'off'
   action:
-  - scene: scene.morning_scene
+  - service: script.script_christmas_lights_turn_on
   - service: automation.turn_off
     entity_id: automation.automation_to_turn_on_lights_in_the_morning
   mode: single
