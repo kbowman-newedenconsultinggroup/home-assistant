@@ -7,7 +7,7 @@
     platform: sun
   condition: []
   action:
-  - entity_id: switch.amzdestplug_left_outlet
+  - entity_id: switch.amzdestplug_left
     service: switch.turn_off
 - id: '1578795609961'
   alias: Turn off Birdbath if above freezing
@@ -21,7 +21,7 @@
   action:
   - alias: ''
     data: {}
-    entity_id: switch.amzdestplug_left_outlet
+    entity_id: switch.amzdestplug_left
     service: switch.turn_off
 - id: '1578796285196'
   alias: Turn on Birdbath if below freezing when daylight
@@ -37,7 +37,7 @@
     before: sunset
     condition: sun
   action:
-  - entity_id: switch.amzdestplug_left_outlet
+  - entity_id: switch.amzdestplug_left
     service: switch.turn_on
 - id: '1578798677314'
   alias: Turn off Computer when not home
@@ -85,7 +85,7 @@
     condition: numeric_state
     entity_id: sensor.outside_temperature
   action:
-  - entity_id: switch.amzdestplug_left_outlet
+  - entity_id: switch.amzdestplug_left
     service: switch.turn_on
 - id: alertwhenofficecammotiondetected
   alias: Alert when officecam motion detected
@@ -584,13 +584,19 @@
     to: 'on'
   condition:
   - condition: time
-    after: 07:45
+    after: 07:00
     before: 08:30
   - condition: state
     entity_id: input_boolean.boolean_alexa_goodnight
-    state: 'off'
+    state: 'on'
   action:
-  - service: script.script_christmas_lights_turn_on
-  - service: automation.turn_off
+  - delay: 00:00:10
+  - data: {}
+    entity_id: input_boolean.boolean_alexa_goodnight
+    service: input_boolean.turn_off
+  - data: {}
+    service: script.script_christmas_lights_turn_on
+  - data: {}
     entity_id: automation.automation_to_turn_on_lights_in_the_morning
+    service: automation.turn_off
   mode: single

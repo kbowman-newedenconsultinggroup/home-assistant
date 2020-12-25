@@ -6,7 +6,8 @@ logger:
 #  default: critical
   default: info
   logs:
-    custom_components.entity_controller: debug
+#    custom_components.entity_controller: debug
+    custom_components.localtuya: debug
 #    asyncio: debug
 #    homeassistant.core: debug
 #    homeassistant.components.zha: debug
@@ -34,6 +35,7 @@ alexa:
         - cover.small_garage_door
         - sensor.outside_temperature
         - alarm_control_panel.home_alarm
+        - binary_sensor.shed_door_contact
         - binary_sensor.pool_gate_contact
         - binary_sensor.garage_walk_in_door_contact
         - sensor.garage_walk_in_door_temperature
@@ -44,7 +46,24 @@ alexa:
         - group.office
         - script.alarm_toggle_chime
         - light.esplight_f87fe8
+        - group.patio_lights
+        - light.esplight_0259a5
+        - light.esplight_5c7251
+        - light.hearth_room_lights
     entity_config:
+      light.hearth_room_lights:
+        name: Hearth Room Lights
+        description: Hearth Room Ceiling Lights
+      light.esplight_5c7251:
+        name: Living Room West
+        description: Living Room Ceiling Light West
+      light.esplight_0259a5:
+        name: Living Room East
+        description: Living Room Ceiling Light East
+      group.patio_lights:
+        name: Patio Lights
+        description: Backyard Patio Lights
+        display_categories: LIGHT
       light.esplight_f87fe8:
         name: Black Lamp
         description: Black Lamp in Living Room
@@ -74,6 +93,10 @@ alexa:
       binary_sensor.pool_gate_contact:
         name: "Pool Gate"
         description: "Pool Gate"
+        display_categories: DOOR
+      binary_sensor.shed_door_contact:
+        name: "Shed"
+        description: "Shed Door"
         display_categories: DOOR
       alarm_control_panel.home_alarm:
         name: "Alarm"
@@ -108,7 +131,7 @@ alexa:
         display_categories: LIGHT
 
 mqtt:
-  discovery: true
+  discovery: false
   discovery_prefix: homeassistant
 
 http:
@@ -126,6 +149,20 @@ homeassistant:
 
 
 speedtestdotnet:
+
+light:
+  - platform: flux_led
+    devices:
+      magicled-CD4F26.bowman.com:
+        name: Black Cabinet Lights
+        mode: rgb
+        protocol: 'ledenet'
+  - platform: group
+    name: Hearth Room Lights
+    entities:
+      - light.hearth_room_east_light
+      - light.hearth_room_west_light
+
 
 binary_sensor:
   - platform: workday
@@ -202,10 +239,11 @@ meross_cloud:
   username: !secret meross_cloud_username
   password: !secret meross_cloud_password
 
-# yamaha receiver
 media_player:
+# yamaha receiver
   - platform: yamaha
     host: 'yamaha.bowman.com'
+# pandora for pool stereo
   - platform: pandora
 
 # roku
@@ -267,6 +305,8 @@ camera:
       - camera.pationorthcam
 
 switch:
+# switch to invert stated of officecam (off is no modetect, on is modetect)
+# so when office if "off" modetect is "on"
   - platform: template
     switches:
       officecam_state_inversion:
@@ -523,6 +563,12 @@ emulated_hue:
     input_boolean.boolean_pool_pandora:
       name: "Pool Stereo Pandora"
       hidden: false
+    light.415110852cf4320259a5:
+      name: "living room east"
+      hidden: false
+    light.41511085dc4f225c7251:
+      name: "living room west"
+      hidden: false
 
 envisalink:
   host: alarmpanel.bowman.com
@@ -601,6 +647,7 @@ entity_controller:
       - uptime
       - device_temp
       - rssi
+      - rssi_level
       - voltage
       - current_consumption
       - total_consumption
@@ -619,8 +666,8 @@ entity_controller:
       - binary_sensor.patiosouthcammotiondetected
       - binary_sensor.pool_gate_contact
     entities:
-      - light.03640182cc50e3f87dc9
-      - light.42728707cc50e3f8596d
+      - light.esplight_f87dc9
+      - light.esplight_f8596d
     delay: 300
     start_time: 'sunset + 00:10:00'
     end_time: 'sunrise - 00:10:00'
@@ -630,15 +677,6 @@ entity_controller:
     backoff_max: 1200
     overrides:
       - input_boolean.boolean_disable_patio_lights
-  test_lights:
-    sensor:
-      - binary_sensor.basement_door
-    entity: switch.shopcam_state
-    delay: 180
-    block_timeout: 7200
-    backoff: true
-    backoff_factor: 1.1
-    backoff_max: 1800
 
 #zha_map:
 

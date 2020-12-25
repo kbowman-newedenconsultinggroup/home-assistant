@@ -19,8 +19,13 @@ goodnight_wrapper:
     data:
       entity_id:
       - script.enablemodetect
-      - script.checkpoolgate
       - script.script_christmas_lights_turn_off
+      - script.checkpoolgate
+  - delay:
+      seconds: 2
+  - service: script.turn_on
+    data:
+      entity_id: script.checksheddoor
   - delay:
       seconds: 2
   - service: script.turn_on
@@ -86,6 +91,23 @@ checkpoolgate:
           message: The pool gate is open
       - service: input_boolean.turn_on
         entity_id: input_boolean.boolean_goodnight_script_error
+checksheddoor:
+  alias: Check Shed Door Status
+  sequence:
+    choose:
+    - conditions:
+      - condition: state
+        entity_id: binary_sensor.shed_door_contact
+        state: 'on'
+      sequence:
+      - service: notify.alexa_media
+        data:
+          data:
+            type: tts
+          target: group.Alexa
+          message: The shed door is open
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.boolean_goodnight_script_error
 goodnight_end:
   alias: GoodNight End
   sequence:
@@ -112,14 +134,14 @@ goodnight_end:
           type: tts
         target: group.Alexa
         message: Goodnight
-christmas_lights_turn_on_script:
+script_christmas_lights_turn_on:
   alias: Script Christmas Lights Turn On
   sequence:
   - service: homeassistant.turn_on
     data:
       entity_id: group.christmas_lights
   mode: single
-christmas_lights_turn_off_script:
+script_christmas_lights_turn_off:
   alias: Script Christmas Lights Turn Off
   sequence:
   - service: homeassistant.turn_off

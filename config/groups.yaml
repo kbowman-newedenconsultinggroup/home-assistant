@@ -41,17 +41,17 @@ interior_cameras_modetect:
 interior_lights:
   name: Interior Lights
   entities:
-    - light.415110852cf4320259a5
-    - light.41511085dc4f225c7251
-    - light.03640182cc50e3f87fe8
+    - light.esplight_f87fe8
+    - light.esplight_0259a5
+    - light.esplight_5c7251
 
 exterior_lights:
   name: Exterior Lights
   entities:
     - switch.shelly_shsw_25_b936ce_1
     - switch.shelly_shsw_25_b936ce_2
-    - light.42728707cc50e3f8596d
-    - light.03640182cc50e3f87dc9
+    - light.esplight_f8596d
+    - light.esplight_f87dc9
 
 christmas_lights:
   name: Christmas Lights
@@ -68,3 +68,16 @@ office:
   entities:
     - switch.computer
     - switch.officecam_state_inversion
+
+patio_lights:
+  name: Patio Lights
+  entities:
+    - light.esplight_f8596d
+    - light.esplight_f87dc9
+
+# Moved to light group in configuration.yaml
+#hearth_room_lights:
+#  name: Hearth Room Lights
+#  entities:
+#    - light.hearth_room_east_light
+#    - light.hearth_room_west_light
