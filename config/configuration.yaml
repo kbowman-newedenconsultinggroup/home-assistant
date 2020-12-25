@@ -5,9 +5,9 @@ default_config:
 logger:
 #  default: critical
   default: info
-  logs:
+#  logs:
 #    custom_components.entity_controller: debug
-    custom_components.localtuya: debug
+#    custom_components.localtuya: debug
 #    asyncio: debug
 #    homeassistant.core: debug
 #    homeassistant.components.zha: debug
@@ -46,24 +46,31 @@ alexa:
         - group.office
         - script.alarm_toggle_chime
         - light.esplight_f87fe8
-        - group.patio_lights
+        - light.patio_lights
         - light.esplight_0259a5
         - light.esplight_5c7251
+        - light.esplight_f8596d
+        - light.esplight_f87dc9
         - light.hearth_room_lights
     entity_config:
       light.hearth_room_lights:
         name: Hearth Room Lights
         description: Hearth Room Ceiling Lights
+      light.esplight_f8596d:
+        name: Patio North
+        description: Patio North Light
+      light.esplight_f87dc9:
+        name: Patio South
+        description: Patio South Light
       light.esplight_5c7251:
         name: Living Room West
         description: Living Room Ceiling Light West
       light.esplight_0259a5:
         name: Living Room East
         description: Living Room Ceiling Light East
-      group.patio_lights:
+      light.patio_lights:
         name: Patio Lights
         description: Backyard Patio Lights
-        display_categories: LIGHT
       light.esplight_f87fe8:
         name: Black Lamp
         description: Black Lamp in Living Room
@@ -162,6 +169,11 @@ light:
     entities:
       - light.hearth_room_east_light
       - light.hearth_room_west_light
+  - platform: group
+    name: Patio Lights
+    entities:
+      - light.esplight_f8596d
+      - light.esplight_f87dc9
 
 
 binary_sensor:

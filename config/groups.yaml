@@ -69,13 +69,13 @@ office:
     - switch.computer
     - switch.officecam_state_inversion
 
-patio_lights:
-  name: Patio Lights
-  entities:
-    - light.esplight_f8596d
-    - light.esplight_f87dc9
 
 # Moved to light group in configuration.yaml
+#patio_lights:
+#  name: Patio Lights
+#  entities:
+#    - light.esplight_f8596d
+#    - light.esplight_f87dc9
 #hearth_room_lights:
 #  name: Hearth Room Lights
 #  entities:
