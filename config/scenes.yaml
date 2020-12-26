@@ -7,17 +7,84 @@
 - id: Nighttime Scene
   name: Nighttime Scene
   entities:
-    media_player.yamaha_receiver:
-      friendly_name: Living Room Receiver
-      state: 'off'
-    media_player.yamaha_receiver_zone_2:
-      friendly_name: Kitchen Stereo
-      state: 'off'
     group.christmas_lights:
       friendly_name: Christmas Lights
       state: 'off'
+    media_player.yamaha_receiver:
+      source_list:
+      - AUDIO1
+      - AUDIO2
+      - AV1
+      - AV2
+      - AV3
+      - AV4
+      - AV5
+      - AV6
+      - AirPlay
+      - HDMI1
+      - HDMI2
+      - HDMI3
+      - HDMI4
+      - HDMI5
+      - NET RADIO
+      - Pandora
+      - Rhapsody
+      - SERVER
+      - SiriusXM
+      - Spotify
+      - TUNER
+      - USB
+      - V-AUX
+      - iPod (USB)
+      sound_mode_list:
+      - Hall in Munich
+      - Hall in Vienna
+      - Chamber
+      - Cellar Club
+      - The Roxy Theatre
+      - The Bottom Line
+      - Sports
+      - Action Game
+      - Roleplaying Game
+      - Music Video
+      - Standard
+      - Spectacle
+      - Sci-Fi
+      - Adventure
+      - Drama
+      - Mono Movie
+      - Surround Decoder
+      - 2ch Stereo
+      - 7ch Stereo
+      friendly_name: Yamaha Receiver
+      supported_features: 89005
+      state: 'off'
+    media_player.yamaha_receiver_zone_2:
+      source_list:
+      - AUDIO1
+      - AUDIO2
+      - AV5
+      - AV6
+      - AirPlay
+      - NET RADIO
+      - Pandora
+      - Rhapsody
+      - SERVER
+      - SiriusXM
+      - Spotify
+      - TUNER
+      - USB
+      - iPod (USB)
+      friendly_name: Yamaha Receiver Zone 2
+      supported_features: 89005
+      state: 'off'
     group.interior_lights:
-      friendly_name: Indoor Lights
+      entity_id:
+      - light.esplight_f87fe8
+      - light.esplight_0259a5
+      - light.esplight_5c7251
+      order: 6
+      friendly_name: Interior Lights
       state: 'off'
 - id: '1608262635582'
   name: Movie Time

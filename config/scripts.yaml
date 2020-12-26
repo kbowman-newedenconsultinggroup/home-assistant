@@ -19,8 +19,9 @@ goodnight_wrapper:
     data:
       entity_id:
       - script.enablemodetect
-      - script.script_christmas_lights_turn_off
       - script.checkpoolgate
+      - script.script_turn_off_lights
+      - script.script_christmas_lights_turn_off
   - delay:
       seconds: 2
   - service: script.turn_on
@@ -147,4 +148,38 @@ script_christmas_lights_turn_off:
   - service: homeassistant.turn_off
     data:
       entity_id: group.christmas_lights
+  mode: single
+script_turn_off_lights:
+  alias: Turn Off Lights
+  sequence:
+  - service: light.turn_off
+    data: {}
+    entity_id: light.esplight_0259a5
+  - service: light.turn_off
+    data: {}
+    entity_id: light.esplight_5c7251
+  - service: light.turn_off
+    data: {}
+    entity_id: light.esplight_f87fe8
+  - service: light.turn_off
+    data: {}
+    entity_id: light.patio_lights
+  - service: light.turn_off
+    data: {}
+    entity_id: light.shelly_shsw_25_b936ce_1
+  - service: light.turn_off
+    data: {}
+    entity_id: light.shelly_shsw_25_b936ce_2
+  - service: light.turn_on
+    data:
+      entity_id: light.dads_lamp
+      brightness: 35
+  - service: light.turn_on
+    data:
+      entity_id: light.moms_lamp
+      brightness: 35
+  - delay: '5'
+  - service: light.turn_off
+    data: {}
+    entity_id: light.hearth_room_lights
   mode: single

@@ -87,6 +87,34 @@
   action:
   - entity_id: switch.amzdestplug_left
     service: switch.turn_on
+- id: '1578864478428'
+  alias: Turn on Birdbath before sunrise if really freezing
+  description: ''
+  trigger:
+  - event: sunrise
+    offset: -02:15:00
+    platform: sun
+  condition:
+  - below: '22'
+    condition: numeric_state
+    entity_id: sensor.outside_temperature
+  action:
+  - entity_id: switch.amzdestplug_left
+    service: switch.turn_on
+- id: '1578864478429'
+  alias: Turn on Birdbath before sunrise if really really freezing
+  description: ''
+  trigger:
+  - event: sunrise
+    offset: -03:00:00
+    platform: sun
+  condition:
+  - below: '12'
+    condition: numeric_state
+    entity_id: sensor.outside_temperature
+  action:
+  - entity_id: switch.amzdestplug_left
+    service: switch.turn_on
 - id: alertwhenofficecammotiondetected
   alias: Alert when officecam motion detected
   description: officecam motionevent count increased

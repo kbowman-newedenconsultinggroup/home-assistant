@@ -52,7 +52,15 @@ alexa:
         - light.esplight_f8596d
         - light.esplight_f87dc9
         - light.hearth_room_lights
+        - light.moms_lamp
+        - light.dads_lamp
     entity_config:
+      light.moms_lamp:
+        name: Moms Lamp
+        description: Moms Bedroom Lamp
+      light.dads_lamp:
+        name: Dads Lamp
+        description: Dads Bedroom Lamp
       light.hearth_room_lights:
         name: Hearth Room Lights
         description: Hearth Room Ceiling Lights
@@ -174,6 +182,16 @@ light:
     entities:
       - light.esplight_f8596d
       - light.esplight_f87dc9
+  - platform: group
+    name: Moms Lamp
+    entities:
+      - light.moms_lamp_a_light
+      - light.moms_lamp_b_light
+  - platform: group
+    name: Dads Lamp
+    entities:
+      - light.dads_lamp_a_light
+      - light.dads_lamp_b_light
 
 
 binary_sensor:
@@ -568,19 +586,19 @@ timer:
     duration: '00:30:00'
 
 
-emulated_hue:
-  listen_port: 80
-  expose_by_default: false
-  entities:
-    input_boolean.boolean_pool_pandora:
-      name: "Pool Stereo Pandora"
-      hidden: false
-    light.415110852cf4320259a5:
-      name: "living room east"
-      hidden: false
-    light.41511085dc4f225c7251:
-      name: "living room west"
-      hidden: false
+#emulated_hue:
+#  listen_port: 80
+#  expose_by_default: false
+#  entities:
+#    input_boolean.boolean_pool_pandora:
+#      name: "Pool Stereo Pandora"
+#      hidden: false
+#    light.415110852cf4320259a5:
+#      name: "living room east"
+#      hidden: false
+#    light.41511085dc4f225c7251:
+#      name: "living room west"
+#      hidden: false
 
 envisalink:
   host: alarmpanel.bowman.com
