@@ -160,9 +160,6 @@ script_turn_off_lights:
     entity_id: light.esplight_5c7251
   - service: light.turn_off
     data: {}
-    entity_id: light.esplight_f87fe8
-  - service: light.turn_off
-    data: {}
     entity_id: light.patio_lights
   - service: light.turn_off
     data: {}
@@ -182,4 +179,7 @@ script_turn_off_lights:
   - service: light.turn_off
     data: {}
     entity_id: light.hearth_room_lights
+  - service: light.turn_off
+    data: {}
+    entity_id: light.esplight_f87fe8
   mode: single

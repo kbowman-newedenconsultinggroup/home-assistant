@@ -54,7 +54,11 @@ alexa:
         - light.hearth_room_lights
         - light.moms_lamp
         - light.dads_lamp
+        - light.upstairs_hallway
     entity_config:
+      light.upstairs_hallway:
+        name: Upstairs Hallway
+        description: Upstairs Hallway Ceiling Lights
       light.moms_lamp:
         name: Moms Lamp
         description: Moms Bedroom Lamp
@@ -192,6 +196,11 @@ light:
     entities:
       - light.dads_lamp_a_light
       - light.dads_lamp_b_light
+  - platform: group
+    name: Upstairs Hallway
+    entities:
+      - light.upstairs_hallway_north
+      - light.upstairs_hallway_south
 
 
 binary_sensor:
