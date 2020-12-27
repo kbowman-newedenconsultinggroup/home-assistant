@@ -199,8 +199,8 @@ light:
   - platform: group
     name: Upstairs Hallway
     entities:
-      - light.upstairs_hallway_north
-      - light.upstairs_hallway_south
+      - light.upstairs_hallway_north_light
+      - light.upstairs_hallway_south_light
 
 
 binary_sensor:

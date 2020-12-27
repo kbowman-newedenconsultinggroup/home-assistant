@@ -175,11 +175,20 @@ script_turn_off_lights:
     data:
       entity_id: light.moms_lamp
       brightness: 35
-  - delay: '5'
+  - delay: '3'
   - service: light.turn_off
     data: {}
     entity_id: light.hearth_room_lights
+  - delay: '2'
   - service: light.turn_off
     data: {}
     entity_id: light.esplight_f87fe8
+  - service: light.turn_on
+    data:
+      entity_id: light.upstairs_hallway
+      brightness: 65
+  - delay: '15'
+  - service: light.turn_off
+    data: {}
+    entity_id: light.upstairs_hallway
   mode: single
