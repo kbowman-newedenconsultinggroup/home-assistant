@@ -92,10 +92,10 @@
   description: ''
   trigger:
   - event: sunrise
-    offset: -02:15:00
+    offset: -02:30:00
     platform: sun
   condition:
-  - below: '22'
+  - below: '24'
     condition: numeric_state
     entity_id: sensor.outside_temperature
   action:
@@ -106,10 +106,10 @@
   description: ''
   trigger:
   - event: sunrise
-    offset: -03:00:00
+    offset: -03:30:00
     platform: sun
   condition:
-  - below: '12'
+  - below: '16'
     condition: numeric_state
     entity_id: sensor.outside_temperature
   action:
@@ -612,19 +612,77 @@
     to: 'on'
   condition:
   - condition: time
-    after: 07:00
-    before: 08:30
+    after: 06:00
+    before: 09:00
   - condition: state
     entity_id: input_boolean.boolean_alexa_goodnight
     state: 'on'
   action:
-  - delay: 00:00:10
+  - data: {}
+    entity_id: input_boolean.boolean_someone_is_awake
+    service: input_boolean.turn_on
   - data: {}
     entity_id: input_boolean.boolean_alexa_goodnight
     service: input_boolean.turn_off
+  - delay: 00:00:10
   - data: {}
     service: script.script_christmas_lights_turn_on
   - data: {}
     entity_id: automation.automation_to_turn_on_lights_in_the_morning
     service: automation.turn_off
+  mode: single
+- id: '1609082917885'
+  alias: Automation to override bedside lamps
+  description: Set boolean to tell alexa goodnight to not turn on the bedside lamps
+  trigger:
+  - platform: state
+    entity_id: light.moms_lamp
+    from: 'on'
+    to: 'off'
+  - platform: state
+    entity_id: light.dads_lamp
+    from: 'on'
+    to: 'off'
+  condition:
+  - condition: or
+    conditions:
+    - condition: time
+      after: '21:30:00'
+    - condition: time
+      before: 03:00:00
+  action:
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.boolean_disable_bedside_lamps
+  mode: single
+- id: '1609086996145'
+  alias: Automation forgot to tell Alexa Goodnight
+  description: 'Automation in the wee hours if we forgot to tell Alexa Goodnight'
+  trigger:
+  - platform: time
+    at: '03:30:00'
+  condition:
+  - condition: state
+    entity_id: input_boolean.boolean_alexa_goodnight
+    state: 'off'
+  action:
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.boolean_goodnight_script_error
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.boolean_alexa_goodnight
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.boolean_disable_bedside_lamps
+  - service: script.turn_on
+    data:
+      entity_id:
+        script.enablemodetect
+        script.checkgaragedoors
+        script.script_turn_off_lights_goodnight
+        script.script_christmas_lights_turn_off
+  - service: input_boolean.turn_on
+    data:
+      entity_id: input_boolean.boolean_goodnight_script_error
   mode: single

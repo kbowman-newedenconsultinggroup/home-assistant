@@ -55,7 +55,12 @@ alexa:
         - light.moms_lamp
         - light.dads_lamp
         - light.upstairs_hallway
+        - switch.living_room_tree
     entity_config:
+      switch.living_room_tree:
+        name: "Living Room Christmas Tree"
+        description: "Christmas Tree in the living room"
+        display_categories: LIGHT
       light.upstairs_hallway:
         name: Upstairs Hallway
         description: Upstairs Hallway Ceiling Lights
@@ -154,7 +159,7 @@ mqtt:
   discovery_prefix: homeassistant
 
 http:
-  base_url: homeassistant.bowman.com:8123
+#  base_url: homeassistant.bowman.com:8123
 
 homeassistant:
   unit_system: imperial
@@ -256,6 +261,9 @@ input_boolean:
   boolean_disable_patio_lights:
     name: Boolean to override patio lights
     initial: off
+  boolean_disable_bedside_lamps:
+    name: Boolean to override bedside lamps
+    initial: off
   boolean_alexa_goodnight:
     name: Boolean to indicate Alexa Goodnight routine started
     initial: off
@@ -286,15 +294,15 @@ media_player:
   - platform: pandora
 
 # roku
-roku:
+#roku:
 # livingroom - why doesn't this work with DNS??? AARGHHHH!!
-  - host: 192.168.0.76
+#  - host: 192.168.0.76
 # masterbedroom
 #  - host: 192.168.0.71
 # hearthroom
-  - host: 192.168.0.55
+#  - host: 192.168.0.55
 # kelsey
-  - host: 192.168.0.72
+#  - host: 192.168.0.72
 
 camera:
   - platform: generic
@@ -671,6 +679,10 @@ entity_controller:
       - current_consumption
       - total_consumption
       - supported_features
+      - has_firmware_update
+      - latest_fw_version
+      - firmware_version
+      - latest_beta_fw_version
     delay: 180
     block_timeout: 7200
     backoff: true
@@ -691,6 +703,10 @@ entity_controller:
       - current_consumption
       - total_consumption
       - supported_features
+      - has_firmware_update
+      - latest_fw_version
+      - firmware_version
+      - latest_beta_fw_version
     delay: 420
     start_time: 'sunset + 00:10:00'
     end_time: 'sunrise - 00:10:00'

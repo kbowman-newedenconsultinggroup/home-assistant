@@ -8,32 +8,34 @@ alarmtogglechime:
 goodnight_wrapper:
   alias: GoodNight Wrapper Script
   sequence:
+  - scene: scene.nighttime_scene
   - service: input_boolean.turn_off
     data: {}
     entity_id: input_boolean.boolean_goodnight_script_error
   - service: input_boolean.turn_on
     data: {}
     entity_id: input_boolean.boolean_alexa_goodnight
-  - scene: scene.nighttime_scene
+  - service: media_player.turn_off
+    data:
+      entity_id:
+      - media_player.yamaha_receiver
+      - media_player.yamaha_receiver_zone_2
   - service: script.turn_on
     data:
       entity_id:
       - script.enablemodetect
       - script.checkpoolgate
-      - script.script_turn_off_lights
+      - script.script_turn_off_lights_goodnight
       - script.script_christmas_lights_turn_off
-  - delay:
-      seconds: 2
+  - delay: '2'
   - service: script.turn_on
     data:
       entity_id: script.checksheddoor
-  - delay:
-      seconds: 2
+  - delay: '2'
   - service: script.turn_on
     data:
       entity_id: script.checkgaragedoors
-  - delay:
-      seconds: 2
+  - delay: '2'
   - service: script.turn_on
     data:
       entity_id: script.goodnight_end
@@ -112,7 +114,7 @@ checksheddoor:
 goodnight_end:
   alias: GoodNight End
   sequence:
-    choose:
+  - choose:
     - conditions:
       - condition: state
         entity_id: input_boolean.boolean_goodnight_script_error
@@ -149,46 +151,53 @@ script_christmas_lights_turn_off:
     data:
       entity_id: group.christmas_lights
   mode: single
-script_turn_off_lights:
-  alias: Turn Off Lights
+script_turn_off_lights_goodnight:
+  alias: Turn Off Lights at Alexa Goodnight
   sequence:
-  - service: light.turn_off
-    data: {}
-    entity_id: light.esplight_0259a5
-  - service: light.turn_off
-    data: {}
-    entity_id: light.esplight_5c7251
-  - service: light.turn_off
-    data: {}
-    entity_id: light.patio_lights
-  - service: light.turn_off
-    data: {}
-    entity_id: light.shelly_shsw_25_b936ce_1
-  - service: light.turn_off
-    data: {}
-    entity_id: light.shelly_shsw_25_b936ce_2
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_boolean.boolean_disable_bedside_lamps
+        state: 'off'
+      sequence:
+      - service: light.turn_on
+        data:
+          entity_id: light.dads_lamp
+          brightness: 35
+      - service: light.turn_on
+        data:
+          entity_id: light.moms_lamp
+          brightness: 45
   - service: light.turn_on
     data:
-      entity_id: light.dads_lamp
-      brightness: 35
-  - service: light.turn_on
+      entity_id: light.esplight_f87fe8
+      brightness: 100
+  - service: light.turn_off
     data:
-      entity_id: light.moms_lamp
-      brightness: 35
-  - delay: '3'
-  - service: light.turn_off
-    data: {}
-    entity_id: light.hearth_room_lights
-  - delay: '2'
-  - service: light.turn_off
-    data: {}
-    entity_id: light.esplight_f87fe8
+      entity_id:
+      - light.esplight_0259a5
+      - light.esplight_5c7251
+      - light.patio_lights
+      - light.shelly_shsw_25_b936ce_1
+      - light.shelly_shsw_25_b936ce_2
   - service: light.turn_on
     data:
       entity_id: light.upstairs_hallway
-      brightness: 65
-  - delay: '15'
+      brightness: 85
+#      kelvin: 2700
+  - delay: '3'
   - service: light.turn_off
-    data: {}
-    entity_id: light.upstairs_hallway
+    data:
+      entity_id: light.hearth_room_lights
+      transition: 3
+  - delay: '2'
+  - service: light.turn_off
+    data:
+      entity_id: light.esplight_f87fe8
+      transition: 3
+  - delay: '10'
+  - service: light.turn_off
+    data:
+      entity_id: light.upstairs_hallway
+      transition: 3
   mode: single
