@@ -54,16 +54,12 @@ alexa:
         - light.hearth_room_lights
         - light.moms_lamp
         - light.dads_lamp
-        - light.upstairs_hallway
         - switch.living_room_tree
     entity_config:
       switch.living_room_tree:
         name: "Living Room Christmas Tree"
         description: "Christmas Tree in the living room"
         display_categories: LIGHT
-      light.upstairs_hallway:
-        name: Upstairs Hallway
-        description: Upstairs Hallway Ceiling Lights
       light.moms_lamp:
         name: Moms Lamp
         description: Moms Bedroom Lamp
@@ -201,11 +197,6 @@ light:
     entities:
       - light.dads_lamp_a_light
       - light.dads_lamp_b_light
-  - platform: group
-    name: Upstairs Hallway
-    entities:
-      - light.upstairs_hallway_north_light
-      - light.upstairs_hallway_south_light
 
 
 binary_sensor:
@@ -732,6 +723,18 @@ entity_controller:
     backoff_max: 1200
     overrides:
       - input_boolean.boolean_disable_patio_lights
+  basement_lights:
+    sensor:
+      - binary_sensor.basement_door
+    entities:
+      - light.basement_light
+    delay: 300
+    start_time: 'sunset'
+    end_time: 'sunrise'
+    block_timeout: 1800
+    backoff: true
+    backoff_factor: 1
+    backoff_max: 1800
 
 #zha_map:
 
