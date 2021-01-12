@@ -55,7 +55,11 @@ alexa:
         - light.moms_lamp
         - light.dads_lamp
         - switch.living_room_tree
+        - light.red_lamp
     entity_config:
+      light.red_lamp:
+        name: Red Lamp
+        description: Living Room Red and Black Lamp
       switch.living_room_tree:
         name: "Living Room Christmas Tree"
         description: "Christmas Tree in the living room"

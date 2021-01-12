@@ -9,6 +9,10 @@ goodnight_wrapper:
   alias: GoodNight Wrapper Script
   sequence:
   - scene: scene.nighttime_scene
+  - data:
+      entity_id:
+      - switch.amzdestplug_left
+    service: switch.turn_off
   - service: input_boolean.turn_off
     data: {}
     entity_id: input_boolean.boolean_goodnight_script_error
@@ -180,9 +184,10 @@ script_turn_off_lights_goodnight:
       - light.patio_lights
       - light.shelly_shsw_25_b936ce_1
       - light.shelly_shsw_25_b936ce_2
+      - light.red_lamp
   - service: light.turn_on
     data:
-      entity_id: light.upstairs_hallway
+      entity_id: light.upstairs_hallway_south
       brightness: 85
 #      kelvin: 2700
   - delay: '3'
@@ -198,6 +203,6 @@ script_turn_off_lights_goodnight:
   - delay: '10'
   - service: light.turn_off
     data:
-      entity_id: light.upstairs_hallway
+      entity_id: light.upstairs_hallway_south
       transition: 3
   mode: single

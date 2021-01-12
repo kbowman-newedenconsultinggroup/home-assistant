@@ -10,6 +10,7 @@ alexa:
   entities:
     - media_player.jennifer_s_echo_dot
     - media_player.jennifer_s_echo_plus
+#    - media_player.jennifer_s_echo_flex
 
 garage_doors:
   name: Garage Doors
@@ -44,6 +45,7 @@ interior_lights:
     - light.esplight_f87fe8
     - light.esplight_0259a5
     - light.esplight_5c7251
+    - light.red_lamp
 
 exterior_lights:
   name: Exterior Lights
