@@ -167,11 +167,11 @@ script_turn_off_lights_goodnight:
       - service: light.turn_on
         data:
           entity_id: light.dads_lamp
-          brightness: 35
+          brightness: 25
       - service: light.turn_on
         data:
           entity_id: light.moms_lamp
-          brightness: 45
+          brightness: 35
   - service: light.turn_on
     data:
       entity_id: light.esplight_f87fe8
@@ -185,24 +185,36 @@ script_turn_off_lights_goodnight:
       - light.shelly_shsw_25_b936ce_1
       - light.shelly_shsw_25_b936ce_2
       - light.red_lamp
+      - light.tasmota_5308
+      - light.tasmota_3878
   - service: light.turn_on
     data:
       entity_id: light.upstairs_hallway_south
-      brightness: 85
-#      kelvin: 2700
-  - delay: '3'
+      brightness: 75
+  - delay: '5'
   - service: light.turn_off
     data:
       entity_id: light.hearth_room_lights
-      transition: 3
-  - delay: '2'
+      transition: 5
+  - delay: '10'
   - service: light.turn_off
     data:
       entity_id: light.esplight_f87fe8
-      transition: 3
+      transition: 5
   - delay: '10'
   - service: light.turn_off
     data:
       entity_id: light.upstairs_hallway_south
       transition: 3
+  mode: single
+desk_lights_white:
+  alias: Desk Lights White
+  sequence:
+  - service: light.turn_on
+    data:
+      rgb_color:
+      - 255
+      - 169
+      - 72
+    entity_id: light.tasmota_5308
   mode: single

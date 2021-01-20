@@ -56,7 +56,12 @@ alexa:
         - light.dads_lamp
         - switch.living_room_tree
         - light.red_lamp
+        - light.tasmota_5308
+        - script.desk_lights_white
     entity_config:
+      light.tasmota_5308:
+        name: Desk
+        description: Hearth Room Desk Lights
       light.red_lamp:
         name: Red Lamp
         description: Living Room Red and Black Lamp
@@ -103,6 +108,9 @@ alexa:
       media_player.yamaha_receiver_zone_2:
         name: "Kitchen Stereo"
         description: "Ceiling Speakers in Kitchen"
+      script.desk_lights_white:
+        name: "Liquor Cabinet Lights"
+        description: "Change the Liquor Cabinet Lights White"
       script.goodnight_wrapper:
         name: "Goodnight Wrapper"
         description: "Home Assistant Goodnight Wrapper Script"
@@ -267,6 +275,9 @@ input_boolean:
     initial: off
   boolean_someone_is_awake:
     name: Boolean to track when someone gets up and comes downstairs
+    initial: off
+  boolean_set_liquor_cabinet_lights_warm_white:
+    name: Boolean to track when someone asks Alexa to change color of liquor cabinet lights
     initial: off
 
 # Smart Life Devices - moved to gui integrations

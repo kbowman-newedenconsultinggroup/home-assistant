@@ -619,6 +619,9 @@
   - data: {}
     entity_id: input_boolean.boolean_alexa_goodnight
     service: input_boolean.turn_off
+  - data: {}
+    entity_id: input_boolean.boolean_disable_bedside_lamps
+    service: input_boolean.turn_off
   - delay: 00:00:10
   - data: {}
     service: script.script_christmas_lights_turn_on
@@ -695,6 +698,12 @@
       - 255
       - 187
       - 120
+# rgb for kelsey warm white
+# 255,149,0
+# for the desk
+# 143, 96, 40
+# really for the desk
+# hsbcolor = 35,75,100
       transition: 3
   mode: single
 - id: '1609537772441'
