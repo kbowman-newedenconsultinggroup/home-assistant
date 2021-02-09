@@ -46,6 +46,7 @@ interior_lights:
     - light.esplight_0259a5
     - light.esplight_5c7251
     - light.red_lamp
+    - light.black_lamp
 
 exterior_lights:
   name: Exterior Lights
@@ -70,7 +71,7 @@ office:
   entities:
     - switch.computer
     - switch.officecam_state_inversion
-
+    - light.esplight_f87fe8
 
 # Moved to light group in configuration.yaml
 #patio_lights:

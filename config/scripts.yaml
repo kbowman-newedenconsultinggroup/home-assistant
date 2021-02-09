@@ -174,19 +174,21 @@ script_turn_off_lights_goodnight:
           brightness: 35
   - service: light.turn_on
     data:
-      entity_id: light.esplight_f87fe8
+      entity_id: light.black_lamp
       brightness: 100
   - service: light.turn_off
     data:
       entity_id:
       - light.esplight_0259a5
       - light.esplight_5c7251
+      - light.esplight_f87fe8
       - light.patio_lights
       - light.shelly_shsw_25_b936ce_1
       - light.shelly_shsw_25_b936ce_2
       - light.red_lamp
       - light.tasmota_5308
       - light.tasmota_3878
+      - light.front_outside_garage_light
   - service: light.turn_on
     data:
       entity_id: light.upstairs_hallway_south
@@ -199,7 +201,7 @@ script_turn_off_lights_goodnight:
   - delay: '10'
   - service: light.turn_off
     data:
-      entity_id: light.esplight_f87fe8
+      entity_id: light.black_lamp
       transition: 5
   - delay: '10'
   - service: light.turn_off

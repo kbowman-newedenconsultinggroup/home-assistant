@@ -29,7 +29,6 @@ alexa:
     filter:
       include_entities:
         - light.shelly_shsw_25_b936ce_1
-        - light.shelly_shsw_25_b936ce_2
         - switch.office_plug
         - switch.computer
         - cover.small_garage_door
@@ -56,14 +55,26 @@ alexa:
         - light.dads_lamp
         - switch.living_room_tree
         - light.red_lamp
+        - light.black_lamp
         - light.tasmota_5308
         - script.desk_lights_white
+        - light.front_outside_lights
+        - light.tasmota_4530
     entity_config:
+      light.tasmota_4530:
+        name: Black Cabinet
+        description: Living Room Black Cabinet lights
+      light.front_outside_lights:
+        name: Front Outside Lights
+        description: Front Outside Lights
       light.tasmota_5308:
         name: Desk
         description: Hearth Room Desk Lights
       light.red_lamp:
         name: Red Lamp
+        description: Living Room Red and Black Lamp
+      light.black_lamp:
+        name: Black Lamp
         description: Living Room Red and Black Lamp
       switch.living_room_tree:
         name: "Living Room Christmas Tree"
@@ -94,8 +105,8 @@ alexa:
         name: Patio Lights
         description: Backyard Patio Lights
       light.esplight_f87fe8:
-        name: Black Lamp
-        description: Black Lamp in Living Room
+        name: Office Lamp
+        description: Office Lamp
       script.alarm_toggle_chime:
         name: Door Chime
         description: Alarm Door Open and Close Beep"
@@ -209,6 +220,11 @@ light:
     entities:
       - light.dads_lamp_a_light
       - light.dads_lamp_b_light
+  - platform: group
+    name: Front Outside Lights
+    entities:
+      - light.shelly_shsw_25_b936ce_1
+      - light.front_outside_garage_light
 
 
 binary_sensor:
@@ -699,7 +715,9 @@ entity_controller:
       - binary_sensor.front_door
       - binary_sensor.frontdoorcammotiondetected
       - binary_sensor.garage_walk_in_door_contact
-    entity: light.shelly_shsw_25_b936ce_1
+    entities:
+      - light.shelly_shsw_25_b936ce_1
+      - light.front_outside_garage_light
     state_attributes_ignore:
       - uptime
       - device_temp
