@@ -175,7 +175,11 @@ script_turn_off_lights_goodnight:
   - service: light.turn_on
     data:
       entity_id: light.black_lamp
-      brightness: 100
+      brightness: 90
+  - service: light.turn_on
+    data:
+      entity_id: light.hearth_room_lights
+      brightness: 50
   - service: light.turn_off
     data:
       entity_id:
@@ -188,7 +192,11 @@ script_turn_off_lights_goodnight:
       - light.red_lamp
       - light.tasmota_5308
       - light.tasmota_3878
+      - light.tasmota_4530
       - light.front_outside_garage_light
+  - service: script.turn_on
+    data:
+      entity_id: mantellights32_goodnight
   - service: light.turn_on
     data:
       entity_id: light.upstairs_hallway_south
@@ -203,7 +211,7 @@ script_turn_off_lights_goodnight:
     data:
       entity_id: light.black_lamp
       transition: 5
-  - delay: '10'
+  - delay: '15'
   - service: light.turn_off
     data:
       entity_id: light.upstairs_hallway_south
@@ -219,4 +227,49 @@ desk_lights_white:
       - 169
       - 72
     entity_id: light.tasmota_5308
+  mode: single
+mantellights32_goodnight:
+  alias: Mantellights32 Goodnight
+  sequence:
+  - service: mqtt.publish
+    data:
+      topic: cmnd/mantellights32/POWER
+      payload: 'OFF'
+      retain: true
+  - service: mqtt.publish
+    data:
+      topic: cmnd/mantellights32/DeepSleepTime
+      payload: 7200
+      retain: true
+  mode: single
+mantellights32_goodmorning:
+  alias: Mantellights32 Goodmorning
+  sequence:
+  - service: mqtt.publish
+    data:
+      topic: cmnd/mantellights32/DeepSleepTime
+      payload: 900
+      retain: true
+  mode: single
+sunrise_actions:
+  alias: Sunrise Actions
+  sequence:
+  - service: fullykiosk.set_config
+    data:
+      entity_id: media_player.jennifer_s_5th_fire_media_player
+      config_type: string
+      key: screenBrightness
+      value: '150'
+  - service: fullykiosk.set_config
+    data:
+      entity_id: media_player.jennifer_s_5th_fire_media_player
+      config_type: string
+      key: screensaverBrightness
+      value: '100'
+  - service: fullykiosk.set_config
+    data:
+      entity_id: media_player.jennifer_s_5th_fire_media_player
+      config_type: string
+      key: timeToScreensaverV2
+      value: '120'
   mode: single

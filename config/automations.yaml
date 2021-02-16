@@ -123,7 +123,8 @@
     platform: state
   condition:
   - condition: template
-    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int }} '
+    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+      }} '
   action:
   - data_template:
       data:
@@ -139,7 +140,8 @@
     platform: state
   condition:
   - condition: template
-    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int }} '
+    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+      }} '
   action:
   - data_template:
       data:
@@ -155,7 +157,8 @@
     platform: state
   condition:
   - condition: template
-    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int }} '
+    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+      }} '
   action:
   - data_template:
       data:
@@ -171,7 +174,8 @@
     platform: state
   condition:
   - condition: template
-    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int }} '
+    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+      }} '
   action:
   - data_template:
       data:
@@ -187,7 +191,8 @@
     platform: state
   condition:
   - condition: template
-    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int }} '
+    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+      }} '
   action:
   - data_template:
       data:
@@ -622,6 +627,8 @@
   - data: {}
     entity_id: input_boolean.boolean_disable_bedside_lamps
     service: input_boolean.turn_off
+  - data: {}
+    service: script.mantellights32_goodmorning
   - delay: 00:00:10
   - data: {}
     service: script.script_christmas_lights_turn_on
@@ -647,11 +654,29 @@
     - condition: time
       after: '21:30:00'
     - condition: time
-      before: 03:00:00
+      before: 04:00:00
   action:
   - service: input_boolean.turn_on
     data:
       entity_id: input_boolean.boolean_disable_bedside_lamps
+  - service: fullykiosk.set_config
+    data:
+      entity_id: media_player.jennifer_s_5th_fire_media_player
+      config_type: string
+      key: screenBrightness
+      value: '5'
+  - service: fullykiosk.set_config
+    data:
+      entity_id: media_player.jennifer_s_5th_fire_media_player
+      config_type: string
+      key: screensaverBrightness
+      value: '0'
+  - service: fullykiosk.set_config
+    data:
+      entity_id: media_player.jennifer_s_5th_fire_media_player
+      config_type: string
+      key: timeToScreensaverV2
+      value: '10'
   mode: single
 - id: '1609086996145'
   alias: Automation forgot to tell Alexa Goodnight
@@ -693,17 +718,13 @@
   - service: light.turn_on
     data_template:
       entity_id: light.tasmota_3878
-      brightness: '{% if states.sun.sun.attributes.elevation <= -15 %}10{% elif states.sun.sun.attributes.elevation <= -5 %}50{% elif states.sun.sun.attributes.elevation <= 5 %}100{% elif states.sun.sun.attributes.elevation <= 10%}150{% else %}200{% endif %}'
+      brightness: '{% if states.sun.sun.attributes.elevation <= -15 %}10{% elif states.sun.sun.attributes.elevation
+        <= -5 %}50{% elif states.sun.sun.attributes.elevation <= 5 %}100{% elif states.sun.sun.attributes.elevation
+        <= 10%}150{% else %}200{% endif %}'
       rgb_color:
       - 255
       - 187
       - 120
-# rgb for kelsey warm white
-# 255,149,0
-# for the desk
-# 143, 96, 40
-# really for the desk
-# hsbcolor = 35,75,100
       transition: 3
   mode: single
 - id: '1609537772441'
@@ -718,7 +739,9 @@
   - service: light.turn_on
     data_template:
       entity_id: light.tasmota_3878
-      brightness: '{% if states.sun.sun.attributes.elevation <= -15 %}10{% elif states.sun.sun.attributes.elevation <= -5 %}50{% elif states.sun.sun.attributes.elevation <= 5 %}100{% elif states.sun.sun.attributes.elevation <= 10%}150{% else %}200{% endif %}'
+      brightness: '{% if states.sun.sun.attributes.elevation <= -15 %}10{% elif states.sun.sun.attributes.elevation
+        <= -5 %}50{% elif states.sun.sun.attributes.elevation <= 5 %}100{% elif states.sun.sun.attributes.elevation
+        <= 10%}150{% else %}200{% endif %}'
       rgb_color:
       - 230
       - 231
@@ -737,7 +760,9 @@
   - service: light.turn_on
     data_template:
       entity_id: light.tasmota_3878
-      brightness: '{% if states.sun.sun.attributes.elevation <= -15 %}10{% elif states.sun.sun.attributes.elevation <= -5 %}50{% elif states.sun.sun.attributes.elevation <= 5 %}100{% elif states.sun.sun.attributes.elevation <= 10%}150{% else %}200{% endif %}'
+      brightness: '{% if states.sun.sun.attributes.elevation <= -15 %}10{% elif states.sun.sun.attributes.elevation
+        <= -5 %}50{% elif states.sun.sun.attributes.elevation <= 5 %}100{% elif states.sun.sun.attributes.elevation
+        <= 10%}150{% else %}200{% endif %}'
       rgb_color:
       - 245
       - 187
@@ -756,10 +781,24 @@
   - service: light.turn_on
     data_template:
       entity_id: light.tasmota_3878
-      brightness: '{% if states.sun.sun.attributes.elevation <= -15 %}10{% elif states.sun.sun.attributes.elevation <= -5 %}50{% elif states.sun.sun.attributes.elevation <= 5 %}100{% elif states.sun.sun.attributes.elevation <= 10%}150{% else %}200{% endif %}'
+      brightness: '{% if states.sun.sun.attributes.elevation <= -15 %}10{% elif states.sun.sun.attributes.elevation
+        <= -5 %}50{% elif states.sun.sun.attributes.elevation <= 5 %}100{% elif states.sun.sun.attributes.elevation
+        <= 10%}150{% else %}200{% endif %}'
       rgb_color:
       - 255
       - 249
       - 253
       transition: 3
+  mode: single
+- id: '1613438041232'
+  alias: Automation for Sunrise Actions
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: -00:15:00
+  condition: []
+  action:
+  - service: script.sunrise_actions
+    data: {}
   mode: single
