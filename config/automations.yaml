@@ -664,7 +664,7 @@
       entity_id: media_player.jennifer_s_5th_fire_media_player
       config_type: string
       key: screenBrightness
-      value: '5'
+      value: '0'
   - service: fullykiosk.set_config
     data:
       entity_id: media_player.jennifer_s_5th_fire_media_player

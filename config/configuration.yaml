@@ -333,25 +333,25 @@ camera:
 
   - platform: zoneminder
   - platform: generic
-    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.officecammotionevent') }}&fid=snapshot
+    still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.officecammotionevent') }}&fid=snapshot
     name: 'LastofficecamMotionEvent'
   - platform: generic
-    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.shopcammotionevent') }}&fid=snapshot
+    still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.shopcammotionevent') }}&fid=snapshot
     name: 'LastshopcamMotionEvent'
   - platform: generic
-    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.garagecammotionevent') }}&fid=snapshot
+    still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.garagecammotionevent') }}&fid=snapshot
     name: 'LastgaragecamMotionEvent'
   - platform: generic
-    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.frontdoorcammotionevent') }}&fid=snapshot
+    still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.frontdoorcammotionevent') }}&fid=snapshot
     name: 'LastfrontdoorcamMotionEvent'
   - platform: generic
-    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.drivewaycammotionevent') }}&fid=snapshot
+    still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.drivewaycammotionevent') }}&fid=snapshot
     name: 'LastdrivewaycamMotionEvent'
   - platform: generic
-    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.patiosouthcammotionevent') }}&fid=snapshot
+    still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.patiosouthcammotionevent') }}&fid=snapshot
     name: 'LastpatiosouthcamMotionEvent'
   - platform: generic
-    still_image_url: http://zoneminder.bowman.com:8080/zm/index.php?view=image&eid={{ states('sensor.pationorthcammotionevent') }}&fid=snapshot
+    still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.pationorthcammotionevent') }}&fid=snapshot
     name: 'LastpationorthcamMotionEvent'
   - platform: combined
 #    base_address: https://franzkafka.duckdns.org:8080
@@ -412,7 +412,7 @@ switch:
 
 # Zoneminder
 zoneminder:
-  - host: zoneminder.bowman.com:8080
+  - host: zoneminder.bowman.com
 
 # Text to speech
 tts:
