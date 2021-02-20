@@ -13,3 +13,5 @@ config
 !haproxy/haproxy.cfg
 haproxy/servercert/
 haproxy/cert/
+!config/appdaemon/custom_css/bowman/
+!config/appdaemon/dashboards/
