@@ -8,7 +8,6 @@ alarmtogglechime:
 goodnight_wrapper:
   alias: GoodNight Wrapper Script
   sequence:
-  - scene: scene.nighttime_scene
   - data:
       entity_id:
       - switch.amzdestplug_left
@@ -196,7 +195,7 @@ script_turn_off_lights_goodnight:
       - light.front_outside_garage_light
   - service: script.turn_on
     data:
-      entity_id: mantellights32_goodnight
+      entity_id: script.mantellights32_goodnight
   - service: light.turn_on
     data:
       entity_id: light.upstairs_hallway_south

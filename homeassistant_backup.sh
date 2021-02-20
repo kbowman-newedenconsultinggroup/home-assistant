@@ -41,7 +41,7 @@ if [ -d "${BACKUP_FOLDER}" ]; then
                 log i "Keeping all files no prunning set"
         else
                 log i "Deleting backups older then ${DAYSTOKEEP} day(s)"
-                OLDFILES=$(find ${BACKUP_FOLDER}/ -mindepth 1 -name 'hass-config*'-mtime +${DAYSTOKEEP} -delete -print)
+                OLDFILES=$(find ${BACKUP_FOLDER}/ -mindepth 1 -name 'hass-config*' -mtime +${DAYSTOKEEP} -delete -print)
                 if [ ! -z "${OLDFILES}" ] ; then
                         log i "Found the following old files:"
                         echo "${OLDFILES}"

@@ -734,7 +734,7 @@ entity_controller:
     delay: 420
     start_time: 'sunset + 00:10:00'
     end_time: 'sunrise - 00:10:00'
-    block_timeout: 28800
+    block_timeout: 21600
     backoff: true
     backoff_factor: 1.25
     backoff_max: 900
@@ -750,7 +750,7 @@ entity_controller:
     delay: 300
     start_time: 'sunset + 00:10:00'
     end_time: 'sunrise - 00:10:00'
-    block_timeout: 28800
+    block_timeout: 21600
     backoff: true
     backoff_factor: 1
     backoff_max: 1200
