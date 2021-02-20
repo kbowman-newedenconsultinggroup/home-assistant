@@ -8,10 +8,11 @@ secrets.yaml
 passwd
 known_devices.yaml
 !root/**
+!appdaemon/conf/custom_css/bowman/**
+!appdaemon/conf/dashboards/*.dash
+appdaemon/conf/compiled/
 config
 .bash_history
 !haproxy/haproxy.cfg
 haproxy/servercert/
 haproxy/cert/
-!config/appdaemon/custom_css/bowman/
-!config/appdaemon/dashboards/

@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+    appdaemon:
+        ports:
+            - '5050:5050'
+        environment:
+            - 'HA_URL=http://homeassistant.bowman.com:8123'
+            - 'TOKEN=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJjMjJhMzM3ODExNjY0YjMxOTAxMDg1ZTc3YzRkNjZjOCIsImlhdCI6MTYxMzM0NjgwMywiZXhwIjoxOTI4NzA2ODAzfQ.3TqPu3gWNroO5LbKsAe6NjrZ9X4Exi8BctAvZmCAT2U'
+            - 'DASH_URL=http://hadashboard.bowman.com:5050'
+        volumes:
+            - '/etc/homeassistant/appdaemon/conf:/conf'
+        image: 'acockburn/appdaemon:latest'
+        restart: always
+
