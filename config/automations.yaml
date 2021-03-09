@@ -700,8 +700,11 @@
       entity_id: input_boolean.boolean_disable_bedside_lamps
   - service: script.turn_on
     data:
-      entity_id: script.enablemodetect script.checkgaragedoors script.script_turn_off_lights_goodnight
-        script.script_christmas_lights_turn_off
+      entity_id:
+      - script.enablemodetect
+      - script.checkgaragedoors
+      - script.script_turn_off_lights_goodnight
+      - script.script_christmas_lights_turn_off
   - service: input_boolean.turn_on
     data:
       entity_id: input_boolean.boolean_goodnight_script_error

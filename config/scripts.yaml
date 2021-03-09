@@ -238,7 +238,7 @@ mantellights32_goodnight:
   - service: mqtt.publish
     data:
       topic: cmnd/mantellights32/DeepSleepTime
-      payload: 7200
+      payload: 14400
       retain: true
   mode: single
 mantellights32_goodmorning:
@@ -247,7 +247,7 @@ mantellights32_goodmorning:
   - service: mqtt.publish
     data:
       topic: cmnd/mantellights32/DeepSleepTime
-      payload: 900
+      payload: 7200
       retain: true
   mode: single
 sunrise_actions:
