@@ -194,12 +194,12 @@ homeassistant:
 speedtestdotnet:
 
 light:
-  - platform: flux_led
-    devices:
-      magicled-CD4F26.bowman.com:
-        name: Black Cabinet Lights
-        mode: rgb
-        protocol: 'ledenet'
+#  - platform: flux_led
+#    devices:
+#      magicled-CD4F26.bowman.com:
+#        name: Black Cabinet Lights
+#        mode: rgb
+#        protocol: 'ledenet'
   - platform: group
     name: Hearth Room Lights
     entities:
@@ -225,7 +225,27 @@ light:
     entities:
       - light.shelly_shsw_25_b936ce_1
       - light.front_outside_garage_light
-
+      - light.front_step_light
+  - platform: template
+    lights:
+      shelly_shsw_25_b936ce_1:
+        value_template: "{{ states('switch.shelly_shsw_25_b936ce_1') }}"
+        turn_on:
+          service: switch.turn_on
+          entity_id: switch.shelly_shsw_25_b936ce_1
+        turn_off:
+          service: switch.turn_off
+          entity_id: switch.shelly_shsw_25_b936ce_1
+  - platform: template
+    lights:
+      shelly_shsw_25_b936ce_2:
+        value_template: "{{ states('switch.shelly_shsw_25_b936ce_2') }}"
+        turn_on:
+          service: switch.turn_on
+          entity_id: switch.shelly_shsw_25_b936ce_2
+        turn_off:
+          service: switch.turn_off
+          entity_id: switch.shelly_shsw_25_b936ce_2
 
 binary_sensor:
   - platform: workday
@@ -328,7 +348,7 @@ media_player:
 
 camera:
   - platform: generic
-    still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?num=1&type=N0R&mapx=400&mapy=240&brand=wui&delay=15&frame=0&scale=1&transx=0&transy=0&severe=1&smooth=0&centerx=400&centery=240&station=EAX&rainsnow=1&lightning=0&noclutter=0&showlabels=1&showstorms=0&rand=26392541'
+    still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?num=1&type=NCR&mapx=400&mapy=240&brand=wui&delay=15&frame=0&scale=1&transx=0&transy=0&severe=1&smooth=0&centerx=400&centery=240&station=EAX&rainsnow=1&lightning=0&noclutter=0&showlabels=1&showstorms=0&rand=26392541'
     name: Radar WU
 
   - platform: zoneminder
@@ -569,7 +589,7 @@ sensor:
     name: "Doorbell Detector"
     state_topic: "sounddetector/doorbell"
     value_template: "{{ value_json.datetime }}"
-
+# small garage door
   - platform: template
     sensors:
       small_garage_status:
@@ -668,22 +688,22 @@ envisalink:
     1:
       name: 'Home Alarm'
 
-shelly:
-  discovery: false
-  version: true
-  attributes:
-    - all
+#shelly:
+#  discovery: false
+#  version: true
+#  attributes:
+#    - all
 #    - ip_address
 #    - shelly_type
 #    - switch
 #    - over_power
-  sensors:
-    - all
+#  sensors:
+#    - all
 #    - switch
 #    - over_power
-  devices:
-    - id: "B936CE"
-      light_switch: true
+#  devices:
+#    - id: "B936CE"
+#      light_switch: true
 
 entity_controller:
   garage_lights:
@@ -718,6 +738,7 @@ entity_controller:
     entities:
       - light.shelly_shsw_25_b936ce_1
       - light.front_outside_garage_light
+      - light.front_step_light
     state_attributes_ignore:
       - uptime
       - device_temp

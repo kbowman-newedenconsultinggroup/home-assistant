@@ -200,6 +200,7 @@
           }}&scale=25&replayMode=all
       message: Motion-Driveway
     service: notify.mobile_app_android_lge_judyln_8_0_0
+  - delay: 00:03:00
   - data:
       topic: monitor/scan/depart
     service: mqtt.publish
@@ -350,7 +351,7 @@
     to: Closed
   condition: []
   action:
-  - delay: 00:05:00
+  - delay: 00:03:00
   - data:
       topic: monitor/scan/depart
     service: mqtt.publish
