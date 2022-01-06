@@ -510,7 +510,7 @@ sensor:
     value_template: "{{ value_json.eventid }}"
 
  # bluetooth device tracker
- # Kevin Phone
+ # Kevin Old Phone
   - platform: mqtt
     state_topic: 'monitor/pantry/lg_g7thinq'
     value_template: '{{ value_json.confidence }}'
@@ -526,8 +526,26 @@ sensor:
     type: max
     round_digits: 0
     entity_ids:
-    - sensor.location_pantry_lg_g7thinq
-    - sensor.location_basement_lg_g7thinq
+      - sensor.location_pantry_lg_g7thinq
+      - sensor.location_basement_lg_g7thinq
+ # Kevin Phone
+  - platform: mqtt
+    state_topic: 'monitor/pantry/pixel_6'
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+    name: 'Location Pantry pixel_6'
+  - platform: mqtt
+    state_topic: 'monitor/basement/pixel_6'
+    value_template: '{{ value_json.confidence }}'
+    unit_of_measurement: '%'
+    name: 'Location Basement pixel_6'
+  - platform: min_max
+    name: "Home Occupancy Confidence of Pixel 6"
+    type: max
+    round_digits: 0
+    entity_ids:
+      - sensor.location_pantry_pixel_6
+      - sensor.location_basement_pixel_6
  # Kevin Watch
   - platform: mqtt
     state_topic: 'monitor/pantry/vivoactive3'
@@ -544,8 +562,8 @@ sensor:
     type: max
     round_digits: 0
     entity_ids:
-    - sensor.location_pantry_vivoactive3
-    - sensor.location_basement_vivoactive3
+      - sensor.location_pantry_vivoactive3
+      - sensor.location_basement_vivoactive3
 # Jenn Phone
   - platform: mqtt
     state_topic: 'monitor/pantry/galaxy_note10'
@@ -562,8 +580,8 @@ sensor:
     type: max
     round_digits: 0
     entity_ids:
-    - sensor.location_pantry_galaxy_note10
-    - sensor.location_basement_galaxy_note10
+      - sensor.location_pantry_galaxy_note10
+      - sensor.location_basement_galaxy_note10
 # Zoe Phone
   - platform: mqtt
     state_topic: 'monitor/pantry/iphonex'
@@ -580,8 +598,8 @@ sensor:
     type: max
     round_digits: 0
     entity_ids:
-    - sensor.location_pantry_iphonex
-    - sensor.location_basement_iphonex
+      - sensor.location_pantry_iphonex
+      - sensor.location_basement_iphonex
 
 
 # doorbell detector

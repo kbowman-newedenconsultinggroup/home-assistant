@@ -131,7 +131,7 @@
         url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.officecammotionevent')
           }}&scale=50&replayMode=all
       message: Motion-OfficeCam
-    service: notify.mobile_app_android_lge_judyln_8_0_0
+    service: notify.mobile_app_pixel_6
 - id: alertwhenshopcammotiondetected
   alias: Alert when shopcam motion detected
   description: shopcam motionevent count increased
@@ -148,7 +148,7 @@
         url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.shopcammotionevent')
           }}&scale=50&replayMode=all
       message: Motion-ShopCam
-    service: notify.mobile_app_android_lge_judyln_8_0_0
+    service: notify.mobile_app_pixel_6
 - id: alertwhengaragecammotiondetected
   alias: Alert when garagecam motion detected
   description: garagecam motionevent count increased
@@ -165,7 +165,7 @@
         url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.garagecammotionevent')
           }}&scale=50&replayMode=all
       message: Motion-Garage
-    service: notify.mobile_app_android_lge_judyln_8_0_0
+    service: notify.mobile_app_pixel_6
 - id: alertwhenfrontdoorcammotiondetected
   alias: Alert when frontdoorcam motion detected
   description: frontdoorcam motionevent count increased
@@ -182,7 +182,7 @@
         url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.frontdoorcammotionevent')
           }}&scale=25&replayMode=all
       message: Motion-FrontDoor
-    service: notify.mobile_app_android_lge_judyln_8_0_0
+    service: notify.mobile_app_pixel_6
 - id: alertwhendrivewaycammotiondetected
   alias: Alert when drivewaycam motion detected
   description: drivewaycam motionevent count increased
@@ -199,7 +199,7 @@
         url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.drivewaycammotionevent')
           }}&scale=25&replayMode=all
       message: Motion-Driveway
-    service: notify.mobile_app_android_lge_judyln_8_0_0
+    service: notify.mobile_app_pixel_6
   - delay: 00:03:00
   - data:
       topic: monitor/scan/depart
@@ -366,7 +366,7 @@
       dev_id: device_tracker_kevin_lgphone
       location_name: home
       source_type: bluetooth
-      gps: &id001
+      gps: &id005
       - 38.92133
       - -94.3121
     service: device_tracker.see
@@ -379,6 +379,34 @@
   action:
   - data:
       dev_id: device_tracker_kevin_lgphone
+      location_name: not_home
+      source_type: bluetooth
+      gps: *id005
+    service: device_tracker.see
+- id: kevinpixelphoneoccupancyon
+  alias: Kevin Pixel Phone Home Occupancy On
+  trigger:
+  - above: '10'
+    entity_id: sensor.home_occupancy_confidence_of_pixel_6
+    platform: numeric_state
+  action:
+  - data:
+      dev_id: device_tracker_kevin_pixelphone
+      location_name: home
+      source_type: bluetooth
+      gps: &id001
+      - 38.92133
+      - -94.3121
+    service: device_tracker.see
+- id: kevinpixelphoneoccupancyoff
+  alias: Kevin Pixel Phone Home Occupancy Off
+  trigger:
+  - below: '10'
+    entity_id: sensor.home_occupancy_confidence_of_pixel_6
+    platform: numeric_state
+  action:
+  - data:
+      dev_id: device_tracker_kevin_pixelphone
       location_name: not_home
       source_type: bluetooth
       gps: *id001
@@ -479,7 +507,7 @@
       data:
         url: https://franzkafka.duckdns.org:8081/zm/index.php?view=watch&mid=4&scale=25
       message: Doorbell Is Ringing
-    service: notify.mobile_app_android_lge_judyln_8_0_0
+    service: notify.mobile_app_pixel_6
 - id: alarmtriggered
   alias: Automation for Alarm Triggered
   trigger:
@@ -503,7 +531,7 @@
       data:
         url: https://franzkafka.duckdns.org:8080/lovelace/cameras
       message: ALARM TRIGGERED!!
-    service: notify.mobile_app_android_lge_judyln_8_0_0
+    service: notify.mobile_app_pixel_6
 - id: automationalarmdisarmed
   alias: Automation for Alarm Disarmed
   description: ''
