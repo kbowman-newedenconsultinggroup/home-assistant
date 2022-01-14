@@ -530,22 +530,22 @@ sensor:
       - sensor.location_basement_lg_g7thinq
  # Kevin Phone
   - platform: mqtt
-    state_topic: 'monitor/pantry/pixel_6'
+    state_topic: 'monitor/pantry/galaxy_s21'
     value_template: '{{ value_json.confidence }}'
     unit_of_measurement: '%'
-    name: 'Location Pantry pixel_6'
+    name: 'Location Pantry galaxy_s21'
   - platform: mqtt
-    state_topic: 'monitor/basement/pixel_6'
+    state_topic: 'monitor/basement/galaxy_s21'
     value_template: '{{ value_json.confidence }}'
     unit_of_measurement: '%'
-    name: 'Location Basement pixel_6'
+    name: 'Location Basement galaxy_s21'
   - platform: min_max
-    name: "Home Occupancy Confidence of Pixel 6"
+    name: "Home Occupancy Confidence of Galaxy S21"
     type: max
     round_digits: 0
     entity_ids:
-      - sensor.location_pantry_pixel_6
-      - sensor.location_basement_pixel_6
+      - sensor.location_pantry_galaxy_s21
+      - sensor.location_basement_galaxy_s21
  # Kevin Watch
   - platform: mqtt
     state_topic: 'monitor/pantry/vivoactive3'
