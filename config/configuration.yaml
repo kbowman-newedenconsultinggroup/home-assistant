@@ -92,7 +92,7 @@ alexa:
       light.esplight_f8596d:
         name: Patio North
         description: Patio North Light
-      light.esplight_f87dc9:
+      light.esplight_f87fe8:
         name: Patio South
         description: Patio South Light
       light.esplight_5c7251:
@@ -104,9 +104,9 @@ alexa:
       light.patio_lights:
         name: Patio Lights
         description: Backyard Patio Lights
-      light.esplight_f87fe8:
-        name: Office Lamp
-        description: Office Lamp
+#      light.esplight_f87fe8:
+#        name: Office Lamp
+#        description: Office Lamp
       script.alarm_toggle_chime:
         name: Door Chime
         description: Alarm Door Open and Close Beep"
@@ -209,7 +209,7 @@ light:
     name: Patio Lights
     entities:
       - light.esplight_f8596d
-      - light.esplight_f87dc9
+      - light.esplight_f87dc8
   - platform: group
     name: Moms Lamp
     entities:
@@ -324,9 +324,9 @@ input_boolean:
 ##  platform: smart_life
 
 # meross plugs
-meross_cloud:
-  username: !secret meross_cloud_username
-  password: !secret meross_cloud_password
+#meross_cloud:
+#  username: !secret meross_cloud_username
+#  password: !secret meross_cloud_password
 
 media_player:
 # yamaha receiver
