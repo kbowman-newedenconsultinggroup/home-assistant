@@ -49,7 +49,7 @@ alexa:
         - light.esplight_0259a5
         - light.esplight_5c7251
         - light.esplight_f8596d
-        - light.esplight_f87dc9
+        - light.esplight_f87dc8
         - light.hearth_room_lights
         - light.moms_lamp
         - light.dads_lamp
@@ -314,6 +314,9 @@ input_boolean:
     initial: off
   boolean_set_liquor_cabinet_lights_warm_white:
     name: Boolean to track when someone asks Alexa to change color of liquor cabinet lights
+    initial: off
+  boolean_office_lamp:
+    name: Boolean for office lamp via Alexa
     initial: off
 
 # Smart Life Devices - moved to gui integrations
@@ -784,7 +787,7 @@ entity_controller:
       - binary_sensor.patiosouthcammotiondetected
       - binary_sensor.pool_gate_contact
     entities:
-      - light.esplight_f87dc9
+      - light.esplight_f87dc8
       - light.esplight_f8596d
     delay: 300
     start_time: 'sunset + 00:10:00'

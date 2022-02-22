@@ -23,6 +23,12 @@ goodnight_wrapper:
       entity_id:
       - media_player.yamaha_receiver
       - media_player.yamaha_receiver_zone_2
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.jennifer_s_2nd_echo_dot
+    data:
+      media_content_type: custom
+      media_content_id: turn off office lamp
   - service: script.turn_on
     data:
       entity_id:

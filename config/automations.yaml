@@ -52,6 +52,12 @@
   action:
   - entity_id: switch.computer
     service: switch.turn_off
+  - service: media_player.play_media
+    data:
+      media_content_type: custom
+      media_content_id: turn off office lamp
+    target:
+      entity_id: jennifer_s_2nd_echo_dot
 - id: '1578801083247'
   alias: Turn on Office
   description: In the morning on workdays
@@ -366,7 +372,7 @@
       dev_id: device_tracker_kevin_lgphone
       location_name: home
       source_type: bluetooth
-      gps: &id005
+      gps: &id001
       - 38.92133
       - -94.3121
     service: device_tracker.see
@@ -381,7 +387,7 @@
       dev_id: device_tracker_kevin_lgphone
       location_name: not_home
       source_type: bluetooth
-      gps: *id005
+      gps: *id001
     service: device_tracker.see
 - id: kevingalaxyphoneoccupancyon
   alias: Kevin Galaxy Phone Home Occupancy On
@@ -394,7 +400,7 @@
       dev_id: device_tracker_kevin_galaxyphone
       location_name: home
       source_type: bluetooth
-      gps: &id001
+      gps: &id002
       - 38.92133
       - -94.3121
     service: device_tracker.see
@@ -409,7 +415,7 @@
       dev_id: device_tracker_kevin_galaxyphone
       location_name: not_home
       source_type: bluetooth
-      gps: *id001
+      gps: *id002
     service: device_tracker.see
 - id: kevinwatchoccupancyon
   alias: Kevin Watch Home Occupancy On
@@ -422,7 +428,7 @@
       dev_id: device_tracker_kevin_vivoactive3
       location_name: home
       source_type: bluetooth
-      gps: &id002
+      gps: &id003
       - 38.92133
       - -94.3121
     service: device_tracker.see
@@ -437,7 +443,7 @@
       dev_id: device_tracker_kevin_vivoactive3
       location_name: not_home
       source_type: bluetooth
-      gps: *id002
+      gps: *id003
     service: device_tracker.see
 - id: jenngalaxyphoneoccupancyon
   alias: Jenn Galaxy Phone Home Occupancy On
@@ -450,7 +456,7 @@
       dev_id: device_tracker_jenn_galaxyphone
       location_name: home
       source_type: bluetooth
-      gps: &id003
+      gps: &id004
       - 38.92133
       - -94.3121
     service: device_tracker.see
@@ -465,7 +471,7 @@
       dev_id: device_tracker_jenn_galaxyphone
       location_name: not_home
       source_type: bluetooth
-      gps: *id003
+      gps: *id004
     service: device_tracker.see
 - id: zoeiphoneoccupancyon
   alias: Zoe iPhone Home Occupancy On
@@ -478,7 +484,7 @@
       dev_id: device_tracker_zoe_iphone
       location_name: home
       source_type: bluetooth
-      gps: &id004
+      gps: &id005
       - 38.92133
       - -94.3121
     service: device_tracker.see
@@ -493,7 +499,7 @@
       dev_id: device_tracker_zoe_iphone
       location_name: not_home
       source_type: bluetooth
-      gps: *id004
+      gps: *id005
     service: device_tracker.see
 - id: alertwhendoorbellrings
   alias: Alert when doorbell rings
@@ -834,3 +840,35 @@
   - service: script.sunrise_actions
     data: {}
   mode: single
+- id: 'Turn on office lamp via Alexa'
+  alias: Automation to turn on office lamp via Alexa'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.boolean_office_lamp
+    from: 'off'
+    to: 'on'
+  condition: []
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.jennifer_s_2nd_echo_dot
+    data:
+      media_content_type: custom
+      media_content_id: turn on office lamp
+- id: 'Turn off office lamp via Alexa'
+  alias: Automation to turn off office lamp via Alexa'
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.boolean_office_lamp
+    from: 'on'
+    to: 'off'
+  condition: []
+  action:
+  - service: media_player.play_media
+    target:
+      entity_id: media_player.jennifer_s_2nd_echo_dot
+    data:
+      media_content_type: custom
+      media_content_id: turn off office lamp
