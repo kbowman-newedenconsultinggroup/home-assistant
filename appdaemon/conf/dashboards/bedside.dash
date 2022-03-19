@@ -15,19 +15,26 @@ global_parameters:
       media_player:
         step: 5
 layout:
-  - clock_clock(5x2),spacer(1x1),person_kevin,outside_temp
+# clock top right, alarm bottom left
+  - clock_clock(5x2),spacer(1x1),moms_lamp,outside_temp
   - spacer(2x1),dads_lamp
   - spacer(1x0)
-#  - alarm_panel,spacer(3x0),camera_allcameras(2x1),camera_radar(2x1)
   - spacer(5x0),camera_allcameras(3x2)
   - alarm_panel
+# alarm top right, clock bottom left
+#  - camera_allcameras(3x2),spacer(3x1),moms_lamp,outside_temp
+#  - spacer(4x1),dads_lamp
+#  - spacer(1x0)
+#  - spacer(3x0),clock_clock(5x2)
+#  - alarm_panel
+
 
 clock_clock:
   widget_type: clock
-  widget_style: "background: black"
-  time_style: "font-size: 1500%"
+  widget_style: "background: black; opacity:.3"
+  time_style: "color: white; font-size: 1500%"
   time_format: "24hr"
-  date_style: "font-size: 200%"
+  date_style: "color: white; font-size: 200%; text-align: right"
 
 person_kevin:
   widget_type: person
@@ -46,8 +53,15 @@ dads_lamp:
   icon_off: mdi-lightbulb
   title: dads lamp
 
+moms_lamp:
+  entity: light.moms_lamp
+  widget_type: light
+  icon_on: mdi-lightbulb-on
+  icon_off: mdi-lightbulb
+  title: moms lamp
+
 camera_allcameras:
-  widget_style: "background: black"
+  widget_style: "background: $black; opacity:.8"
   widget_type: camera
   entity: camera.allcameras
   base_url: http://homeassistant.bowman.com:8123

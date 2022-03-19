@@ -39,9 +39,9 @@
   action:
   - entity_id: switch.amzdestplug_left
     service: switch.turn_on
-- id: '1578798677314'
+- id: '1578798677315'
   alias: Turn off Computer when not home
-  description: ''
+  description: Turn off the computer and office lamp when Kevin leaves the house
   trigger:
   - entity_id: person.kevin
     for: 00:05:00
@@ -50,14 +50,14 @@
     to: not_home
   condition: []
   action:
-  - entity_id: switch.computer
-    service: switch.turn_off
+  - service: switch.turn_off
+    entity_id: switch.computer
   - service: media_player.play_media
     data:
       media_content_type: custom
-      media_content_id: turn off office lamp
+      media_content_id: turn off the office lamp
     target:
-      entity_id: jennifer_s_2nd_echo_dot
+      device_id: 6f9eb55b6e4e6dadde1da467f6a7f6eb
 - id: '1578801083247'
   alias: Turn on Office
   description: In the morning on workdays
@@ -840,7 +840,7 @@
   - service: script.sunrise_actions
     data: {}
   mode: single
-- id: 'Turn on office lamp via Alexa'
+- id: Turn on office lamp via Alexa
   alias: Automation to turn on office lamp via Alexa'
   description: ''
   trigger:
@@ -856,7 +856,7 @@
     data:
       media_content_type: custom
       media_content_id: turn on office lamp
-- id: 'Turn off office lamp via Alexa'
+- id: Turn off office lamp via Alexa
   alias: Automation to turn off office lamp via Alexa'
   description: ''
   trigger:

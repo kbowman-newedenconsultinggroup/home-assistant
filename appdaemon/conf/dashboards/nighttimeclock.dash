@@ -25,7 +25,7 @@ layout:
 clock_clock:
   widget_type: clock
   widget_style: "background: black"
-  time_style: "color: #610091; font-size: 2000%"
+  time_style: "color: #de0000; font-size: 2000%"
   time_format: "24hr"
   date_style: "font-size: 300%"
 
