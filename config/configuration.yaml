@@ -395,6 +395,8 @@ camera:
       - camera.frontdoorcam
       - camera.patiosouthcam
       - camera.pationorthcam
+      - camera.garagecam
+      - camera.shopcam
 
 switch:
 # switch to invert stated of officecam (off is no modetect, on is modetect)
@@ -480,6 +482,15 @@ sensor:
           - sensor.weatherstation
         value_template: "{{ states.sensor.weatherstation.attributes.current['windSpeed'] }}"
         unit_of_measurement: 'mph'
+  - platform: template
+    sensors:
+      humidity:
+        friendly_name: Humidity
+        entity_id:
+          - sensor.weatherstation
+        value_template: "{{ states.sensor.weatherstation.attributes.current['humidity'] }}"
+        unit_of_measurement: '%'
+
   - platform: zoneminder
     include_archived: false
 

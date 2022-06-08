@@ -121,6 +121,40 @@
   action:
   - entity_id: switch.amzdestplug_left
     service: switch.turn_on
+- id: alertwhenpationorthcammotiondetected
+  alias: Alert when pationorth motion detected
+  description: pationorth motionevent count increased
+  trigger:
+  - entity_id: sensor.pationorthcammotionevent
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+      }} '
+  action:
+  - data_template:
+      data:
+        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.pationorthcammotionevent')
+          }}&scale=50&replayMode=all
+      message: Motion-PatioNorth
+    service: notify.mobile_app_galaxy_note10
+- id: alertwhenpatiosouthcammotiondetected
+  alias: Alert when patiosouth motion detected
+  description: officecam patiosouth count increased
+  trigger:
+  - entity_id: sensor.patiosouthcammotionevent
+    platform: state
+  condition:
+  - condition: template
+    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+      }} '
+  action:
+  - data_template:
+      data:
+        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.patiosouthcammotionevent')
+          }}&scale=50&replayMode=all
+      message: Motion-PatioSouth
+    service: notify.mobile_app_galaxy_note10
 - id: alertwhenofficecammotiondetected
   alias: Alert when officecam motion detected
   description: officecam motionevent count increased
@@ -155,6 +189,13 @@
           }}&scale=50&replayMode=all
       message: Motion-ShopCam
     service: notify.mobile_app_galaxy_s21
+  - data_template:
+      data:
+        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.shopcammotionevent')
+          }}&scale=50&replayMode=all
+      message: Motion-ShopCam
+    service: notify.mobile_app_galaxy_note_10
+- id: alertwhengaragecammotiondetected
 - id: alertwhengaragecammotiondetected
   alias: Alert when garagecam motion detected
   description: garagecam motionevent count increased
