@@ -353,6 +353,9 @@ camera:
   - platform: generic
     still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?num=1&type=NCR&mapx=400&mapy=240&brand=wui&delay=15&frame=0&scale=1&transx=0&transy=0&severe=1&smooth=0&centerx=400&centery=240&station=EAX&rainsnow=1&lightning=0&noclutter=0&showlabels=1&showstorms=0&rand=26392541'
     name: Radar WU
+  - platform: generic
+    still_image_url: 'http://zoneminder.bowman.com/zm/index.php?view=cycle'
+    name: AllCameras
 
   - platform: zoneminder
   - platform: generic
@@ -376,27 +379,29 @@ camera:
   - platform: generic
     still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.pationorthcammotionevent') }}&fid=snapshot
     name: 'LastpationorthcamMotionEvent'
-  - platform: combined
+
+#  - platform: combined
 #    base_address: https://franzkafka.duckdns.org:8080
-    base_address: http://homeassistant.bowman.com:8123
-    name: AllCameras
-    entities:
-      - camera.officecam
-      - camera.garagecam
+#    base_address: http://homeassistant.bowman.com:8123
+#    name: AllCameras
+#    entities:
+#      - camera.officecam
+#      - camera.garagecam
 #      - camera.shopcam
-      - camera.frontdoorcam
-      - camera.patiosouthcam
-      - camera.pationorthcam
-  - platform: combined
+#      - camera.frontdoorcam
+#      - camera.patiosouthcam
+#      - camera.pationorthcam
+#  - platform: combined
 #    base_address: https://franzkafka.duckdns.org:8080
-    base_address: http://homeassistant.bowman.com:8123
-    name: JennCameras
-    entities:
-      - camera.frontdoorcam
-      - camera.patiosouthcam
-      - camera.pationorthcam
-      - camera.garagecam
-      - camera.shopcam
+#    base_address: http://homeassistant.bowman.com:8123
+#    name: JennCameras
+#    entities:
+#      - camera.frontdoorcam
+#      - camera.patiosouthcam
+#      - camera.pationorthcam
+#      - camera.garagecam
+#      - camera.shopcam
+
 
 switch:
 # switch to invert stated of officecam (off is no modetect, on is modetect)
@@ -416,6 +421,7 @@ switch:
   - platform: zoneminder
     command_on: Modect
     command_off: Monitor
+
   - platform: mqtt
     command_topic: "pithos/cmds"
     state_topic: "pithos/state"
@@ -425,6 +431,7 @@ switch:
     state_off: "Not playing"
     state_on: "Playing"
     icon: mdi:library-music
+
   - platform: mqtt
     name: "Sound Detector"
     command_topic: "sounddetector/cmds"
@@ -447,11 +454,6 @@ tts:
 sensor:
   - platform: version
     source: docker
-#  - platform: wundergroundpws
-#    api_key: !secret wundergroundpws_api_key
-#    pws_id: !secret wundergroundpws_pws_id
-#    monitored_conditions:
-#      - temp
   - platform: rest
     resource: http://weather.bowman.com/weewx/daily.json
     name: WeatherStation
@@ -824,9 +826,9 @@ entity_controller:
 
 #zha_map:
 
-webhook:
-zigbee2mqtt_networkmap:
-  #topic: your topic (optional, default zigbee2mqtt)
+#webhook:
+#zigbee2mqtt_networkmap:
+#  #topic: your topic (optional, default zigbee2mqtt)
 
 panel_iframe:
   networkmap:
@@ -836,7 +838,6 @@ panel_iframe:
   camera:
     title: 'Camera'
     url: 'https://franzkafka.duckdns.org:8081/zm/index.php?view=montage&zmMontageLayout=3&scale=50'
-
 
 group: !include groups.yaml
 automation: !include automations.yaml

@@ -913,3 +913,16 @@
     data:
       media_content_type: custom
       media_content_id: turn off office lamp
+- id: '1657575540898'
+  alias: Automation - rotate cameras
+  description: ''
+  trigger:
+  - platform: time_pattern
+    seconds: /10
+  condition: []
+  action:
+  - service: counter.increment
+    data: {}
+    target:
+      entity_id: counter.cameracounter
+  mode: single
