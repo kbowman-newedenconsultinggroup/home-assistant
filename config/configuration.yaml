@@ -362,8 +362,8 @@ camera:
     still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.officecammotionevent') }}&fid=snapshot
     name: 'LastofficecamMotionEvent'
   - platform: generic
-    still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.shopcammotionevent') }}&fid=snapshot
-    name: 'LastshopcamMotionEvent'
+    still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.WorkShopCammotionevent') }}&fid=snapshot
+    name: 'LastWorkShopCamMotionEvent'
   - platform: generic
     still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.garagecammotionevent') }}&fid=snapshot
     name: 'LastgaragecamMotionEvent'
@@ -380,17 +380,17 @@ camera:
     still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.pationorthcammotionevent') }}&fid=snapshot
     name: 'LastpationorthcamMotionEvent'
 
-#  - platform: combined
+  - platform: combined
 #    base_address: https://franzkafka.duckdns.org:8080
-#    base_address: http://homeassistant.bowman.com:8123
-#    name: AllCameras
-#    entities:
-#      - camera.officecam
-#      - camera.garagecam
-#      - camera.shopcam
-#      - camera.frontdoorcam
-#      - camera.patiosouthcam
-#      - camera.pationorthcam
+    base_address: http://homeassistant.bowman.com:8123
+    name: AllCameras
+    entities:
+      - camera.officecam
+      - camera.garagecam
+      - camera.WorkShopCam
+      - camera.frontdoorcam
+      - camera.patiosouthcam
+      - camera.pationorthcam
 #  - platform: combined
 #    base_address: https://franzkafka.duckdns.org:8080
 #    base_address: http://homeassistant.bowman.com:8123
@@ -400,7 +400,7 @@ camera:
 #      - camera.patiosouthcam
 #      - camera.pationorthcam
 #      - camera.garagecam
-#      - camera.shopcam
+#      - camera.WorkShopCam
 
 
 switch:
@@ -501,7 +501,7 @@ sensor:
     state_topic: "zoneminder/1"
     value_template: "{{ value_json.eventid }}"
   - platform: mqtt
-    name: "ShopCamMotionEvent"
+    name: "WorkShopCamMotionEvent"
     state_topic: "zoneminder/2"
     value_template: "{{ value_json.eventid }}"
   - platform: mqtt
