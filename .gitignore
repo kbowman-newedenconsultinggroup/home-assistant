@@ -17,3 +17,4 @@ config
 haproxy/servercert/
 haproxy/cert/
 !alexalambda/lambda_function.py
+!alexalambda/Readme.md
