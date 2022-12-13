@@ -16,3 +16,4 @@ config
 !haproxy/haproxy.cfg
 haproxy/servercert/
 haproxy/cert/
+!alexalambda/
