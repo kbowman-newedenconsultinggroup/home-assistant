@@ -800,7 +800,7 @@ entity_controller:
       - binary_sensor.patiosouthcammotiondetected
       - binary_sensor.pool_gate_contact
     entities:
-      - light.esplight_f87dc8
+      - light.esplight_f87fe8
       - light.esplight_f8596d
     delay: 300
     start_time: 'sunset + 00:10:00'

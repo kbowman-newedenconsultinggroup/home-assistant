@@ -63,7 +63,7 @@ moms_lamp:
 camera_allcameras:
   widget_style: "background: $black; opacity:.8"
   widget_type: camera
-  entity: camera.allcameras
+  entity: camera.frontdoorcam
   base_url: http://homeassistant.bowman.com:8123
   refresh: 5
 
