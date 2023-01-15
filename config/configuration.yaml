@@ -174,8 +174,8 @@ alexa:
         display_categories: LIGHT
 
 mqtt:
-  discovery: false
-  discovery_prefix: homeassistant
+#  discovery: false
+#  discovery_prefix: homeassistant
   binary_sensor:
 # Camera motion event detected
     - name: "OfficeCamMotionDetected"
