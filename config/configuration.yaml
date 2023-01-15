@@ -176,30 +176,151 @@ alexa:
 mqtt:
   discovery: false
   discovery_prefix: homeassistant
+  binary_sensor:
+# Camera motion event detected
+    - name: "OfficeCamMotionDetected"
+      state_topic: "zoneminder/1"
+      value_template: "{{ value_json.state }}"
+      payload_on: "alarm"
+      expire_after: 60
+    - name: "GarageCamMotionDetected"
+      state_topic: "zoneminder/3"
+      value_template: "{{ value_json.state }}"
+      payload_on: "alarm"
+      expire_after: 60
+    - name: "FrontDoorCamMotionDetected"
+      state_topic: "zoneminder/4"
+      value_template: "{{ value_json.state }}"
+      payload_on: "alarm"
+      expire_after: 60
+    - name: "DrivewayCamMotionDetected"
+      state_topic: "zoneminder/5"
+      value_template: "{{ value_json.state }}"
+      payload_on: "alarm"
+      expire_after: 60
+    - name: "PatioSouthCamMotionDetected"
+      state_topic: "zoneminder/6"
+      value_template: "{{ value_json.state }}"
+      payload_on: "alarm"
+      expire_after: 60
+    - name: "PatioNorthCamMotionDetected"
+      state_topic: "zoneminder/7"
+      value_template: "{{ value_json.state }}"
+      payload_on: "alarm"
+      expire_after: 60
+  switch:
+# Built-in Pithos switch for Onkyo Pool Stereo
+    - name: "Pool Pandora"
+      command_topic: "pithos/cmds"
+      state_topic: "pithos/state"
+      payload_on: 'export DISPLAY=:0;pithos'
+      payload_off: 'killall pithos'
+      state_off: "Not playing"
+      state_on: "Playing"
+      icon: mdi:library-music
+# Sound Detector for doorbell
+    - name: "Sound Detector"
+      command_topic: "sounddetector/cmds"
+      state_topic: "sounddetector/state"
+      payload_on: "systemctl start sounddetector"
+      payload_off: "systemctl stop sounddetector"
+      state_off: "offline"
+      state_on: "online"
+      icon: mdi:music-note
+  sensor:
+# Camera motion event id
+    - name: "OfficeCamMotionEvent"
+      state_topic: "zoneminder/1"
+      value_template: "{{ value_json.eventid }}"
+    - name: "WorkShopCamMotionEvent"
+      state_topic: "zoneminder/2"
+      value_template: "{{ value_json.eventid }}"
+    - name: "GarageCamMotionEvent"
+      state_topic: "zoneminder/3"
+      value_template: "{{ value_json.eventid }}"
+    - name: "FrontDoorCamMotionEvent"
+      state_topic: "zoneminder/4"
+      value_template: "{{ value_json.eventid }}"
+    - name: "DrivewayCamMotionEvent"
+      state_topic: "zoneminder/5"
+      value_template: "{{ value_json.eventid }}"
+    - name: "PatioSouthCamMotionEvent"
+      state_topic: "zoneminder/6"
+      value_template: "{{ value_json.eventid }}"
+    - name: "PatioNorthCamMotionEvent"
+      state_topic: "zoneminder/7"
+      value_template: "{{ value_json.eventid }}"
+# bluetooth device tracker
+ # Kevin Old Phone
+    - name: 'Location Pantry lg_g7thinq'
+      state_topic: 'monitor/pantry/lg_g7thinq'
+      value_template: '{{ value_json.confidence }}'
+      unit_of_measurement: '%'
+    - name: 'Location Basement lg_g7thinq'
+      state_topic: 'monitor/basement/lg_g7thinq'
+      value_template: '{{ value_json.confidence }}'
+      unit_of_measurement: '%'
+ # Kevin Phone
+    - name: 'Location Pantry galaxy_s21'
+      state_topic: 'monitor/pantry/galaxy_s21'
+      value_template: '{{ value_json.confidence }}'
+      unit_of_measurement: '%'
+    - name: 'Location Basement galaxy_s21'
+      unit_of_measurement: '%'
+      state_topic: 'monitor/basement/galaxy_s21'
+      value_template: '{{ value_json.confidence }}'
+   # Kevin Watch
+    - name: 'Location Pantry vivoactive3'
+      state_topic: 'monitor/pantry/vivoactive3'
+      value_template: '{{ value_json.confidence }}'
+      unit_of_measurement: '%'
+    - name: 'Location Basement vivoactive3'
+      state_topic: 'monitor/basement/vivoactive3'
+      value_template: '{{ value_json.confidence }}'
+      unit_of_measurement: '%'
+  # Jenn Phone
+    - name: 'Location Pantry galaxy_note10'
+      state_topic: 'monitor/pantry/galaxy_note10'
+      value_template: '{{ value_json.confidence }}'
+      unit_of_measurement: '%'
+    - name: 'Location Basement galaxy_note10'
+      state_topic: 'monitor/basement/galaxy_note10'
+      value_template: '{{ value_json.confidence }}'
+      unit_of_measurement: '%'
+  # Zoe Phone
+    - name: 'Location Pantry iphonex'
+      state_topic: 'monitor/pantry/iphonex'
+      value_template: '{{ value_json.confidence }}'
+      unit_of_measurement: '%'
+    - name: 'Location Basement iphonex'
+      state_topic: 'monitor/basement/iphonex'
+      value_template: '{{ value_json.confidence }}'
+      unit_of_measurement: '%'
+
+# doorbell detector
+    - name: "Doorbell Detector"
+      state_topic: "sounddetector/doorbell"
+      value_template: "{{ value_json.datetime }}"
 
 http:
 #  base_url: homeassistant.bowman.com:8123
 
 homeassistant:
   unit_system: imperial
+  country: US
+  currency: USD
   time_zone: America/Chicago
   latitude: !secret homeassistant_lat
   longitude: !secret homeassistant_long
   elevation: 948
   customize: !include customize.yaml
-#  external_url: !secret external_url
-#  internal_url: http://homeassistant.bowman.com:8123
+  external_url: !secret external_url
+  internal_url: http://homeassistant.bowman.com:8123
 
 
 speedtestdotnet:
 
 light:
-#  - platform: flux_led
-#    devices:
-#      magicled-CD4F26.bowman.com:
-#        name: Black Cabinet Lights
-#        mode: rgb
-#        protocol: 'ledenet'
   - platform: group
     name: Hearth Room Lights
     entities:
@@ -254,42 +375,42 @@ binary_sensor:
     excludes: [sun, holiday]
 
 # camera motion detect binary sensor
-  - platform: mqtt
-    name: "OfficeCamMotionDetected"
-    state_topic: "zoneminder/1"
-    value_template: "{{ value_json.state }}"
-    payload_on: "alarm"
-    expire_after: 60
-  - platform: mqtt
-    name: "GarageCamMotionDetected"
-    state_topic: "zoneminder/3"
-    value_template: "{{ value_json.state }}"
-    payload_on: "alarm"
-    expire_after: 60
-  - platform: mqtt
-    name: "FrontDoorCamMotionDetected"
-    state_topic: "zoneminder/4"
-    value_template: "{{ value_json.state }}"
-    payload_on: "alarm"
-    expire_after: 60
-  - platform: mqtt
-    name: "DrivewayCamMotionDetected"
-    state_topic: "zoneminder/5"
-    value_template: "{{ value_json.state }}"
-    payload_on: "alarm"
-    expire_after: 60
-  - platform: mqtt
-    name: "PatioSouthCamMotionDetected"
-    state_topic: "zoneminder/6"
-    value_template: "{{ value_json.state }}"
-    payload_on: "alarm"
-    expire_after: 60
-  - platform: mqtt
-    name: "PatioNorthCamMotionDetected"
-    state_topic: "zoneminder/7"
-    value_template: "{{ value_json.state }}"
-    payload_on: "alarm"
-    expire_after: 60
+#  - platform: mqtt
+#    name: "OfficeCamMotionDetected"
+#    state_topic: "zoneminder/1"
+#    value_template: "{{ value_json.state }}"
+#    payload_on: "alarm"
+#    expire_after: 60
+#  - platform: mqtt
+#    name: "GarageCamMotionDetected"
+#    state_topic: "zoneminder/3"
+#    value_template: "{{ value_json.state }}"
+#    payload_on: "alarm"
+#    expire_after: 60
+#  - platform: mqtt
+#    name: "FrontDoorCamMotionDetected"
+#    state_topic: "zoneminder/4"
+#    value_template: "{{ value_json.state }}"
+#    payload_on: "alarm"
+#    expire_after: 60
+#  - platform: mqtt
+#    name: "DrivewayCamMotionDetected"
+#    state_topic: "zoneminder/5"
+#    value_template: "{{ value_json.state }}"
+#    payload_on: "alarm"
+#    expire_after: 60
+#  - platform: mqtt
+#    name: "PatioSouthCamMotionDetected"
+#    state_topic: "zoneminder/6"
+#    value_template: "{{ value_json.state }}"
+#    payload_on: "alarm"
+#    expire_after: 60
+#  - platform: mqtt
+#    name: "PatioNorthCamMotionDetected"
+#    state_topic: "zoneminder/7"
+#    value_template: "{{ value_json.state }}"
+#    payload_on: "alarm"
+#    expire_after: 60
 
 
 input_boolean:
@@ -318,13 +439,6 @@ input_boolean:
   boolean_office_lamp:
     name: Boolean for office lamp via Alexa
     initial: off
-
-# Smart Life Devices - moved to gui integrations
-##tuya:
-##  username: !secret tuya_username
-##  password: !secret tuya_password
-##  country_code: '1'
-##  platform: smart_life
 
 # meross plugs
 #meross_cloud:
@@ -402,7 +516,6 @@ camera:
 #      - camera.garagecam
 #      - camera.WorkShopCam
 
-
 switch:
 # switch to invert stated of officecam (off is no modetect, on is modetect)
 # so when office if "off" modetect is "on"
@@ -422,25 +535,24 @@ switch:
     command_on: Modect
     command_off: Monitor
 
-  - platform: mqtt
-    command_topic: "pithos/cmds"
-    state_topic: "pithos/state"
-    name: "Pool Pandora"
-    payload_on: 'export DISPLAY=:0;pithos'
-    payload_off: 'killall pithos'
-    state_off: "Not playing"
-    state_on: "Playing"
-    icon: mdi:library-music
-
-  - platform: mqtt
-    name: "Sound Detector"
-    command_topic: "sounddetector/cmds"
-    state_topic: "sounddetector/state"
-    payload_on: "systemctl start sounddetector"
-    payload_off: "systemctl stop sounddetector"
-    state_off: "offline"
-    state_on: "online"
-    icon: mdi:music-note
+#  - platform: mqtt
+#    command_topic: "pithos/cmds"
+#    state_topic: "pithos/state"
+#    name: "Pool Pandora"
+#    payload_on: 'export DISPLAY=:0;pithos'
+#    payload_off: 'killall pithos'
+#    state_off: "Not playing"
+#    state_on: "Playing"
+#    icon: mdi:library-music
+#  - platform: mqtt
+#    name: "Sound Detector"
+#    command_topic: "sounddetector/cmds"
+#    state_topic: "sounddetector/state"
+#    payload_on: "systemctl start sounddetector"
+#    payload_off: "systemctl stop sounddetector"
+#    state_off: "offline"
+#    state_on: "online"
+#    icon: mdi:music-note
 
 # Zoneminder
 zoneminder:
@@ -496,47 +608,47 @@ sensor:
   - platform: zoneminder
     include_archived: false
 
-  - platform: mqtt
-    name: "OfficeCamMotionEvent"
-    state_topic: "zoneminder/1"
-    value_template: "{{ value_json.eventid }}"
-  - platform: mqtt
-    name: "WorkShopCamMotionEvent"
-    state_topic: "zoneminder/2"
-    value_template: "{{ value_json.eventid }}"
-  - platform: mqtt
-    name: "GarageCamMotionEvent"
-    state_topic: "zoneminder/3"
-    value_template: "{{ value_json.eventid }}"
-  - platform: mqtt
-    name: "FrontDoorCamMotionEvent"
-    state_topic: "zoneminder/4"
-    value_template: "{{ value_json.eventid }}"
-  - platform: mqtt
-    name: "DrivewayCamMotionEvent"
-    state_topic: "zoneminder/5"
-    value_template: "{{ value_json.eventid }}"
-  - platform: mqtt
-    name: "PatioSouthCamMotionEvent"
-    state_topic: "zoneminder/6"
-    value_template: "{{ value_json.eventid }}"
-  - platform: mqtt
-    name: "PatioNorthCamMotionEvent"
-    state_topic: "zoneminder/7"
-    value_template: "{{ value_json.eventid }}"
+#  - platform: mqtt
+#    name: "OfficeCamMotionEvent"
+#    state_topic: "zoneminder/1"
+#    value_template: "{{ value_json.eventid }}"
+#  - platform: mqtt
+#    name: "WorkShopCamMotionEvent"
+##    state_topic: "zoneminder/2"
+#    value_template: "{{ value_json.eventid }}"
+#  - platform: mqtt
+#    name: "GarageCamMotionEvent"
+#    state_topic: "zoneminder/3"
+##    value_template: "{{ value_json.eventid }}"
+#  - platform: mqtt
+#    name: "FrontDoorCamMotionEvent"
+#    state_topic: "zoneminder/4"
+#    value_template: "{{ value_json.eventid }}"
+#  - platform: mqtt
+##    name: "DrivewayCamMotionEvent"
+#    state_topic: "zoneminder/5"
+##    value_template: "{{ value_json.eventid }}"
+#  - platform: mqtt
+#    name: "PatioSouthCamMotionEvent"
+#    state_topic: "zoneminder/6"
+#    value_template: "{{ value_json.eventid }}"
+#  - platform: mqtt
+#    name: "PatioNorthCamMotionEvent"
+##    state_topic: "zoneminder/7"
+#    value_template: "{{ value_json.eventid }}"
 
- # bluetooth device tracker
- # Kevin Old Phone
-  - platform: mqtt
-    state_topic: 'monitor/pantry/lg_g7thinq'
-    value_template: '{{ value_json.confidence }}'
-    unit_of_measurement: '%'
-    name: 'Location Pantry lg_g7thinq'
-  - platform: mqtt
-    state_topic: 'monitor/basement/lg_g7thinq'
-    value_template: '{{ value_json.confidence }}'
-    unit_of_measurement: '%'
-    name: 'Location Basement lg_g7thinq'
+# bluetooth device tracker
+  # Kevin Old Phone
+#  - platform: mqtt
+#    state_topic: 'monitor/pantry/lg_g7thinq'
+#    value_template: '{{ value_json.confidence }}'
+#    unit_of_measurement: '%'
+#    name: 'Location Pantry lg_g7thinq'
+#  - platform: mqtt
+#    state_topic: 'monitor/basement/lg_g7thinq'
+#    value_template: '{{ value_json.confidence }}'
+#    unit_of_measurement: '%'
+#    name: 'Location Basement lg_g7thinq'
   - platform: min_max
     name: "Home Occupancy Confidence of LG-G7ThinQ"
     type: max
@@ -545,16 +657,16 @@ sensor:
       - sensor.location_pantry_lg_g7thinq
       - sensor.location_basement_lg_g7thinq
  # Kevin Phone
-  - platform: mqtt
-    state_topic: 'monitor/pantry/galaxy_s21'
-    value_template: '{{ value_json.confidence }}'
-    unit_of_measurement: '%'
-    name: 'Location Pantry galaxy_s21'
-  - platform: mqtt
-    state_topic: 'monitor/basement/galaxy_s21'
-    value_template: '{{ value_json.confidence }}'
-    unit_of_measurement: '%'
-    name: 'Location Basement galaxy_s21'
+#  - platform: mqtt
+#    state_topic: 'monitor/pantry/galaxy_s21'
+#    value_template: '{{ value_json.confidence }}'
+#    unit_of_measurement: '%'
+#    name: 'Location Pantry galaxy_s21'
+#  - platform: mqtt
+#    state_topic: 'monitor/basement/galaxy_s21'
+#    value_template: '{{ value_json.confidence }}'
+#    unit_of_measurement: '%'
+#    name: 'Location Basement galaxy_s21'
   - platform: min_max
     name: "Home Occupancy Confidence of Galaxy S21"
     type: max
@@ -563,16 +675,16 @@ sensor:
       - sensor.location_pantry_galaxy_s21
       - sensor.location_basement_galaxy_s21
  # Kevin Watch
-  - platform: mqtt
-    state_topic: 'monitor/pantry/vivoactive3'
-    value_template: '{{ value_json.confidence }}'
-    unit_of_measurement: '%'
-    name: 'Location Pantry vivoactive3'
-  - platform: mqtt
-    state_topic: 'monitor/basement/vivoactive3'
-    value_template: '{{ value_json.confidence }}'
-    unit_of_measurement: '%'
-    name: 'Location Basement vivoactive3'
+#  - platform: mqtt
+#    state_topic: 'monitor/pantry/vivoactive3'
+#    value_template: '{{ value_json.confidence }}'
+#    unit_of_measurement: '%'
+#    name: 'Location Pantry vivoactive3'
+#  - platform: mqtt
+#    state_topic: 'monitor/basement/vivoactive3'
+#    value_template: '{{ value_json.confidence }}'
+#    unit_of_measurement: '%'
+#    name: 'Location Basement vivoactive3'
   - platform: min_max
     name: "Home Occupancy Confidence of vivoactive3"
     type: max
@@ -581,16 +693,16 @@ sensor:
       - sensor.location_pantry_vivoactive3
       - sensor.location_basement_vivoactive3
 # Jenn Phone
-  - platform: mqtt
-    state_topic: 'monitor/pantry/galaxy_note10'
-    value_template: '{{ value_json.confidence }}'
-    unit_of_measurement: '%'
-    name: 'Location Pantry galaxy_note10'
-  - platform: mqtt
-    state_topic: 'monitor/basement/galaxy_note10'
-    value_template: '{{ value_json.confidence }}'
-    unit_of_measurement: '%'
-    name: 'Location Basement galaxy_note10'
+#  - platform: mqtt
+#    state_topic: 'monitor/pantry/galaxy_note10'
+#    value_template: '{{ value_json.confidence }}'
+#    unit_of_measurement: '%'
+#    name: 'Location Pantry galaxy_note10'
+#  - platform: mqtt
+#    state_topic: 'monitor/basement/galaxy_note10'
+#    value_template: '{{ value_json.confidence }}'
+#    unit_of_measurement: '%'
+#    name: 'Location Basement galaxy_note10'
   - platform: min_max
     name: "Home Occupancy Confidence of Galaxy-Note10"
     type: max
@@ -599,16 +711,16 @@ sensor:
       - sensor.location_pantry_galaxy_note10
       - sensor.location_basement_galaxy_note10
 # Zoe Phone
-  - platform: mqtt
-    state_topic: 'monitor/pantry/iphonex'
-    value_template: '{{ value_json.confidence }}'
-    unit_of_measurement: '%'
-    name: 'Location Pantry iphonex'
-  - platform: mqtt
-    state_topic: 'monitor/basement/iphonex'
-    value_template: '{{ value_json.confidence }}'
-    unit_of_measurement: '%'
-    name: 'Location Basement iphonex'
+#  - platform: mqtt
+#    state_topic: 'monitor/pantry/iphonex'
+#    value_template: '{{ value_json.confidence }}'
+#    unit_of_measurement: '%'
+#    name: 'Location Pantry iphonex'
+#  - platform: mqtt
+#    state_topic: 'monitor/basement/iphonex'
+#    value_template: '{{ value_json.confidence }}'
+#    unit_of_measurement: '%'
+#    name: 'Location Basement iphonex'
   - platform: min_max
     name: "Home Occupancy Confidence of iPhoneX"
     type: max
@@ -619,10 +731,10 @@ sensor:
 
 
 # doorbell detector
-  - platform: mqtt
-    name: "Doorbell Detector"
-    state_topic: "sounddetector/doorbell"
-    value_template: "{{ value_json.datetime }}"
+#  - platform: mqtt
+#    name: "Doorbell Detector"
+#    state_topic: "sounddetector/doorbell"
+#    value_template: "{{ value_json.datetime }}"
 # small garage door
   - platform: template
     sensors:
