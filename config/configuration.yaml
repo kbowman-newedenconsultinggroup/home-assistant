@@ -579,32 +579,24 @@ sensor:
     sensors:
       outside_temperature:
         friendly_name: OutsideTemperature
-        entity_id:
-          - sensor.weatherstation
         value_template: "{{ states.sensor.weatherstation.attributes.current['outTemp'] }}"
         unit_of_measurement: '°F'
   - platform: template
     sensors:
       rainfall:
         friendly_name: TodayRain
-        entity_id:
-          - sensor.weatherstation
         value_template: "{{ states.sensor.weatherstation.attributes.current['dayRain'] }}"
         unit_of_measurement: 'in'
   - platform: template
     sensors:
       windspeed:
         friendly_name: Windspeed
-        entity_id:
-          - sensor.weatherstation
         value_template: "{{ states.sensor.weatherstation.attributes.current['windSpeed'] }}"
         unit_of_measurement: 'mph'
   - platform: template
     sensors:
       humidity:
         friendly_name: Humidity
-        entity_id:
-          - sensor.weatherstation
         value_template: "{{ states.sensor.weatherstation.attributes.current['humidity'] }}"
         unit_of_measurement: '%'
 
