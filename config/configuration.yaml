@@ -464,9 +464,12 @@ media_player:
 #  - host: 192.168.0.72
 
 camera:
-  - platform: generic
-    still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?num=1&type=NCR&mapx=400&mapy=240&brand=wui&delay=15&frame=0&scale=1&transx=0&transy=0&severe=1&smooth=0&centerx=400&centery=240&station=EAX&rainsnow=1&lightning=0&noclutter=0&showlabels=1&showstorms=0&rand=26392541'
-    name: Radar WU
+  - platform: ffmpeg
+    input: /dev/video0
+    name: Basement
+#  - platform: generic
+#    still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?num=1&type=NCR&mapx=400&mapy=240&brand=wui&delay=15&frame=0&scale=1&transx=0&transy=0&severe=1&smooth=0&centerx=400&centery=240&station=EAX&rainsnow=1&lightning=0&noclutter=0&showlabels=1&showstorms=0&rand=26392541'
+#    name: Radar WU
   - platform: generic
     still_image_url: 'http://zoneminder.bowman.com/zm/index.php?view=cycle'
     name: AllCameras
