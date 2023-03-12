@@ -941,10 +941,10 @@ entity_controller:
 #  #topic: your topic (optional, default zigbee2mqtt)
 
 panel_iframe:
-  networkmap:
-    title: 'Zigbee Map'
-    url: '/local/community/zigbee2mqtt_networkmap/map.html'
-    icon: 'mdi:graphql'
+#  networkmap:
+#    title: 'Zigbee Map'
+#    url: '/local/community/zigbee2mqtt_networkmap/map.html'
+#    icon: 'mdi:graphql'
   camera:
     title: 'Camera'
     url: 'https://franzkafka.duckdns.org:8081/zm/index.php?view=montage&zmMontageLayout=3&scale=50'
