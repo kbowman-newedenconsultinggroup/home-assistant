@@ -470,9 +470,12 @@ camera:
 #  - platform: generic
 #    still_image_url: 'https://radblast.wunderground.com/cgi-bin/radar/WUNIDS_map?num=1&type=NCR&mapx=400&mapy=240&brand=wui&delay=15&frame=0&scale=1&transx=0&transy=0&severe=1&smooth=0&centerx=400&centery=240&station=EAX&rainsnow=1&lightning=0&noclutter=0&showlabels=1&showstorms=0&rand=26392541'
 #    name: Radar WU
-  - platform: generic
-    still_image_url: 'http://zoneminder.bowman.com/zm/index.php?view=cycle'
-    name: AllCameras
+#  - platform: generic
+#    still_image_url: 'https://www.rainviewer.com/map.html?loc=38.9423,-94.5813,7&oFa=0&oC=1&oU=0&oCS=1&oF=0&oAP=0&c=3&o=90&lm=1&layer=radar&sm=1&sn=1&hu=1'
+#    name: Radar
+#  - platform: generic
+#    still_image_url: 'http://zoneminder.bowman.com/zm/index.php?view=cycle'
+#    name: AllCameras
 
   - platform: zoneminder
   - platform: generic
