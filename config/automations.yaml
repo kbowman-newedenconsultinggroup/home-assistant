@@ -630,9 +630,9 @@
     service: switch.turn_on
 - id: Laptop Charge Start
   alias: Begin Charge Laptops
-  description: Turn on Office Plug at 01:00
+  description: Turn on Office Plug at 03:30
   trigger:
-  - at: 01:00
+  - at: 03:30:00
     platform: time
   condition: []
   action:
@@ -643,7 +643,7 @@
   alias: End Charge Laptops
   description: Turn off Office Plug at 04:00
   trigger:
-  - at: 04:00
+  - at: 04:00:00
     platform: time
   condition: []
   action:
@@ -728,7 +728,7 @@
   - condition: or
     conditions:
     - condition: time
-      after: '21:30:00'
+      after: '22:00:00'
     - condition: time
       before: 04:00:00
   action:
@@ -737,19 +737,19 @@
       entity_id: input_boolean.boolean_disable_bedside_lamps
   - service: fullykiosk.set_config
     data:
-      entity_id: media_player.jennifer_s_5th_fire_media_player
+      entity_id: media_player.fire_tablet_media_player
       config_type: string
       key: screenBrightness
       value: '0'
   - service: fullykiosk.set_config
     data:
-      entity_id: media_player.jennifer_s_5th_fire_media_player
+      entity_id: media_player.fire_tablet_media_player
       config_type: string
       key: screensaverBrightness
       value: '0'
   - service: fullykiosk.set_config
     data:
-      entity_id: media_player.jennifer_s_5th_fire_media_player
+      entity_id: media_player.fire_tablet_media_player
       config_type: string
       key: timeToScreensaverV2
       value: '10'
@@ -925,4 +925,25 @@
     data: {}
     target:
       entity_id: counter.cameracounter
+  mode: single
+- id: '1685721653675'
+  alias: Alert when Pool Gate opened
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.pool_gate_contact
+    from: 'off'
+    to: 'on'
+    enabled: false
+  condition: []
+  action:
+  - service: notify.mobile_app_galaxy_note10
+    data_template:
+      title: Pool Gate Open
+      message: Pool Gate Opened at {{ now().strftime('%H:%M %A') }}
+  - service: notify.mobile_app_galaxy_s21
+    data_template:
+      title: Pool Gate Open
+      message: Pool Gate Opened at {{ now().strftime('%H:%M %A') }}
   mode: single

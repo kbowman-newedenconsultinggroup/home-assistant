@@ -48,6 +48,24 @@ goodnight_wrapper:
   - service: script.turn_on
     data:
       entity_id: script.goodnight_end
+  - service: fullykiosk.set_config
+    data:
+      entity_id: media_player.fire_tablet_media_player
+      config_type: string
+      key: screenBrightness
+      value: '0'
+  - service: fullykiosk.set_config
+    data:
+      entity_id: media_player.fire_tablet_media_player
+      config_type: string
+      key: screensaverBrightness
+      value: '0'
+  - service: fullykiosk.set_config
+    data:
+      entity_id: media_player.fire_tablet_media_player
+      config_type: string
+      key: timeToScreensaverV2
+      value: '10'
   mode: single
 enablemodetect:
   alias: Enable MoDetect
@@ -55,7 +73,7 @@ enablemodetect:
   - data:
       entity_id:
       - switch.garagecam_state
-      - switch.shopcam_state
+      - switch.workshopcam_state
       - switch.officecam_state
       - switch.pationorthcam_state
       - switch.patiosouthcam_state
@@ -261,13 +279,13 @@ sunrise_actions:
   sequence:
   - service: fullykiosk.set_config
     data:
-      entity_id: media_player.jennifer_s_5th_fire_media_player
+      entity_id: media_player.fire_tablet_media_player
       config_type: string
       key: screenBrightness
       value: '150'
   - service: fullykiosk.set_config
     data:
-      entity_id: media_player.jennifer_s_5th_fire_media_player
+      entity_id: media_player.fire_tablet_media_player
       config_type: string
       key: timeToScreensaverV2
       value: '0'
