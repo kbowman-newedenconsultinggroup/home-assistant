@@ -194,8 +194,7 @@
         url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.shopcammotionevent')
           }}&scale=50&replayMode=all
       message: Motion-ShopCam
-    service: notify.mobile_app_galaxy_note_10
-- id: alertwhengaragecammotiondetected
+    service: notify.mobile_app_galaxy_note10
 - id: alertwhengaragecammotiondetected
   alias: Alert when garagecam motion detected
   description: garagecam motionevent count increased
@@ -677,40 +676,40 @@
 - id: '1607984539124'
   alias: Automation to turn on lights in the morning
   description: Turns on lights when someone wakes up and comes downstairs
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.foyer_motion
+  triggers:
+  - entity_id: binary_sensor.foyer_motion
     from: 'off'
     to: 'on'
-  - platform: state
-    entity_id: binary_sensor.0x00158d0002753f8b_occupancy
+    trigger: state
+  - entity_id: binary_sensor.0x00158d0002753f8b_occupancy
     from: 'off'
     to: 'on'
-  condition:
+    trigger: state
+  conditions:
   - condition: time
-    after: 06:00
-    before: 09:00
+    after: 06:00:00
+    before: 09:00:00
   - condition: state
     entity_id: input_boolean.boolean_alexa_goodnight
     state: 'on'
-  action:
+  actions:
   - data: {}
     entity_id: input_boolean.boolean_someone_is_awake
-    service: input_boolean.turn_on
+    action: input_boolean.turn_on
   - data: {}
     entity_id: input_boolean.boolean_alexa_goodnight
-    service: input_boolean.turn_off
+    action: input_boolean.turn_off
   - data: {}
     entity_id: input_boolean.boolean_disable_bedside_lamps
-    service: input_boolean.turn_off
+    action: input_boolean.turn_off
   - data: {}
-    service: script.mantellights32_goodmorning
+    action: script.mantellights32_goodmorning
   - delay: 00:00:10
   - data: {}
-    service: script.script_christmas_lights_turn_on
+    action: script.script_christmas_lights_turn_on
   - data: {}
     entity_id: automation.automation_to_turn_on_lights_in_the_morning
-    service: automation.turn_off
+    action: automation.turn_off
   mode: single
 - id: '1609082917885'
   alias: Automation to override bedside lamps
@@ -731,6 +730,7 @@
       after: '22:00:00'
     - condition: time
       before: 04:00:00
+      after: '23:00:00'
   action:
   - service: input_boolean.turn_on
     data:
@@ -784,90 +784,6 @@
   - service: input_boolean.turn_on
     data:
       entity_id: input_boolean.boolean_goodnight_script_error
-  mode: single
-- id: '1609537772440'
-  alias: Automation Living Room TV Backlight for TV
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: media_player.yamaha_receiver
-    attribute: source
-    to: AV4
-  action:
-  - service: light.turn_on
-    data_template:
-      entity_id: light.tasmota_3878
-      brightness: '{% if states.sun.sun.attributes.elevation <= -15 %}10{% elif states.sun.sun.attributes.elevation
-        <= -5 %}50{% elif states.sun.sun.attributes.elevation <= 5 %}100{% elif states.sun.sun.attributes.elevation
-        <= 10%}150{% else %}200{% endif %}'
-      rgb_color:
-      - 255
-      - 187
-      - 120
-      transition: 3
-  mode: single
-- id: '1609537772441'
-  alias: Automation Living Room TV Backlight for PS4
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: media_player.yamaha_receiver
-    attribute: source
-    to: HDMI3
-  action:
-  - service: light.turn_on
-    data_template:
-      entity_id: light.tasmota_3878
-      brightness: '{% if states.sun.sun.attributes.elevation <= -15 %}10{% elif states.sun.sun.attributes.elevation
-        <= -5 %}50{% elif states.sun.sun.attributes.elevation <= 5 %}100{% elif states.sun.sun.attributes.elevation
-        <= 10%}150{% else %}200{% endif %}'
-      rgb_color:
-      - 230
-      - 231
-      - 255
-      transition: 3
-  mode: single
-- id: '1609537772442'
-  alias: Automation Living Room TV Backlight for Roku
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: media_player.yamaha_receiver
-    attribute: source
-    to: HDMI4
-  action:
-  - service: light.turn_on
-    data_template:
-      entity_id: light.tasmota_3878
-      brightness: '{% if states.sun.sun.attributes.elevation <= -15 %}10{% elif states.sun.sun.attributes.elevation
-        <= -5 %}50{% elif states.sun.sun.attributes.elevation <= 5 %}100{% elif states.sun.sun.attributes.elevation
-        <= 10%}150{% else %}200{% endif %}'
-      rgb_color:
-      - 245
-      - 187
-      - 255
-      transition: 3
-  mode: single
-- id: '1609537772443'
-  alias: Automation Living Room TV Backlight for DVD
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: media_player.yamaha_receiver
-    attribute: source
-    to: HDMI2
-  action:
-  - service: light.turn_on
-    data_template:
-      entity_id: light.tasmota_3878
-      brightness: '{% if states.sun.sun.attributes.elevation <= -15 %}10{% elif states.sun.sun.attributes.elevation
-        <= -5 %}50{% elif states.sun.sun.attributes.elevation <= 5 %}100{% elif states.sun.sun.attributes.elevation
-        <= 10%}150{% else %}200{% endif %}'
-      rgb_color:
-      - 255
-      - 249
-      - 253
-      transition: 3
   mode: single
 - id: '1613438041232'
   alias: Automation for Sunrise Actions

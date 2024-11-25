@@ -6,6 +6,8 @@ logger:
 #  default: critical
   default: info
 #  logs:
+#    custom_components.localtuya: debug
+#    custom_components.localtuya.pytuya: debug
 #    custom_components.entity_controller: debug
 #    custom_components.localtuya: debug
 #    asyncio: debug
