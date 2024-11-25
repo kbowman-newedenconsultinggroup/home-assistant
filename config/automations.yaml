@@ -61,10 +61,10 @@
 - id: '1578801083247'
   alias: Turn on Office
   description: In the morning on workdays
-  trigger:
-  - at: 08:20
-    platform: time
-  condition:
+  triggers:
+  - at: 08:10:00
+    trigger: time
+  conditions:
   - condition: and
     conditions:
     - condition: state
@@ -73,12 +73,12 @@
     - condition: state
       entity_id: person.kevin
       state: home
-  action:
+  actions:
   - entity_id: switch.computer
-    service: switch.turn_on
+    action: switch.turn_on
   - data: {}
     entity_id: switch.officecam_state
-    service: switch.turn_off
+    action: switch.turn_off
 - id: '1578864478427'
   alias: Turn on Birdbath before sunrise if freezing
   description: ''

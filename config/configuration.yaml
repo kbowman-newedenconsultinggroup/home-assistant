@@ -380,11 +380,11 @@ light:
           service: switch.turn_off
           entity_id: switch.shelly_shsw_25_b936ce_2
 
-binary_sensor:
-  - platform: workday
-    country: US
-    workdays: [mon, tue, wed, thu, fri, sat]
-    excludes: [sun, holiday]
+#binary_sensor:
+#  - platform: workday
+#    country: US
+#    workdays: [mon, tue, wed, thu, fri, sat]
+#    excludes: [sun, holiday]
 
 # camera motion detect binary sensor
 #  - platform: mqtt
