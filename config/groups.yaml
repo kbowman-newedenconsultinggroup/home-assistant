@@ -65,6 +65,7 @@ christmas_lights:
     - switch.black_cabinet
     - switch.pool_stereo_wp110b_main_channel
     - switch.tree_wp110b_main_channel
+    - switch.christmas_zb_plug
 
 office:
   name: Office
