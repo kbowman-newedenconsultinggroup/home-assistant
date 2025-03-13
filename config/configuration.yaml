@@ -5,7 +5,7 @@ default_config:
 logger:
 #  default: critical
   default: info
-#  logs:
+  logs:
 #    custom_components.localtuya: debug
 #    custom_components.localtuya.pytuya: debug
 #    custom_components.entity_controller: debug
@@ -16,11 +16,11 @@ logger:
 #    zigpy: debug
 #    zigpy_cc: debug
 #    custom_components.alexa_media: debug
-#    alexapy: debug
+    alexapy: debug
 #    homeassistant.components.mobile_app: debug
 #    homeassistant.components.notify: debug
 #    homeassistant.core: debug
-#    homeassistant.components.alexa: debug
+    homeassistant.components.alexa: debug
 
 alexa:
   smart_home:

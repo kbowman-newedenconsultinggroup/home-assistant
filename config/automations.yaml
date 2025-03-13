@@ -82,45 +82,45 @@
 - id: '1578864478427'
   alias: Turn on Birdbath before sunrise if freezing
   description: ''
-  trigger:
+  triggers:
   - event: sunrise
     offset: -01:45:00
-    platform: sun
-  condition:
-  - below: '32'
+    trigger: sun
+  conditions:
+  - below: 32.6
     condition: numeric_state
     entity_id: sensor.outside_temperature
-  action:
+  actions:
   - entity_id: switch.amzdestplug_left
-    service: switch.turn_on
+    action: switch.turn_on
 - id: '1578864478428'
   alias: Turn on Birdbath before sunrise if really freezing
   description: ''
-  trigger:
+  triggers:
   - event: sunrise
-    offset: -02:45:00
-    platform: sun
-  condition:
+    offset: -02:15:00
+    trigger: sun
+  conditions:
   - below: '24'
     condition: numeric_state
     entity_id: sensor.outside_temperature
-  action:
+  actions:
   - entity_id: switch.amzdestplug_left
-    service: switch.turn_on
+    action: switch.turn_on
 - id: '1578864478429'
   alias: Turn on Birdbath before sunrise if really really freezing
   description: ''
-  trigger:
+  triggers:
   - event: sunrise
-    offset: -03:45:00
-    platform: sun
-  condition:
+    offset: -02:45:00
+    trigger: sun
+  conditions:
   - below: '16'
     condition: numeric_state
     entity_id: sensor.outside_temperature
-  action:
+  actions:
   - entity_id: switch.amzdestplug_left
-    service: switch.turn_on
+    action: switch.turn_on
 - id: alertwhenpationorthcammotiondetected
   alias: Alert when pationorth motion detected
   description: pationorth motionevent count increased
