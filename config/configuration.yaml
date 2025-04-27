@@ -271,15 +271,15 @@ mqtt:
       unit_of_measurement: '%'
       state_topic: 'monitor/basement/galaxy_s21'
       value_template: '{{ value_json.confidence }}'
-   # Kevin Watch
-    - name: 'Location Pantry vivoactive3'
-      state_topic: 'monitor/pantry/vivoactive3'
-      value_template: '{{ value_json.confidence }}'
-      unit_of_measurement: '%'
-    - name: 'Location Basement vivoactive3'
-      state_topic: 'monitor/basement/vivoactive3'
-      value_template: '{{ value_json.confidence }}'
-      unit_of_measurement: '%'
+#   # Kevin Watch
+#    - name: 'Location Pantry vivoactive3'
+#      state_topic: 'monitor/pantry/vivoactive3'
+#      value_template: '{{ value_json.confidence }}'
+#      unit_of_measurement: '%'
+#    - name: 'Location Basement vivoactive3'
+#      state_topic: 'monitor/basement/vivoactive3'
+#      value_template: '{{ value_json.confidence }}'
+#      unit_of_measurement: '%'
   # Jenn Phone
     - name: 'Location Pantry galaxy_note10'
       state_topic: 'monitor/pantry/galaxy_note10'
@@ -659,13 +659,13 @@ sensor:
 #    value_template: '{{ value_json.confidence }}'
 #    unit_of_measurement: '%'
 #    name: 'Location Basement lg_g7thinq'
-  - platform: min_max
-    name: "Home Occupancy Confidence of LG-G7ThinQ"
-    type: max
-    round_digits: 0
-    entity_ids:
-      - sensor.location_pantry_lg_g7thinq
-      - sensor.location_basement_lg_g7thinq
+#  - platform: min_max
+#    name: "Home Occupancy Confidence of LG-G7ThinQ"
+#    type: max
+#    round_digits: 0
+#    entity_ids:
+#      - sensor.location_pantry_lg_g7thinq
+#      - sensor.location_basement_lg_g7thinq
  # Kevin Phone
 #  - platform: mqtt
 #    state_topic: 'monitor/pantry/galaxy_s21'
@@ -695,13 +695,13 @@ sensor:
 #    value_template: '{{ value_json.confidence }}'
 #    unit_of_measurement: '%'
 #    name: 'Location Basement vivoactive3'
-  - platform: min_max
-    name: "Home Occupancy Confidence of vivoactive3"
-    type: max
-    round_digits: 0
-    entity_ids:
-      - sensor.location_pantry_vivoactive3
-      - sensor.location_basement_vivoactive3
+#  - platform: min_max
+#    name: "Home Occupancy Confidence of vivoactive3"
+#    type: max
+#    round_digits: 0
+#    entity_ids:
+#      - sensor.location_pantry_vivoactive3
+#      - sensor.location_basement_vivoactive3
 # Jenn Phone
 #  - platform: mqtt
 #    state_topic: 'monitor/pantry/galaxy_note10'
@@ -918,6 +918,7 @@ entity_controller:
   patio_outside_lights:
     sensor:
       - binary_sensor.basement_door
+      - binary_sensor.basement_motion
       - binary_sensor.pationorthcammotiondetected
       - binary_sensor.patiosouthcammotiondetected
       - binary_sensor.pool_gate_contact
@@ -936,6 +937,7 @@ entity_controller:
   basement_lights:
     sensor:
       - binary_sensor.basement_door
+      - binary_sensor.basement_motion
     entities:
       - light.basement_light
     delay: 300

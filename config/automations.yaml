@@ -168,10 +168,10 @@
   action:
   - data_template:
       data:
-        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.officecammotionevent')
+        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.officecammotionevent')
           }}&scale=50&replayMode=all
       message: Motion-OfficeCam
-    service: notify.mobile_app_galaxy_s21
+    service: notify.mobile_app_galaxys21
 - id: alertwhenshopcammotiondetected
   alias: Alert when shopcam motion detected
   description: shopcam motionevent count increased
@@ -185,10 +185,10 @@
   action:
   - data_template:
       data:
-        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.shopcammotionevent')
+        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.shopcammotionevent')
           }}&scale=50&replayMode=all
       message: Motion-ShopCam
-    service: notify.mobile_app_galaxy_s21
+    service: notify.mobile_app_galaxys21
   - data_template:
       data:
         url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.shopcammotionevent')
@@ -208,10 +208,10 @@
   action:
   - data_template:
       data:
-        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.garagecammotionevent')
+        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.garagecammotionevent')
           }}&scale=50&replayMode=all
       message: Motion-Garage
-    service: notify.mobile_app_galaxy_s21
+    service: notify.mobile_app_galaxys21
 - id: alertwhenfrontdoorcammotiondetected
   alias: Alert when frontdoorcam motion detected
   description: frontdoorcam motionevent count increased
@@ -225,10 +225,10 @@
   action:
   - data_template:
       data:
-        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.frontdoorcammotionevent')
+        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.frontdoorcammotionevent')
           }}&scale=25&replayMode=all
       message: Motion-FrontDoor
-    service: notify.mobile_app_galaxy_s21
+    service: notify.mobile_app_galaxys21
 - id: alertwhendrivewaycammotiondetected
   alias: Alert when drivewaycam motion detected
   description: drivewaycam motionevent count increased
@@ -242,10 +242,10 @@
   action:
   - data_template:
       data:
-        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.drivewaycammotionevent')
+        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.drivewaycammotionevent')
           }}&scale=25&replayMode=all
       message: Motion-Driveway
-    service: notify.mobile_app_galaxy_s21
+    service: notify.mobile_app_galaxys21
   - delay: 00:03:00
   - data:
       topic: monitor/scan/depart
@@ -551,9 +551,9 @@
   action:
   - data_template:
       data:
-        url: https://franzkafka.duckdns.org:8081/zm/index.php?view=watch&mid=4&scale=25
+        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=watch&mid=4&scale=25
       message: Doorbell Is Ringing
-    service: notify.mobile_app_galaxy_s21
+    service: notify.mobile_app_galaxys21
 - id: alarmtriggered
   alias: Automation for Alarm Triggered
   trigger:
@@ -575,9 +575,9 @@
     service: switch.turn_on
   - data_template:
       data:
-        url: https://franzkafka.duckdns.org:8080/lovelace/cameras
+        clickAction: https://franzkafka.duckdns.org:8080/lovelace/cameras
       message: ALARM TRIGGERED!!
-    service: notify.mobile_app_galaxy_s21
+    service: notify.mobile_app_galaxys21
 - id: automationalarmdisarmed
   alias: Automation for Alarm Disarmed
   description: ''
@@ -858,7 +858,7 @@
     data_template:
       title: Pool Gate Open
       message: Pool Gate Opened at {{ now().strftime('%H:%M %A') }}
-  - service: notify.mobile_app_galaxy_s21
+  - service: notify.mobile_app_galaxys21
     data_template:
       title: Pool Gate Open
       message: Pool Gate Opened at {{ now().strftime('%H:%M %A') }}
