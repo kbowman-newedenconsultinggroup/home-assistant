@@ -5,7 +5,7 @@ default_config:
 logger:
 #  default: critical
   default: info
-  logs:
+#  logs:
 #    custom_components.localtuya: debug
 #    custom_components.localtuya.pytuya: debug
 #    custom_components.entity_controller: debug
@@ -16,11 +16,11 @@ logger:
 #    zigpy: debug
 #    zigpy_cc: debug
 #    custom_components.alexa_media: debug
-    alexapy: debug
+#    alexapy: debug
 #    homeassistant.components.mobile_app: debug
 #    homeassistant.components.notify: debug
 #    homeassistant.core: debug
-    homeassistant.components.alexa: debug
+#    homeassistant.components.alexa: debug
 
 alexa:
   smart_home:
@@ -147,8 +147,8 @@ alexa:
         name: "Alarm"
         description: "Security Alarm"
       sensor.outside_temperature:
-        name: "Backyard"
-        description: "Outside Temperature"
+        name: "Back Yard"
+        description: "Back Yard Temperature"
         display_categories: TEMPERATURE_SENSOR
       cover.small_garage_door:
         name: "Small Garage Door"
@@ -318,7 +318,7 @@ http:
 #  base_url: homeassistant.bowman.com:8123
 
 homeassistant:
-  unit_system: imperial
+#  unit_system: imperial
   country: US
   currency: USD
   time_zone: America/Chicago
