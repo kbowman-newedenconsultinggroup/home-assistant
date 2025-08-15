@@ -50,7 +50,7 @@ alexa:
         - light.patio_lights
         - light.esplight_0259a5
         - light.esplight_5c7251
-        - light.esplight_f8596d
+        - light.pationorthlight
         - light.esplight_f87dc8
         - light.hearth_room_lights
         - light.moms_lamp
@@ -91,7 +91,7 @@ alexa:
       light.hearth_room_lights:
         name: Hearth Room Lights
         description: Hearth Room Ceiling Lights
-      light.esplight_f8596d:
+      light.pationorthlight:
         name: Patio North
         description: Patio North Light
       light.esplight_f87fe8:
@@ -341,7 +341,7 @@ light:
   - platform: group
     name: Patio Lights
     entities:
-      - light.esplight_f8596d
+      - light.pationorthlight
       - light.esplight_f87dc8
   - platform: group
     name: Moms Lamp
@@ -582,6 +582,16 @@ tts:
 
 # Sensors
 sensor:
+  - platform: template
+    sensors:
+      hvac_cooling:
+        value_template: "{{ is_state_attr('climate.nest_thermostat', 'hvac_action', 'cooling') }}"
+        friendly_name: HVAC Cooling
+  - platform: template
+    sensors:
+      hvac_heating:
+        value_template: "{{ is_state_attr('climate.nest_thermostat', 'hvac_action', 'heating') }}"
+        friendly_name: HVAC Heating
 #  - platform: version
 #    source: docker
   - platform: rest
@@ -924,7 +934,7 @@ entity_controller:
       - binary_sensor.pool_gate_contact
     entities:
       - light.esplight_f87fe8
-      - light.esplight_f8596d
+      - light.pationorthlight
     delay: 300
     start_time: 'sunset + 00:10:00'
     end_time: 'sunrise - 00:10:00'

@@ -53,7 +53,7 @@ exterior_lights:
   entities:
     - switch.shelly_shsw_25_b936ce_1
     - switch.shelly_shsw_25_b936ce_2
-    - light.esplight_f8596d
+    - light.pationorthlight
     - light.esplight_f87dc9
 
 christmas_lights:
