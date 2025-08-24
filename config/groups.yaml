@@ -42,7 +42,6 @@ interior_cameras_modetect:
 interior_lights:
   name: Interior Lights
   entities:
-    - light.esplight_f87fe8
     - light.esplight_0259a5
     - light.esplight_5c7251
     - light.red_lamp
@@ -54,7 +53,7 @@ exterior_lights:
     - switch.shelly_shsw_25_b936ce_1
     - switch.shelly_shsw_25_b936ce_2
     - light.pationorthlight
-    - light.esplight_f87dc9
+    - light.patiosouthlight
 
 christmas_lights:
   name: Christmas Lights
@@ -72,7 +71,6 @@ office:
   entities:
     - switch.computer
     - switch.officecam_state_inversion
-#    - light.esplight_f87fe8
 
 # Moved to light group in configuration.yaml
 #patio_lights:

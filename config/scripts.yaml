@@ -23,12 +23,6 @@ goodnight_wrapper:
       entity_id:
       - media_player.yamaha_receiver
       - media_player.yamaha_receiver_zone_2
-#  - service: media_player.play_media
-#    target:
-#      entity_id: media_player.jennifer_s_2nd_echo_dot
-#    data:
-#      media_content_type: custom
-#      media_content_id: turn off office lamp
   - service: script.turn_on
     data:
       entity_id:
@@ -208,7 +202,6 @@ script_turn_off_lights_goodnight:
       entity_id:
       - light.esplight_0259a5
       - light.esplight_5c7251
-      - light.esplight_f87fe8
       - light.patio_lights
       - light.shelly_shsw_25_b936ce_1
       - light.shelly_shsw_25_b936ce_2
@@ -290,3 +283,68 @@ sunrise_actions:
       key: timeToScreensaverV2
       value: '0'
   mode: single
+waterfrontyard:
+  sequence:
+  - sequence:
+    - action: hydrawise.start_watering
+      metadata: {}
+      data:
+        duration: 10
+      target:
+        device_id: fe398d1fa8b589cce56feb8a3332f440
+    - delay:
+        hours: 0
+        minutes: 12
+        seconds: 0
+        milliseconds: 0
+    - action: hydrawise.start_watering
+      metadata: {}
+      data:
+        duration: 12
+      target:
+        device_id: 23d759584ea9f7208b76b898efa62e6d
+  alias: WaterFrontYard
+  description: ''
+waterbackyard:
+  sequence:
+  - action: hydrawise.start_watering
+    metadata: {}
+    data:
+      duration: 6
+    target:
+      device_id: 61bbaad2dd6d1b4995cfa38447ce30f0
+  - delay:
+      hours: 0
+      minutes: 6
+      seconds: 30
+      milliseconds: 0
+  - action: hydrawise.start_watering
+    metadata: {}
+    data:
+      duration: 10
+    target:
+      device_id: bd6fb795c494af9b7827cf2720017876
+  - delay:
+      hours: 0
+      minutes: 10
+      seconds: 30
+      milliseconds: 0
+  - action: hydrawise.start_watering
+    metadata: {}
+    data:
+      duration: 7
+    target:
+      device_id: 6cd0fc3126a0d0c57fce64352e3e44b2
+  - delay:
+      hours: 0
+      minutes: 7
+      seconds: 30
+      milliseconds: 0
+  - action: hydrawise.start_watering
+    metadata: {}
+    data:
+      duration: 8
+    target:
+      device_id: 146e17406be961fca8427057c3f80756
+  alias: WaterBackYard
+  description: ''

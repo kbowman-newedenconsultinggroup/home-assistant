@@ -39,14 +39,13 @@ alexa:
         - binary_sensor.shed_door_contact
         - binary_sensor.pool_gate_contact
         - binary_sensor.garage_walk_in_door_contact
-        - sensor.garage_walk_in_door_temperature
         - group.christmas_lights
         - script.goodnight_wrapper
         - media_player.yamaha_receiver
         - media_player.yamaha_receiver_zone_2
         - group.office
         - script.alarm_toggle_chime
-        - light.esplight_f87fe8
+        - light.patiosouthlight
         - light.patio_lights
         - light.esplight_0259a5
         - light.esplight_5c7251
@@ -94,7 +93,7 @@ alexa:
       light.pationorthlight:
         name: Patio North
         description: Patio North Light
-      light.esplight_f87fe8:
+      light.patiosouthlight:
         name: Patio South
         description: Patio South Light
       light.esplight_5c7251:
@@ -106,9 +105,6 @@ alexa:
       light.patio_lights:
         name: Patio Lights
         description: Backyard Patio Lights
-#      light.esplight_f87fe8:
-#        name: Office Lamp
-#        description: Office Lamp
       script.alarm_toggle_chime:
         name: Door Chime
         description: Alarm Door Open and Close Beep"
@@ -127,10 +123,6 @@ alexa:
       script.goodnight_wrapper:
         name: "Goodnight Wrapper"
         description: "Home Assistant Goodnight Wrapper Script"
-      sensor.garage_walk_in_door_temperature:
-        name: "Garage"
-        description: "Garage Temperature"
-        display_categories: TEMPERATURE_SENSOR
       binary_sensor.garage_walk_in_door_contact:
         name: "Garage Walk In Door"
         description: "Walk-In door in garage"
@@ -298,6 +290,10 @@ mqtt:
       state_topic: 'monitor/basement/iphonex'
       value_template: '{{ value_json.confidence }}'
       unit_of_measurement: '%'
+    - name: 'Location Office iphonex'
+      state_topic: 'monitor/office/iphonex'
+      value_template: '{{ value_json.confidence }}'
+      unit_of_measurement: '%'
 
 # doorbell detector
     - name: "Doorbell Detector"
@@ -342,7 +338,7 @@ light:
     name: Patio Lights
     entities:
       - light.pationorthlight
-      - light.esplight_f87dc8
+      - light.patiosouthlight
   - platform: group
     name: Moms Lamp
     entities:
@@ -523,16 +519,6 @@ camera:
       - camera.frontdoorcam
       - camera.patiosouthcam
       - camera.pationorthcam
-#  - platform: combined
-#    base_address: https://franzkafka.duckdns.org:8080
-#    base_address: http://homeassistant.bowman.com:8123
-#    name: JennCameras
-#    entities:
-#      - camera.frontdoorcam
-#      - camera.patiosouthcam
-#      - camera.pationorthcam
-#      - camera.garagecam
-#      - camera.WorkShopCam
 
 switch:
 # switch to invert stated of officecam (off is no modetect, on is modetect)
@@ -582,18 +568,6 @@ tts:
 
 # Sensors
 sensor:
-  - platform: template
-    sensors:
-      hvac_cooling:
-        value_template: "{{ is_state_attr('climate.nest_thermostat', 'hvac_action', 'cooling') }}"
-        friendly_name: HVAC Cooling
-  - platform: template
-    sensors:
-      hvac_heating:
-        value_template: "{{ is_state_attr('climate.nest_thermostat', 'hvac_action', 'heating') }}"
-        friendly_name: HVAC Heating
-#  - platform: version
-#    source: docker
   - platform: rest
     resource: http://weather.bowman.com/weewx/daily.json
     name: WeatherStation
@@ -624,6 +598,37 @@ sensor:
         friendly_name: Humidity
         value_template: "{{ states.sensor.weatherstation.attributes.current['humidity'] }}"
         unit_of_measurement: '%'
+  - platform: template
+    sensors:
+      barometer:
+        friendly_name: Barometer
+        value_template: "{{ states.sensor.weatherstation.attributes.current['barometer'] }}"
+        unit_of_measurement: 'inHg'
+  - platform: template
+    sensors:
+      barometertrend:
+        friendly_name: BarometerTrend
+        value_template: "{{ states.sensor.weatherstation.attributes.current['barometerTrendData'] }}"
+        unit_of_measurement: 'inHg'
+  - platform: template
+    sensors:
+      windchill:
+        friendly_name: WindChill
+        value_template: "{{ states.sensor.weatherstation.attributes.current['windChill'] }}"
+        unit_of_measurement: '°F'
+  - platform: template
+    sensors:
+      heatindex:
+        friendly_name: HeatIndex
+        value_template: "{{ states.sensor.weatherstation.attributes.current['heatIndex'] }}"
+        unit_of_measurement: '°F'
+  - platform: template
+    sensors:
+      weeklyrain:
+        friendly_name: WeeklyRain
+        value_template: "{{ states.sensor.weatherstation.attributes.current['weeklyRain'] }}"
+        unit_of_measurement: 'in'
+
 
   - platform: zoneminder
     include_archived: false
@@ -748,6 +753,7 @@ sensor:
     entity_ids:
       - sensor.location_pantry_iphonex
       - sensor.location_basement_iphonex
+      - sensor.location_office_iphonex
 
 
 # doorbell detector
@@ -794,13 +800,13 @@ sensor:
 #  - platform: darksky
 #    api_key: !secret darksky_api
 
-cover:
-  platform: opengarage
-  covers:
-    garage:
-      host: opengaragesmall.bowman.com
-      device_key: !secret opendoor_key
-      name: Small Garage Door
+#cover:
+#  platform: opengarage
+#  covers:
+#    garage:
+#      host: opengaragesmall.bowman.com
+#      device_key: !secret opendoor_key
+#      name: Small Garage Door
     #    garage2:
     #   host: opengaragesmall.bowman.com
     #   device_key: opendoor
@@ -933,8 +939,9 @@ entity_controller:
       - binary_sensor.patiosouthcammotiondetected
       - binary_sensor.pool_gate_contact
     entities:
-      - light.esplight_f87fe8
+      - light.patiosouthlight
       - light.pationorthlight
+      - light.basement_light
     delay: 300
     start_time: 'sunset + 00:10:00'
     end_time: 'sunrise - 00:10:00'
