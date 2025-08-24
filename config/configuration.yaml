@@ -624,6 +624,18 @@ sensor:
         unit_of_measurement: '°F'
   - platform: template
     sensors:
+      maxouttemp:
+        friendly_name: HighTempToday
+        value_template: "{{ states.sensor.weatherstation.attributes.current['outTempMax'] }}"
+        unit_of_measurement: '°F'
+  - platform: template
+    sensors:
+      minouttemp:
+        friendly_name: LowTempToday
+        value_template: "{{ states.sensor.weatherstation.attributes.current['outTempMin'] }}"
+        unit_of_measurement: '°F'
+  - platform: template
+    sensors:
       weeklyrain:
         friendly_name: WeeklyRain
         value_template: "{{ states.sensor.weatherstation.attributes.current['weeklyRain'] }}"
