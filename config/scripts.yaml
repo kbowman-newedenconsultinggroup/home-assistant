@@ -205,11 +205,15 @@ script_turn_off_lights_goodnight:
       - light.patio_lights
       - light.shelly_shsw_25_b936ce_1
       - light.shelly_shsw_25_b936ce_2
+      - light.garageworkbenchlighta
+      - light.garageworkbenchlightb
       - light.red_lamp
       - light.tasmota_5308
       - light.tasmota_3878
       - light.tasmota_4530
       - light.front_outside_garage_light
+      - light.pationorthlight
+      - light.patiosouthlight
   - service: script.turn_on
     data:
       entity_id: script.mantellights32_goodnight

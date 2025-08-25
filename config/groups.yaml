@@ -1,5 +1,5 @@
-garage:
-  name: Garage
+smallgaragedoor:
+  name: SmallGarageDoor
   entities:
     - cover.small_garage_door
     - sensor.garage_status
@@ -54,6 +54,13 @@ exterior_lights:
     - switch.shelly_shsw_25_b936ce_2
     - light.pationorthlight
     - light.patiosouthlight
+
+garage_lights:
+  name: Garage Lights
+  entities:
+    - light.garageworkbenchlighta
+    - light.garageworkbenchlightb
+    - switch.shelly_shsw_25_b936ce_2
 
 christmas_lights:
   name: Christmas Lights

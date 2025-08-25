@@ -61,7 +61,11 @@ alexa:
         - script.desk_lights_white
         - light.front_outside_lights
         - light.tasmota_4530
+        - group.garage_lights
     entity_config:
+      group.garage_lights:
+        name: Garage Lights
+        description: Garage Lights
       light.tasmota_4530:
         name: Black Cabinet
         description: Living Room Black Cabinet lights
@@ -150,7 +154,7 @@ alexa:
         name: "Front Lights"
         description: "Front Outside House Lights"
         display_categories: LIGHT
-      light.shelly_shsw_25_b936ce_2:
+      light.garage_lights:
         name: "Garage Lights"
         description: "Garage Lights"
         display_categories: LIGHT
@@ -355,6 +359,11 @@ light:
       - light.shelly_shsw_25_b936ce_1
       - light.front_outside_garage_light
       - light.front_step_light
+  - platform: group
+    name: Garage Workbench Lights
+    entities:
+      - light.garageworkbenchlighta
+      - light.garageworkbenchlightb
   - platform: template
     lights:
       shelly_shsw_25_b936ce_1:
@@ -895,7 +904,7 @@ entity_controller:
       - binary_sensor.mudroom_door
       - binary_sensor.garagecammotiondetected
       - binary_sensor.garage_walk_in_door_contact
-    entity: light.shelly_shsw_25_b936ce_2
+    entity: group.garage_lights
     state_attributes_ignore:
       - uptime
       - device_temp
