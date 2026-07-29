@@ -168,8 +168,8 @@
   action:
   - data_template:
       data:
-        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.officecammotionevent')
-          }}&scale=50&replayMode=all
+        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{
+          states('sensor.officecammotionevent') }}&scale=50&replayMode=all
       message: Motion-OfficeCam
     service: notify.mobile_app_galaxys21
 - id: alertwhenshopcammotiondetected
@@ -185,8 +185,8 @@
   action:
   - data_template:
       data:
-        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.shopcammotionevent')
-          }}&scale=50&replayMode=all
+        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{
+          states('sensor.shopcammotionevent') }}&scale=50&replayMode=all
       message: Motion-ShopCam
     service: notify.mobile_app_galaxys21
   - data_template:
@@ -208,8 +208,8 @@
   action:
   - data_template:
       data:
-        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.garagecammotionevent')
-          }}&scale=50&replayMode=all
+        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{
+          states('sensor.garagecammotionevent') }}&scale=50&replayMode=all
       message: Motion-Garage
     service: notify.mobile_app_galaxys21
 - id: alertwhenfrontdoorcammotiondetected
@@ -225,8 +225,8 @@
   action:
   - data_template:
       data:
-        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.frontdoorcammotionevent')
-          }}&scale=25&replayMode=all
+        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{
+          states('sensor.frontdoorcammotionevent') }}&scale=25&replayMode=all
       message: Motion-FrontDoor
     service: notify.mobile_app_galaxys21
 - id: alertwhendrivewaycammotiondetected
@@ -242,8 +242,8 @@
   action:
   - data_template:
       data:
-        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{ states('sensor.drivewaycammotionevent')
-          }}&scale=25&replayMode=all
+        clickAction: https://franzkafka.duckdns.org:8081/zm/index.php?view=event&eid={{
+          states('sensor.drivewaycammotionevent') }}&scale=25&replayMode=all
       message: Motion-Driveway
     service: notify.mobile_app_galaxys21
   - delay: 00:03:00
@@ -628,27 +628,27 @@
     entity_id: group.exterior_cameras_modetect
     service: switch.turn_on
 - id: Laptop Charge Start
-  alias: Begin Charge Laptops
-  description: Turn on Office Plug at 03:30
-  trigger:
-  - at: 03:30:00
-    platform: time
-  condition: []
-  action:
+  alias: Begin Charge Laptops 22:00
+  description: Turn on Office Plug at 22:00
+  triggers:
+  - at: '22:00:00'
+    trigger: time
+  conditions: []
+  actions:
   - data: {}
     entity_id: switch.office_plug
-    service: switch.turn_on
+    action: switch.turn_on
 - id: Laptop Charge Stop
-  alias: End Charge Laptops
-  description: Turn off Office Plug at 04:00
-  trigger:
-  - at: 04:00:00
-    platform: time
-  condition: []
-  action:
+  alias: End Charge Laptops 22:00
+  description: Turn off Office Plug at 22:20
+  triggers:
+  - at: '22:20:00'
+    trigger: time
+  conditions: []
+  actions:
   - data: {}
     entity_id: switch.office_plug
-    service: switch.turn_off
+    action: switch.turn_off
 - id: '1585665874837'
   alias: Automation for Computer Turn On
   description: ''
@@ -687,7 +687,7 @@
     trigger: state
   conditions:
   - condition: time
-    after: 06:00:00
+    after: 05:30:00
     before: 09:00:00
   - condition: state
     entity_id: input_boolean.boolean_alexa_goodnight
@@ -829,19 +829,6 @@
     data:
       media_content_type: custom
       media_content_id: turn off office lamp
-- id: '1657575540898'
-  alias: Automation - rotate cameras
-  description: ''
-  trigger:
-  - platform: time_pattern
-    seconds: /10
-  condition: []
-  action:
-  - service: counter.increment
-    data: {}
-    target:
-      entity_id: counter.cameracounter
-  mode: single
 - id: '1685721653675'
   alias: Alert when Pool Gate opened
   description: ''
@@ -862,4 +849,54 @@
     data_template:
       title: Pool Gate Open
       message: Pool Gate Opened at {{ now().strftime('%H:%M %A') }}
+  mode: single
+- id: '1770164746907'
+  alias: Charge Laptops - Begin 5am
+  description: Turn on Office Plug at 05:00
+  triggers:
+  - at: 05:00:00
+    trigger: time
+  conditions: []
+  actions:
+  - data: {}
+    entity_id: switch.office_plug
+    action: switch.turn_on
+  mode: single
+- id: '1770164825443'
+  alias: Charge Laptops - End 5am
+  description: Turn off Office Plug at 05:15
+  triggers:
+  - at: 05:15:00
+    trigger: time
+  conditions: []
+  actions:
+  - data: {}
+    entity_id: switch.office_plug
+    action: switch.turn_off
+  mode: single
+- id: '1779381653141'
+  alias: Turn off Office Plug 15 minutes after turned on
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - switch.office_plug
+    from: 'off'
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 2
+      seconds: 0
+  conditions: []
+  actions:
+  - delay:
+      hours: 0
+      minutes: 15
+      seconds: 0
+      milliseconds: 0
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      device_id: 05ef3cc6dbd5a5ca18ada4f69e0666e5
   mode: single

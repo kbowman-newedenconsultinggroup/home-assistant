@@ -904,7 +904,9 @@ entity_controller:
       - binary_sensor.mudroom_door
       - binary_sensor.garagecammotiondetected
       - binary_sensor.garage_walk_in_door_contact
-    entity: group.garage_lights
+    entities:
+      - light.shelly_shsw_25_b936ce_2
+      - light.garage_workbench_lights
     state_attributes_ignore:
       - uptime
       - device_temp
@@ -959,6 +961,7 @@ entity_controller:
       - binary_sensor.pationorthcammotiondetected
       - binary_sensor.patiosouthcammotiondetected
       - binary_sensor.pool_gate_contact
+      - binary_sensor.0x00158d0002753f8b_occupancy
     entities:
       - light.patiosouthlight
       - light.pationorthlight
@@ -976,6 +979,7 @@ entity_controller:
     sensor:
       - binary_sensor.basement_door
       - binary_sensor.basement_motion
+      - binary_sensor.0x00158d0002753f8b_occupancy
     entities:
       - light.basement_light
     delay: 300

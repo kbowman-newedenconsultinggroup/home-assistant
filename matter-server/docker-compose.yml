@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+  # python-matter-server
+  matter-server:
+    image: ghcr.io/home-assistant-libs/python-matter-server:stable
+    container_name: matter-server
+    restart: always
+    # Required for mDNS to work correctly
+    network_mode: host
+    dns:
+      - 127.0.0.53
+    dns_search:
+      - bowman.com
+    security_opt:
+      # Needed for Bluetooth via dbus
+      - apparmor:unconfined
+    volumes:
+      # Create an .env file that sets the USERDIR environment variable.
+      #- ${USERDIR:-$HOME}/docker/matter-server/data:/data/
+      - /etc/homeassistant/matter-server/data:/data/
+      # Required for Bluetooth via D-Bus
+      - /run/dbus:/run/dbus:ro
+    # If you adjust command line, make sure to pass the default CMD arguments too:
+    #command: --storage-path /data --paa-root-cert-dir /data/credentials --bluetooth-adapter 0
