@@ -961,7 +961,7 @@ entity_controller:
       - binary_sensor.pationorthcammotiondetected
       - binary_sensor.patiosouthcammotiondetected
       - binary_sensor.pool_gate_contact
-      - binary_sensor.0x00158d0002753f8b_occupancy
+      - binary_sensor.basement_motion_sensor_occupancy
     entities:
       - light.patiosouthlight
       - light.pationorthlight
@@ -979,7 +979,7 @@ entity_controller:
     sensor:
       - binary_sensor.basement_door
       - binary_sensor.basement_motion
-      - binary_sensor.0x00158d0002753f8b_occupancy
+      - binary_sensor.basement_motion_sensor_occupancy
     entities:
       - light.basement_light
     delay: 300
