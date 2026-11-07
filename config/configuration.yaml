@@ -1,4 +1,5 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
+# Updated for Home Assistant 2026.10.x (migrated from 2025.5.2)
 # test new gitignore
 default_config:
 
@@ -30,7 +31,7 @@ alexa:
     client_secret: !secret alexa_client_secret
     filter:
       include_entities:
-        - light.shelly_shsw_25_b936ce_1
+        - light.mudroom_shelly_mudroom_frontlights
         - switch.office_plug
         - switch.computer
         - cover.small_garage_door
@@ -111,7 +112,7 @@ alexa:
         description: Backyard Patio Lights
       script.alarm_toggle_chime:
         name: Door Chime
-        description: Alarm Door Open and Close Beep"
+        description: "Alarm Door Open and Close Beep"
       group.office:
         name: "Office"
         description: "Office equipment"
@@ -150,7 +151,7 @@ alexa:
         name: "Small Garage Door"
         description: "Small Overhead Garage Door"
         display_categories: GARAGE_DOOR
-      light.shelly_shsw_25_b936ce_1:
+      light.mudroom_shelly_mudroom_frontlights:
         name: "Front Lights"
         description: "Front Outside House Lights"
         display_categories: LIGHT
@@ -356,7 +357,7 @@ light:
   - platform: group
     name: Front Outside Lights
     entities:
-      - light.shelly_shsw_25_b936ce_1
+      - light.mudroom_shelly_mudroom_frontlights
       - light.front_outside_garage_light
       - light.front_step_light
   - platform: group
@@ -364,26 +365,7 @@ light:
     entities:
       - light.garageworkbenchlighta
       - light.garageworkbenchlightb
-  - platform: template
-    lights:
-      shelly_shsw_25_b936ce_1:
-        value_template: "{{ states('switch.shelly_shsw_25_b936ce_1') }}"
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.shelly_shsw_25_b936ce_1
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.shelly_shsw_25_b936ce_1
-  - platform: template
-    lights:
-      shelly_shsw_25_b936ce_2:
-        value_template: "{{ states('switch.shelly_shsw_25_b936ce_2') }}"
-        turn_on:
-          service: switch.turn_on
-          entity_id: switch.shelly_shsw_25_b936ce_2
-        turn_off:
-          service: switch.turn_off
-          entity_id: switch.shelly_shsw_25_b936ce_2
+  # Shelly template lights moved to the template: section at the bottom
 
 #binary_sensor:
 #  - platform: workday
@@ -431,10 +413,6 @@ light:
 
 
 input_boolean:
-  boolean_pool_pandora:
-    name: Boolean for pool stereo pandora
-    initial: off
-    icon: mdi:mdi-bookmark-music-outline
   boolean_disable_patio_lights:
     name: Boolean to override patio lights
     initial: off
@@ -466,8 +444,6 @@ media_player:
 # yamaha receiver
   - platform: yamaha
     host: 'yamaha.bowman.com'
-# pandora for pool stereo
-  - platform: pandora
 
 # roku
 #roku:
@@ -499,7 +475,7 @@ camera:
     still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.officecammotionevent') }}&fid=snapshot
     name: 'LastofficecamMotionEvent'
   - platform: generic
-    still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.WorkShopCammotionevent') }}&fid=snapshot
+    still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.workshopcammotionevent') }}&fid=snapshot
     name: 'LastWorkShopCamMotionEvent'
   - platform: generic
     still_image_url: http://zoneminder.bowman.com/zm/index.php?view=image&eid={{ states('sensor.garagecammotionevent') }}&fid=snapshot
@@ -524,24 +500,13 @@ camera:
     entities:
       - camera.officecam
       - camera.garagecam
-      - camera.WorkShopCam
+      - camera.workshopcam
       - camera.frontdoorcam
       - camera.patiosouthcam
       - camera.pationorthcam
 
 switch:
-# switch to invert stated of officecam (off is no modetect, on is modetect)
-# so when office if "off" modetect is "on"
-  - platform: template
-    switches:
-      officecam_state_inversion:
-        value_template: "{{ is_state('switch.officecam_state', 'off') }}"
-        turn_on:
-          service: switch.turn_off
-          entity_id: switch.officecam_state
-        turn_off:
-          service: switch.turn_on
-          entity_id: switch.officecam_state
+# officecam_state_inversion template switch moved to the template: section at the bottom
 
 # zoneminder record control
   - platform: zoneminder
@@ -572,8 +537,10 @@ zoneminder:
   - host: zoneminder.bowman.com
 
 # Text to speech
-tts:
-  - platform: google_translate
+# Google Translate TTS is configured in the UI now (Settings > Devices & services).
+# YAML platform setup is no longer supported, so this is commented out.
+#tts:
+#  - platform: google_translate
 
 # Sensors
 sensor:
@@ -583,72 +550,7 @@ sensor:
     json_attributes:
       - current
     value_template: '{{ value_json.hardware }}'
-  - platform: template
-    sensors:
-      outside_temperature:
-        friendly_name: OutsideTemperature
-        value_template: "{{ states.sensor.weatherstation.attributes.current['outTemp'] }}"
-        unit_of_measurement: '°F'
-  - platform: template
-    sensors:
-      rainfall:
-        friendly_name: TodayRain
-        value_template: "{{ states.sensor.weatherstation.attributes.current['dayRain'] }}"
-        unit_of_measurement: 'in'
-  - platform: template
-    sensors:
-      windspeed:
-        friendly_name: Windspeed
-        value_template: "{{ states.sensor.weatherstation.attributes.current['windSpeed'] }}"
-        unit_of_measurement: 'mph'
-  - platform: template
-    sensors:
-      humidity:
-        friendly_name: Humidity
-        value_template: "{{ states.sensor.weatherstation.attributes.current['humidity'] }}"
-        unit_of_measurement: '%'
-  - platform: template
-    sensors:
-      barometer:
-        friendly_name: Barometer
-        value_template: "{{ states.sensor.weatherstation.attributes.current['barometer'] }}"
-        unit_of_measurement: 'inHg'
-  - platform: template
-    sensors:
-      barometertrend:
-        friendly_name: BarometerTrend
-        value_template: "{{ states.sensor.weatherstation.attributes.current['barometerTrendData'] }}"
-        unit_of_measurement: 'inHg'
-  - platform: template
-    sensors:
-      windchill:
-        friendly_name: WindChill
-        value_template: "{{ states.sensor.weatherstation.attributes.current['windChill'] }}"
-        unit_of_measurement: '°F'
-  - platform: template
-    sensors:
-      heatindex:
-        friendly_name: HeatIndex
-        value_template: "{{ states.sensor.weatherstation.attributes.current['heatIndex'] }}"
-        unit_of_measurement: '°F'
-  - platform: template
-    sensors:
-      maxouttemp:
-        friendly_name: HighTempToday
-        value_template: "{{ states.sensor.weatherstation.attributes.current['outTempMax'] }}"
-        unit_of_measurement: '°F'
-  - platform: template
-    sensors:
-      minouttemp:
-        friendly_name: LowTempToday
-        value_template: "{{ states.sensor.weatherstation.attributes.current['outTempMin'] }}"
-        unit_of_measurement: '°F'
-  - platform: template
-    sensors:
-      weeklyrain:
-        friendly_name: WeeklyRain
-        value_template: "{{ states.sensor.weatherstation.attributes.current['weeklyRain'] }}"
-        unit_of_measurement: 'in'
+  # Weather station template sensors moved to the template: section at the bottom
 
 
   - platform: zoneminder
@@ -782,40 +684,7 @@ sensor:
 #    name: "Doorbell Detector"
 #    state_topic: "sounddetector/doorbell"
 #    value_template: "{{ value_json.datetime }}"
-# small garage door
-  - platform: template
-    sensors:
-      small_garage_status:
-        friendly_name: 'Small Door'
-        value_template: '{% if states.cover.small_garage_door %}
-            {% if states.cover.small_garage_door.attributes["door_state"] == "open" %}
-              Open
-            {% elif states.cover.small_garage_door.attributes["door_state"] == "closed" %}
-              Closed
-            {% elif states.cover.small_garage_door.attributes["door_state"] == "opening" %}
-              Opening
-            {% elif states.cover.small_garage_door.attributes["door_state"] == "closing" %}
-              Closing
-            {% else %}
-              Unknown
-            {% endif %}
-            {% else %}
-            n/a
-            {% endif %}'
-
-      garage_car_present:
-        friendly_name: 'Jaguar in Garage'
-        value_template: '{% if states.cover.small_garage_door %}
-            {% if is_state("cover.small_garage_door", "open") %}
-              n/a
-            {% elif ((states.cover.small_garage_door.attributes["distance_sensor"] > 65) and (states.cover.small_garage_door.attributes["distance_sensor"] < 250)) %}
-              Yes
-            {% else %}
-              No
-            {% endif %}
-            {% else %}
-            n/a
-            {% endif %}'
+# small garage door -> template sensors moved to the template: section at the bottom
 
 #weather:
 #  - platform: darksky
@@ -836,21 +705,6 @@ sensor:
 timer:
   garage_doors_opened_timer:
     duration: '00:30:00'
-
-
-#emulated_hue:
-#  listen_port: 80
-#  expose_by_default: false
-#  entities:
-#    input_boolean.boolean_pool_pandora:
-#      name: "Pool Stereo Pandora"
-#      hidden: false
-#    light.415110852cf4320259a5:
-#      name: "living room east"
-#      hidden: false
-#    light.41511085dc4f225c7251:
-#      name: "living room west"
-#      hidden: false
 
 envisalink:
   host: alarmpanel.bowman.com
@@ -881,23 +735,6 @@ envisalink:
     1:
       name: 'Home Alarm'
 
-#shelly:
-#  discovery: false
-#  version: true
-#  attributes:
-#    - all
-#    - ip_address
-#    - shelly_type
-#    - switch
-#    - over_power
-#  sensors:
-#    - all
-#    - switch
-#    - over_power
-#  devices:
-#    - id: "B936CE"
-#      light_switch: true
-
 entity_controller:
   garage_lights:
     sensor:
@@ -905,7 +742,7 @@ entity_controller:
       - binary_sensor.garagecammotiondetected
       - binary_sensor.garage_walk_in_door_contact
     entities:
-      - light.shelly_shsw_25_b936ce_2
+      - light.mudroom_shelly_mudroom_garagelights
       - light.garage_workbench_lights
     state_attributes_ignore:
       - uptime
@@ -920,7 +757,7 @@ entity_controller:
       - latest_fw_version
       - firmware_version
       - latest_beta_fw_version
-    delay: 180
+    delay: 240
     block_timeout: 7200
     backoff: true
     backoff_factor: 1.1
@@ -931,7 +768,7 @@ entity_controller:
       - binary_sensor.frontdoorcammotiondetected
       - binary_sensor.garage_walk_in_door_contact
     entities:
-      - light.shelly_shsw_25_b936ce_1
+      - light.mudroom_shelly_mudroom_frontlights
       - light.front_outside_garage_light
       - light.front_step_light
     state_attributes_ignore:
@@ -1004,6 +841,137 @@ entity_controller:
 #  camera:
 #    title: 'Camera'
 #    url: 'https://franzkafka.duckdns.org:8081/zm/index.php?view=montage&zmMontageLayout=3&scale=50'
+
+###############################################################################
+# Template entities (modern syntax)
+# Legacy "platform: template" entities were removed in Home Assistant 2026.6.
+# default_entity_id keeps the same entity IDs as before, so automations,
+# dashboards, Alexa and entity_controller keep working.
+###############################################################################
+template:
+  - light:
+      - name: mudroom_shelly_mudroom_frontlights
+        unique_id: template_light_mudroom_shelly_mudroom_frontlights
+        default_entity_id: light.mudroom_shelly_mudroom_frontlights
+        state: "{{ is_state('switch.mudroom_shelly_mudroom_frontlights', 'on') }}"
+        turn_on:
+          - action: switch.turn_on
+            target:
+              entity_id: switch.mudroom_shelly_mudroom_frontlights
+        turn_off:
+          - action: switch.turn_off
+            target:
+              entity_id: switch.mudroom_shelly_mudroom_frontlights
+      - name: mudroom_shelly_mudroom_garagelights
+        unique_id: template_light_mudroom_shelly_mudroom_garagelights
+        default_entity_id: light.mudroom_shelly_mudroom_garagelights
+        state: "{{ is_state('switch.mudroom_shelly_mudroom_garagelights', 'on') }}"
+        turn_on:
+          - action: switch.turn_on
+            target:
+              entity_id: switch.mudroom_shelly_mudroom_garagelights
+        turn_off:
+          - action: switch.turn_off
+            target:
+              entity_id: switch.mudroom_shelly_mudroom_garagelights
+
+  # switch to invert state of officecam (off is no modetect, on is modetect)
+  # so when office is "off" modetect is "on"
+  - switch:
+      - name: officecam_state_inversion
+        unique_id: template_switch_officecam_state_inversion
+        default_entity_id: switch.officecam_state_inversion
+        state: "{{ is_state('switch.officecam_state', 'off') }}"
+        turn_on:
+          - action: switch.turn_off
+            target:
+              entity_id: switch.officecam_state
+        turn_off:
+          - action: switch.turn_on
+            target:
+              entity_id: switch.officecam_state
+
+  # Weather station (values come from the sensor.weatherstation REST sensor)
+  - sensor:
+      - name: OutsideTemperature
+        unique_id: template_sensor_outside_temperature
+        default_entity_id: sensor.outside_temperature
+        state: "{{ (state_attr('sensor.weatherstation', 'current') or {}).get('outTemp') }}"
+        unit_of_measurement: "°F"
+      - name: TodayRain
+        unique_id: template_sensor_rainfall
+        default_entity_id: sensor.rainfall
+        state: "{{ (state_attr('sensor.weatherstation', 'current') or {}).get('dayRain') }}"
+        unit_of_measurement: "in"
+      - name: Windspeed
+        unique_id: template_sensor_windspeed
+        default_entity_id: sensor.windspeed
+        state: "{{ (state_attr('sensor.weatherstation', 'current') or {}).get('windSpeed') }}"
+        unit_of_measurement: "mph"
+      - name: Humidity
+        unique_id: template_sensor_humidity
+        default_entity_id: sensor.humidity
+        state: "{{ (state_attr('sensor.weatherstation', 'current') or {}).get('humidity') }}"
+        unit_of_measurement: "%"
+      - name: Barometer
+        unique_id: template_sensor_barometer
+        default_entity_id: sensor.barometer
+        state: "{{ (state_attr('sensor.weatherstation', 'current') or {}).get('barometer') }}"
+        unit_of_measurement: "inHg"
+      - name: BarometerTrend
+        unique_id: template_sensor_barometertrend
+        default_entity_id: sensor.barometertrend
+        state: "{{ (state_attr('sensor.weatherstation', 'current') or {}).get('barometerTrendData') }}"
+        unit_of_measurement: "inHg"
+      - name: WindChill
+        unique_id: template_sensor_windchill
+        default_entity_id: sensor.windchill
+        state: "{{ (state_attr('sensor.weatherstation', 'current') or {}).get('windChill') }}"
+        unit_of_measurement: "°F"
+      - name: HeatIndex
+        unique_id: template_sensor_heatindex
+        default_entity_id: sensor.heatindex
+        state: "{{ (state_attr('sensor.weatherstation', 'current') or {}).get('heatIndex') }}"
+        unit_of_measurement: "°F"
+      - name: HighTempToday
+        unique_id: template_sensor_maxouttemp
+        default_entity_id: sensor.maxouttemp
+        state: "{{ (state_attr('sensor.weatherstation', 'current') or {}).get('outTempMax') }}"
+        unit_of_measurement: "°F"
+      - name: LowTempToday
+        unique_id: template_sensor_minouttemp
+        default_entity_id: sensor.minouttemp
+        state: "{{ (state_attr('sensor.weatherstation', 'current') or {}).get('outTempMin') }}"
+        unit_of_measurement: "°F"
+      - name: WeeklyRain
+        unique_id: template_sensor_weeklyrain
+        default_entity_id: sensor.weeklyrain
+        state: "{{ (state_attr('sensor.weatherstation', 'current') or {}).get('weeklyRain') }}"
+        unit_of_measurement: "in"
+
+      # small garage door
+      - name: Small Door
+        unique_id: template_sensor_small_garage_status
+        default_entity_id: sensor.small_garage_status
+        state: >-
+          {%- set door = state_attr('cover.small_garage_door', 'door_state') -%}
+          {%- if states.cover.small_garage_door is none -%} n/a
+          {%- elif door == 'open' -%} Open
+          {%- elif door == 'closed' -%} Closed
+          {%- elif door == 'opening' -%} Opening
+          {%- elif door == 'closing' -%} Closing
+          {%- else -%} Unknown
+          {%- endif -%}
+      - name: Jaguar in Garage
+        unique_id: template_sensor_garage_car_present
+        default_entity_id: sensor.garage_car_present
+        state: >-
+          {%- set dist = state_attr('cover.small_garage_door', 'distance_sensor') -%}
+          {%- if states.cover.small_garage_door is none -%} n/a
+          {%- elif is_state('cover.small_garage_door', 'open') -%} n/a
+          {%- elif dist is number and 65 < dist < 250 -%} Yes
+          {%- else -%} No
+          {%- endif -%}
 
 group: !include groups.yaml
 automation: !include automations.yaml

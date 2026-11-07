@@ -42,19 +42,19 @@ goodnight_wrapper:
   - service: script.turn_on
     data:
       entity_id: script.goodnight_end
-  - service: fullykiosk.set_config
+  - service: fully_kiosk.set_config
     data:
       entity_id: media_player.fire_tablet_media_player
       config_type: string
       key: screenBrightness
       value: '0'
-  - service: fullykiosk.set_config
+  - service: fully_kiosk.set_config
     data:
       entity_id: media_player.fire_tablet_media_player
       config_type: string
       key: screensaverBrightness
       value: '0'
-  - service: fullykiosk.set_config
+  - service: fully_kiosk.set_config
     data:
       entity_id: media_player.fire_tablet_media_player
       config_type: string
@@ -203,8 +203,8 @@ script_turn_off_lights_goodnight:
       - light.esplight_0259a5
       - light.esplight_5c7251
       - light.patio_lights
-      - light.shelly_shsw_25_b936ce_1
-      - light.shelly_shsw_25_b936ce_2
+      - light.mudroom_shelly_mudroom_frontlights
+      - light.mudroom_shelly_mudroom_garagelights
       - light.garageworkbenchlighta
       - light.garageworkbenchlightb
       - light.red_lamp
@@ -274,13 +274,13 @@ mantellights32_goodmorning:
 sunrise_actions:
   alias: Sunrise Actions
   sequence:
-  - service: fullykiosk.set_config
+  - service: fully_kiosk.set_config
     data:
       entity_id: media_player.fire_tablet_media_player
       config_type: string
       key: screenBrightness
       value: '150'
-  - service: fullykiosk.set_config
+  - service: fully_kiosk.set_config
     data:
       entity_id: media_player.fire_tablet_media_player
       config_type: string

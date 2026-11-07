@@ -17,12 +17,6 @@ garage_doors:
   entities:
     - sensor.garage_status
 
-pool_pandora:
-  name: Pool Pandora
-  entities:
-    - switch.04200099bcddc2003471
-    - switch.pool_pandora
-
 exterior_cameras_modetect:
   name: Exterior Cameras Modetect
   entities:
@@ -50,8 +44,8 @@ interior_lights:
 exterior_lights:
   name: Exterior Lights
   entities:
-    - switch.shelly_shsw_25_b936ce_1
-    - switch.shelly_shsw_25_b936ce_2
+    - switch.mudroom_shelly_mudroom_frontlights
+    - switch.mudroom_shelly_mudroom_garagelights
     - light.pationorthlight
     - light.patiosouthlight
 
@@ -60,7 +54,7 @@ garage_lights:
   entities:
     - light.garageworkbenchlighta
     - light.garageworkbenchlightb
-    - switch.shelly_shsw_25_b936ce_2
+    - switch.mudroom_shelly_mudroom_garagelights
 
 christmas_lights:
   name: Christmas Lights
@@ -78,15 +72,3 @@ office:
   entities:
     - switch.computer
     - switch.officecam_state_inversion
-
-# Moved to light group in configuration.yaml
-#patio_lights:
-#  name: Patio Lights
-#  entities:
-#    - light.esplight_f8596d
-#    - light.esplight_f87dc9
-#hearth_room_lights:
-#  name: Hearth Room Lights
-#  entities:
-#    - light.hearth_room_east_light
-#    - light.hearth_room_west_light
