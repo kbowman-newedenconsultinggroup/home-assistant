@@ -44,22 +44,22 @@ goodnight_wrapper:
       entity_id: script.goodnight_end
   - service: fully_kiosk.set_config
     data:
-      entity_id: media_player.fire_tablet_media_player
-      config_type: string
       key: screenBrightness
       value: '0'
+    target:
+      device_id: 60deb23b59e9a0648e55ed9a004521ec
   - service: fully_kiosk.set_config
     data:
-      entity_id: media_player.fire_tablet_media_player
-      config_type: string
       key: screensaverBrightness
       value: '0'
+    target:
+      device_id: 60deb23b59e9a0648e55ed9a004521ec
   - service: fully_kiosk.set_config
     data:
-      entity_id: media_player.fire_tablet_media_player
-      config_type: string
       key: timeToScreensaverV2
       value: '10'
+    target:
+      device_id: 60deb23b59e9a0648e55ed9a004521ec
   mode: single
 enablemodetect:
   alias: Enable MoDetect
@@ -276,16 +276,16 @@ sunrise_actions:
   sequence:
   - service: fully_kiosk.set_config
     data:
-      entity_id: media_player.fire_tablet_media_player
-      config_type: string
       key: screenBrightness
       value: '150'
+    target:
+      device_id: 60deb23b59e9a0648e55ed9a004521ec
   - service: fully_kiosk.set_config
     data:
-      entity_id: media_player.fire_tablet_media_player
-      config_type: string
       key: timeToScreensaverV2
       value: '0'
+    target:
+      device_id: 60deb23b59e9a0648e55ed9a004521ec
   mode: single
 waterfrontyard:
   sequence:

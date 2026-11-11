@@ -129,7 +129,7 @@
     platform: state
   condition:
   - condition: template
-    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+    value_template: '{{ trigger.to_state.state|int(0) > trigger.from_state.state|int(0)
       }} '
   action:
   - data_template:
@@ -146,7 +146,7 @@
     platform: state
   condition:
   - condition: template
-    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+    value_template: '{{ trigger.to_state.state|int(0) > trigger.from_state.state|int(0)
       }} '
   action:
   - data_template:
@@ -163,7 +163,7 @@
     platform: state
   condition:
   - condition: template
-    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+    value_template: '{{ trigger.to_state.state|int(0) > trigger.from_state.state|int(0)
       }} '
   action:
   - data_template:
@@ -180,7 +180,7 @@
     platform: state
   condition:
   - condition: template
-    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+    value_template: '{{ trigger.to_state.state|int(0) > trigger.from_state.state|int(0)
       }} '
   action:
   - data_template:
@@ -203,7 +203,7 @@
     platform: state
   condition:
   - condition: template
-    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+    value_template: '{{ trigger.to_state.state|int(0) > trigger.from_state.state|int(0)
       }} '
   action:
   - data_template:
@@ -220,7 +220,7 @@
     platform: state
   condition:
   - condition: template
-    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+    value_template: '{{ trigger.to_state.state|int(0) > trigger.from_state.state|int(0)
       }} '
   action:
   - data_template:
@@ -237,7 +237,7 @@
     platform: state
   condition:
   - condition: template
-    value_template: '{{ trigger.to_state.state|int > trigger.from_state.state|int
+    value_template: '{{ trigger.to_state.state|int(0) > trigger.from_state.state|int(0)
       }} '
   action:
   - data_template:
@@ -294,12 +294,12 @@
   condition:
   - condition: state
     entity_id: sensor.small_garage_status
-    state: open
+    state: Open
   action:
   - data:
+      message: The garage doors are still open
+      target: group.Alexa
       data:
-        message: The garage doors are still open
-        target: group.Alexa
         type: tts
     service: notify.alexa_media
   - entity_id: timer.garage_doors_opened_timer
@@ -372,9 +372,9 @@
   description: ''
   trigger:
   - entity_id: sensor.small_garage_status
-    from: closed
+    from: Closed
     platform: state
-    to: opening
+    to: Opening
   condition: []
   action:
   - data: {}
@@ -392,9 +392,9 @@
     platform: state
     to: Closed
   - entity_id: binary_sensor.front_door
-    from: Open
+    from: 'on'
     platform: state
-    to: Closed
+    to: 'off'
   condition: []
   action:
   - delay: 00:03:00
@@ -456,34 +456,6 @@
       location_name: not_home
       source_type: bluetooth
       gps: *id002
-    service: device_tracker.see
-- id: kevinwatchoccupancyon
-  alias: Kevin Watch Home Occupancy On
-  trigger:
-  - above: '10'
-    entity_id: sensor.home_occupancy_confidence_of_vivoactive3
-    platform: numeric_state
-  action:
-  - data:
-      dev_id: device_tracker_kevin_vivoactive3
-      location_name: home
-      source_type: bluetooth
-      gps: &id003
-      - 38.92133
-      - -94.3121
-    service: device_tracker.see
-- id: kevinwatchoccupancyoff
-  alias: Kevin Watch Home Occupancy Off
-  trigger:
-  - below: '10'
-    entity_id: sensor.home_occupancy_confidence_of_vivoactive3
-    platform: numeric_state
-  action:
-  - data:
-      dev_id: device_tracker_kevin_vivoactive3
-      location_name: not_home
-      source_type: bluetooth
-      gps: *id003
     service: device_tracker.see
 - id: jenngalaxyphoneoccupancyon
   alias: Jenn Galaxy Phone Home Occupancy On
@@ -638,17 +610,6 @@
   - data: {}
     entity_id: switch.office_plug
     action: switch.turn_on
-- id: Laptop Charge Stop
-  alias: End Charge Laptops 22:00
-  description: Turn off Office Plug at 22:20
-  triggers:
-  - at: '22:20:00'
-    trigger: time
-  conditions: []
-  actions:
-  - data: {}
-    entity_id: switch.office_plug
-    action: switch.turn_off
 - id: '1585665874837'
   alias: Automation for Computer Turn On
   description: ''
@@ -737,22 +698,22 @@
       entity_id: input_boolean.boolean_disable_bedside_lamps
   - service: fully_kiosk.set_config
     data:
-      entity_id: media_player.fire_tablet_media_player
-      config_type: string
       key: screenBrightness
       value: '0'
+    target:
+      device_id: 60deb23b59e9a0648e55ed9a004521ec
   - service: fully_kiosk.set_config
     data:
-      entity_id: media_player.fire_tablet_media_player
-      config_type: string
       key: screensaverBrightness
       value: '0'
+    target:
+      device_id: 60deb23b59e9a0648e55ed9a004521ec
   - service: fully_kiosk.set_config
     data:
-      entity_id: media_player.fire_tablet_media_player
-      config_type: string
       key: timeToScreensaverV2
       value: '10'
+    target:
+      device_id: 60deb23b59e9a0648e55ed9a004521ec
   mode: single
 - id: '1609086996145'
   alias: Automation forgot to tell Alexa Goodnight
@@ -803,7 +764,7 @@
     data: {}
   mode: single
 - id: Turn on office lamp via Alexa
-  alias: Automation to turn on office lamp via Alexa'
+  alias: Automation to turn on office lamp via Alexa
   description: ''
   trigger:
   - platform: state
@@ -819,7 +780,7 @@
       media_content_type: custom
       media_content_id: turn on office lamp
 - id: Turn off office lamp via Alexa
-  alias: Automation to turn off office lamp via Alexa'
+  alias: Automation to turn off office lamp via Alexa
   description: ''
   trigger:
   - platform: state
